@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>MathJax with Reveal — Right Way</title>
+  <script
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <style>
+    .mathbox {
+      border: 1px solid;
+      padding: 10px 20px;
+      margin: 0 auto;
+      width: 22em;
+      display: none;
+    }
+  </style>
+  <style id="initial_hide">
+    .mathbox {
+      display: block; visibility: hidden;
+      height: 0; overflow: hidden;
+      padding: 0; margin: 0; border: none;
+    }
+  </style>
+</head>
+<body>
+
+<p>Press
+  <input type="button" value="Update" onclick="DynamicMJ.update()" />
+  to reveal some math below:</p>
+
+<!-------------------------------->
+
+<div id="eq1" class="mathbox">
+  This file is loaded by jQuery and then typeset by MathJax.
+  <p>
+    An equation is \(E=mc^2\).
+</div>
+
+<!-------------------------------->
+
+<div id="eq2" class="mathbox">
+  Another equation is
+  $$
+  \sum_{i=1}^{n} i = {n(n+1)\over 2}.
+  $$
+</div>
+
+<!-------------------------------->
+
+<div id="eq3" class="mathbox">
+  The final equation is
+  $$
+  \int f(x)+g(x)\,dx = \int f(x)\,dx + \int g(x)\,dx
+  $$
+  where \(f\) and \(g\) are integrable functions.
+</div>
+
+<!-------------------------------->
+
+<script>
+  var DynamicMJ = {
+    n: 3,
+    update: function () {
+      document.getElementById("eq"+this.n).style.display = "none";
+      this.n++; if (this.n > 3) {this.n = 1}
+      document.getElementById("eq"+this.n).style.display = "block";
+    }
+  };
+  MathJax.Hub.Queue(function () {
+    document.getElementById("initial_hide").disabled = true;
+  });
+</script>
+
+</body>
+</html>

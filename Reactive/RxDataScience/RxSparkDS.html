@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Getting to Know Apache Spark</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Getting to Know Apache Spark">
+  <meta name="author" content="Tom Flaherty">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../../bower_components/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../../bower_components/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="../../bower_components/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="../../Create/css/base.css">
+
+  <script src="../../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../Create/js/RevealInit.js"></script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+  <div class="slides">
+
+
+    <section>
+      <h1 style="font-size:1.5em;">Getting to Know Apache Spark</h1>
+      <img src="../../Create/img/quan/SparkML.png" class="rx-img">
+      <div><a  style="font-size:1.0em;" href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></div>
+    </section>
+
+    <section style="color:wheat;">
+      <h2>Abstract</h2>
+      <p style="text-align:left;">
+        The plethora of Data Science technologies and Big Data hype are making our heads hurt.
+      </p>
+      <p style="text-align:left;">
+        My mantra: Don't let brute force do your thinking for you.
+      </p>
+      <p style="text-align:left;">
+        Like everthing in this distributed Information Age, Data Science is changing to
+        meet new demands, with change motivating a new recognition of underlying principles.
+      </p>
+      <p style="text-align:left;">
+        So this lightning talk is then a whirlwind tour through these principles. We begin with Business
+        Transformation, REST and NoSQL Databases. We then peak into the future with Grid Gain and Apache
+        Spark and conclude with influence of the Reactive Manifesto.
+      </p>
+    </section>
+
+    <section>
+      <h3>Outline</h3>
+      <ul>
+        <li>So Many Technologies</li>
+        <li>So Much Math</li>
+        <li>How Data is Transforming Business</li>
+        <li>A 100 fold increase in data volume under URIs</li>
+        <li>Join the party with REST URI's</li>
+        <li>Visual Guide to NoSQL Systems</li>
+        <li>Grid Gain</li>
+        <li>Apache Spark - Traditional</li>
+        <li>Apache Spark - Revealed</li>
+        <li>The Reactive Manifesto:</li>
+        <li style="text-indent:0.4em; list-style:none">- How to be Responsive, Elastic, Resilient and Message Driven</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>So Many Technologies</h2>
+      <img src="../../Create/img/bigdata/BigDataOpenSourceTools-800x450.jpg">
+    </section>
+
+    <section>
+      <!--h2>So Much Math</h2-->
+      <img src ="../../Create/img/bigdata/Data-Science-Chalk-Board.jpg">
+      <img src ="../../Create/img/bigdata/TooMuchMathFemale.jpg">
+    </section>
+
+    <section>
+      <h2 style="font-size:1.8em;">How Data will Transform Business</h2>
+      <h4>by Philip Evans <a href="http://www.ted.com/talks/philip_evans_how_data_will_transform_business">TED talk on Nov. 2013</a></h4>
+      <ul style="font-size:24px;">
+        <li>Since the 1970s, business strategy has been dominated by two major theories:
+          <ol>
+            <li>Bruce Henderson's idea of increasing returns to scale and experience</li>
+            <li>Michael Porter's value chain driven by transaction cost reductions</li>
+          </ol>
+        </li>
+        <li>... a new force will rule business strategy in the future:
+          <ol start="3">
+            <li>The massive amount of data shared by competing groups</li>
+          </ol>
+        </li>
+        <li>The key driver is the 100 fold increase in data placed under URI's in the last 10 years</li>
+        <li>Even better: This increases the number of patterns by 10,000 = 100x100 fold</li>
+      </ul>
+    </section>
+
+    <section>
+      <h4>The 100 fold increase in URI data volume drives</h4>
+      <h4>The Big Data Market Forecast</h4>
+      <img src="../../Create/img/bigdata/BigDataMarketForecast2013.png">
+    </section>
+
+    <section>
+      <h4>The best way to join the party is to provide REST URI's for data</h4>
+      <ul style="font-size:24px;">
+        <li>REST is the most profound step in becoming Reactively Message Driven</li>
+        <li>The Internet itself is the best means of integration with caching as a bonus</li>
+        <li>REST is used by all major players: Google Amazon .. Just look at your browser</li>
+        <li>Recommend JSON for the transaction "payload" format</li>
+        <li>Rest URIs Are Easy To Read</li>
+        <li>http://company.com/data/database/table/id?query</li>
+        <li>Below database="sales" table="cars" id is the last URI parameter</li>
+        <li>?query name value pairs (model="VW") provide nice extensions</li>
+      </ul>
+      <table style="font-size:18px; color:beige; margin-top:0.75em;">
+        <thead>
+        <tr align="center"><th>Operation</th><th>Method</th><th>URI</th><th>Database Changes</th><th>Return</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>Create</td><td>POST</td>  <td>.../sales/cars           </td><td>Row Created from JSON</td><td>ID new</td><tr>
+        <tr><td>Query</td><td>GET</td>    <td>.../sales/cars/1         </td><td>None</td>                 <td>JSON row  ID=1</td><tr>
+        <tr><td>Query</td><td>GET</td>    <td>.../sales/cars?model="VW"</td><td>None</td><td>JSON rows model="VW"</td><tr>
+        <tr><td>Query</td><td>GET</td>    <td>.../sales/cars           </td><td>None</td>                 <td>JSON for  all rows</td><tr>
+        <tr><td>Update</td><td>PUT</td>   <td>.../sales/cars/1         </td><td>Row Updated from JSON</td> <td>ID</td><tr>
+        <tr><td>Delete</td><td>DELETE</td><td>.../sales/cars/1         </td><td>Row Deleted</td>           <td>ID</td><tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <section style="background-color:black; padding:5px;">
+      <img src ="../../Create/img/bigdata/CapTheorum.png" class="rx-img">
+    </section>
+
+
+    <section>
+      <h2>Hadoop</h2>
+      <img src ="../../Create/img/spark/hadoop-ecosystem.jpg" class="rx-img">
+    </section>
+
+    <section>
+      <h2>Map Reduce</h2>
+      <!--h4 style="font-size:24px;">It is better to send algorithms to data, than to send data to algorithms</h4-->
+      <img src ="../../Create/img/spark/MapReduce.svg" width="800" height="400" class="rx-img">
+    </section>
+
+
+    <section>
+      <section>
+        <h2>Grid Gain / Apache Ignite</h2>
+        <h3>A Telepathic In Memory Computing Fabric</h3>
+        <img src="../../Create/img/bigdata/GridGainFabric-770x428.png">
+      </section>
+      <section>
+        <h3>Grid Gain / Apache Ignite and Spark</h3>
+        <ul>
+          <li>Both share similar goals but "technologies are different"</li>
+          <li>Spark was specially designed for data processing</li>
+          <li>Grid Gain is a more generic distributed computation fabric</li>
+          <li style="text-indent:0.25em; list-style:none">that lets you easily farm out arbitrary tasks to nodes</li>
+          <li>Grid Gain works on Android since it has a JVM "Dalvik"</li>
+          <li>A Grid Gain sensor array has untapped potential</li>
+        </ul>
+      </section>
+    </section>
+
+    <section style="margin:0; padding:0;">
+      <img src="../../Create/img/spark/spark-history.jpg">
+      <img src="../../Create/img/spark/databricks.jpg">
+    </section>
+
+    <section>
+      <h2>Apache Spark</h2>
+      <h4>Traditional View</h4>
+      <img src="../../Create/img/spark/spark-stack.png" class="rx-img">
+      <ul style="text-align:left; font-size:24px; list-style-type: none;">
+        <li><span class="width150">Core:      </span>Distributed task dispatching, scheduling, and basic I/O</li>
+        <li><span class="width150">GraphX:    </span>A distributed graph topology for RDDs based on Pregel for Page Rank</li>
+        <li><span class="width150">SQL:       </span>SchemaRDD a DSL feeding semi? structured data into RDDs</li>
+        <li><span class="width150">Streaming: </span>Ingests data in mini-batches for RDD transforms & streaming analytics</li>
+        <li><span class="width150">MLlib :    </span>Machine Learning Pipeline - Spark's original purpose</li>
+      </ul>
+    </section>
+
+    <section style="background-color:rgb(49,28,39);">
+      <img src="../../Create/img/quan/QuanSpark.png" class="rx-img">
+    </section>
+
+    <section>
+      <!--h2>Apache Spark</h2-->
+      <img src="../../Create/img/spark/SparkR.svg" class="rx-img">
+      <ul style="text-align:left; font-size:24px; list-style-type: none;">
+        <li><span class="width150">Cluster:   </span>Mesos Myriad YARN</li>
+        <li><span class="width150">Core Akka: </span>Distributed task dispatching, scheduling, and basic I/O</li>
+        <li><span class="width150">RDD:       </span>Resilient Distributed Datasets logically partitioned across machines</li>
+        <li><span class="width150">SQL:       </span>SchemaRDD a DSL for feeding data into RDDs</li>
+        <li><span class="width150">GraphX:    </span>A distributed graph topology for RDDs based on Pregel for Page Rank</li>
+        <li><span class="width150">Streaming: </span>Ingests data in mini-batches for RDD transforms & streaming analytics</li>
+        <li><span class="width150">MLlib :    </span>Machine Learning Pipeline - with all the cool numerical libraries</li>
+        <li><span class="width150">Numerical: </span>ScalaNLP(Breeze Epic Puck) GPU(cuBlas-NVidia) and NetLib-Fortran</li>
+        <li><span class="width150">IPython:   </span>PySpark - Integration with the Data Scientist's favorite notebook</li>
+        <li><span class="width150">Play:      </span>Typesafe's web framework in Scala that interacts nicely with Akka</li>
+        <li><span class="width150">Notebook:  </span>A Spark aware notebook in Play</li>
+      </ul>
+    </section>
+
+    <section>
+      <section>
+        <h2>The Reactive Manifesto</h2>
+        <a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a>
+        <img src ="../../Create/img/reactive/reactive-traits.svg" class="rx-svg">
+        <ul style="text-align:left; font-size:24px; list-style-type: none;">
+          <li><img src="../../Create/img/reactive/responsive.svg" class="rx-icon"><span class="width240">Responsive:    </span><span class="width150">In Memory </span>Always respond meaningfully in a timely manner</li>
+          <li><img src="../../Create/img/reactive/elastic.svg"    class="rx-icon"><span class="width240">Elastic:       </span><span class="width150">Cluster   </span>Stay responsive under varying workload</li>
+          <li><img src="../../Create/img/reactive/resilient.svg"  class="rx-icon"><span class="width240">Resilient:     </span><span class="width150">RDD       </span>Stay responsive in the face of failure</li>
+          <li><img src="../../Create/img/reactive/message.svg"    class="rx-icon"><span class="width240">Message Driven:</span><span class="width150">Streaming </span>Wrap and stream messages asynchronously</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="rx-h2"><img src="../../Create/img/reactive/responsive.svg" class="rx-h2-img"><span class="rx-h2-span">Responsive</span></h2>
+        <h4>Always respond meaningfully in a timely manner</h4>
+        <ul>
+          <li>"In Memory" improves performance by 1-2 orders of magnitude</li>
+          <li>Formulate meaningful response metrics for Data Science</li>
+          <li>Leveage statistics to shrink sample populations</li>
+          <li>Weigh benefits between real time and near time</li>
+          <li>Keep your common sense</li>
+          <li>Don't let brute force do your thinking for you</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="rx-h2"><img src="../../Create/img/reactive/elastic.svg" class="rx-h2-img"><span class="rx-h2-span">Elastic</span></h2>
+        <h4>Stay responsive under varying workload</h4>
+        <ul>
+          <li>Elasticity is the key value proposition for cloud hosting</li>
+          <li>Leveage Spark's integration with Akka Mesos Myraid and YARN</li>
+          <li>Always have spare resources available to spin up for peak demand</li>
+          <li>Spend the extra money to replicate data</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="rx-h2"><img src="../../Create/img/reactive/resilient.svg" class="rx-h2-img"><span class="rx-h2-span">Resilient</span></h2>
+        <h4>Stay responsive in the face of failure</h4>
+        <ul>
+          <li>Clustered servers and network links fail all the time</li>
+          <li>Spark Core monitors and responds to cluster failure</li>
+          <li>RDDs "Resilient" Distributed Datasets says it all</li>
+          <li>RDDs shard the data over a cluster</li>
+          <li>RDDs reconstitute shards lost due to node / link failures</li>
+          <li>RDDs in Spark can rerun their transforms to recreate lost data</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="rx-h2"><img src="../../Create/img/reactive/message.svg" class="rx-h2-img"><span class="rx-h2-span">Message Driven</span></h2>
+        <h4>Wrap and stream messages asynchronously</h4>
+        <h4>Message Streams facilitate Data Science with these benefits</h4>
+        <table style="font-size:18pt; color:wheat;">
+          <thead >
+          <tr><th style="text-align:center;">Message Feature</th><th style="text-align:center;">Data Science Benefit</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>Asynchronous</td><td>The system knows more about concurrency than humans</td></tr>
+          <tr><td>Error Delegation</td><td>Errors become first class citizens that are treated properly</td></tr>
+          <tr><td>Location Transparency</td><td>Processes are not locked into specific server configuations</td></tr>
+          <tr><td>Publish & Subscribe</td><td>Allows roles to be defined from a Data Science perspective</td></tr>
+          <tr><td>Component Isolation</td><td>Allows components to focus on their assigned tasks</td></tr>
+          <tr><td>Loose Coupling</td><td>Precise instead of accidental interactions</td></tr>
+          <tr><td>Back Pressure</td><td>Message streams can be throttled to relieve resources</td></tr>
+          <tr><td>Functional</td><td>A programing paradigm well suited for data processing</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+  <section style="font-size:18px;">
+    <h4>Spark Core and Resilient Distributed Datasets (RDDs)</h4>
+    <p>Spark Core is the foundation of the overall project. It provides distributed task dispatching, scheduling, and basic I/O functionalities.
+      The fundamental programming abstraction is called Resilient Distributed Datasets, a logical collection of data partitioned across machines.
+      RDDs can be created by referencing datasets in external storage systems, or by applying coarse-grained transformations (e.g. map, filter,
+      reduce, join) on existing RDDs.
+      The RDD abstraction is exposed through a language-integrated API in Java, Python, Scala similar to local, in-process collections.
+      This simplifies programming complexity because the way applications manipulate RDDs is similar to manipulating local collections of data.</p>
+    <h4>Spark SQL</h4>
+    <p>Spark SQL is a component on top of Spark Core that introduces a new data abstraction called SchemaRDD, which provides support
+    for structured and semi-structured data. Spark SQL provides a domain-specific language to manipulate SchemaRDDs in Scala, Java, or Python.
+    It also provides SQL language support, with command-line interfaces and ODBC/JDBC server.</p>
+  </section>
+
+  <section style="font-size:18px;">
+    <h4>Spark Streaming</h4>
+    <p>Spark Streaming leverages Spark Core's fast scheduling capability to perform streaming analytics.
+      It ingests data in mini-batches and performs RDD transformations on those mini-batches of data.
+      This design enables the same set of application code written for batch analytics to be used in streaming analytics, on a single engine.</p>
+    <a href="../RxMarbles/index.html">RxMarbles by André Staltz</a>
+    <h4>RDD</h4>
+    <p>“RDDs are fault tolerant, parallel data structures that let users explicitly persist intermediate results in memory, control their
+      partitioning to optimize data placement, and manipulate them using a rich set of operations. “
+      In a nutshell RDDs are a level of abstraction that enable efficient data reuse in a broad range of applications
+
+      Another use case is when an user runs multiple adhoc queries on the same subset of data. Unfortunately in current frameworks,
+      the only way to reuse data between computations i.e between two jobs is to write to an external storage system e.g. a distributed file system such as Amazon S3.</p>
+
+  </section>
+
+  <section style="font-size:18px;">
+    <h4>MLlib Machine Learning Library</h4>
+
+    <p>MLlib is a distributed machine learning framework on top of Spark that because of the distributed memory-based Spark architecture
+      is ten times as fast as Hadoop disk-based Apache Mahout and even scales better than Vowpal Wabbit.[9][better source needed].
+      It implements many common machine learning and statistical algorithms to simplify large scale machine learning pipelines, including:</p>
+      <ul>
+        <li>summary statistics, correlations, stratified sampling, hypothesis testing, random data generation</li>
+        <li>classification and regression: SVMs, logistic regression, linear regression, decision trees, naive Bayes</li>
+        <li>collaborative filtering: alternating least squares (ALS)</li>
+        <li>clustering: k-means</li>
+        <li>dimensionality reduction: singular value decomposition (SVD), principal component analysis (PCA)</li>
+        <li>feature extraction and transformation</li>
+        <li>optimization primitives: stochastic gradient descent, limited-memory BFGS (L-BFGS)</li>
+    </ul>
+  </section>
+
+  <section style="font-size:18px;">
+
+    <h4>GraphX</h4>
+
+    <p>GraphX is a distributed graph processing framework on top of Spark. It provides an API for expressing graph computation that can model the Pregel abstraction. It also provides an optimized runtime for this abstraction.
+
+    GraphX started initially as a research project at UC Berkeley AMPLab and Databricks, and was later donated to the Spark project.[10]</p>
+  </section>
+
+  <section style="font-size:18px;">
+    <h4>Features</h4>
+    <ul>
+      <li>Java, Scala, and Python APIs.</li>
+      <li> Proven scalability to over 8000 nodes in production.[11]</li>
+      <li>Ability to cache datasets in memory for interactive data analysis: extract a working set, cache it, query it repeatedly.</li>
+      <li>Interactive command line interface (in Scala or Python) for low-latency data exploration at scale.</li>
+      <li>Higher level library for stream processing, through Spark Streaming.</li>
+      <li>Support for structured and relational query processing (SQL), through Spark SQL.</li>
+      <li>Higher level libraries for machine learning and graph processing.</li>
+    </ul>
+  </section>
+
+  <!--section>
+    <h4>The Machine Intelligence Landscape</h4>
+    <img src="../../Create/img/spark/Machine_Intelligence.png" width="800" height="600" class="rx-img">
+  </section-->
+
+
+      <section>
+       <h2>Functional Progamming</h2>
+      </section>
+      <section>
+        <h4 style="margin-bottom:0;">Word Count in Java and Scala</h4>
+        <div style="position:relative;   left:0;   top:0; width:100%; height:700px; font-size:24px;">
+         <pre class="java"  style="position:absolute; left:0;   top:0; width: 60%; height:100%;">
+           <code style="font-size:0.75em; min-height:500px !important; max-height:500px !important;">  import ...
+class WCMapper extends MapReduceBase
+    implements Mapper< LongWritable, Text, Text, IntWritable > {
+  static final IntWritable one = new IntWritable(1);
+  static final Text word = new Text;
+  @Override
+  public void map(LongWritable key, Text valueDocContents,
+    OutputCollector< Text, IntWritable> output, Reporter reporter) {
+    String[] tokens = valueDocContents.toString.split("\\s+");
+    for (String wordString: tokens) {
+      if( wordString.length > 0 ) {
+          word.set(wordString.toLowerCase);
+          output.collect(word, one); } } } }
+
+class Reduce extends MapReduceBase
+    implements Reducer[Text, IntWritable, Text, IntWritable] {
+  public void reduce( Text keyWord,
+      java.util.Iterator< IntWritable > valuesCounts,
+      OutputCollector< Text,IntWritable> output,
+      Reporter reporter ) {
+        int totalCount = 0;
+        while (valuesCounts.hasNext) {
+          totalCount += valuesCounts.next.get; }
+        output.collect(keyWord, new IntWritable(totalCount)); } }</code></pre>
+            <pre class="scala"  style="position:absolute; left:60%; top:0; width: 40%; height:100%;">
+              <code style="font-size:0.9em; min-height:500px !important; max-height:500px !important;">
+  import org.apache.spark.SparkContext
+  object WordCountSpark {
+    def main(args: Array[String]) {
+      val ctx = new SparkContext(...)
+      val file = ctx.textFile(args(0))
+      val counts = file.flatMap(
+        line => line.split("\\W+"))
+        .map(word => (word, 1))
+        .reduceByKey(_ + _)
+      counts.saveAsTextFile(args(1))
+    }
+  }
+            </code></pre>
+        </div>
+      </section>
+
+  <section  style="margin:0; padding:0; background-color:rgb(49,28,39);">
+    <img src="../../Create/img/spark/Spark.png" class="rx-img">
+    <ul class="icondesc" style="text-align:left; line-height:1.1; font-size:22px; list-style-type: none; color:wheat;">
+      <li><i class="fa fa-database fa-rotate-90"></i> <span class="width150pad">RDD:        </span>Resilient Distributed Datasets logically partitioned across servers</li>
+      <li><i class="fa fa-joomla"></i>                <span class="width150pad">GraphX:     </span>Distributed graph topology for RDDs based on Pregel (Page Rank)</li>
+      <li><i class="fa fa-th"></i>                    <span class="width150pad">DataFrames: </span>A distributed collection of data organized into named columns</li>
+      <li><i class="fa fa-database"></i>              <span class="width150pad">Databases:  </span>Local File System(Standalone) Cassandra MongoDB HDFS JDBC ...</li>
+      <li><i class="fa fa-sliders"></i>               <span class="width150pad">Streaming:  </span>Ingests data in mini-batches for RDD transforms and streaming</li>
+      <li><i class="fa fa-connectdevelop"></i>        <span class="width150pad">Machine:    </span>MLlib Machine Learning Pipeline</li>
+      <li><i class="fa fa-calculator"></i>            <span class="width150pad">Numerical:  </span>Breeze Epic Puck GPU(cuBlas-NVidia) and NetLib-Fortran</li>
+      <li><i class="fa fa-chevron-right"></i>         <span class="width150pad">Notebook:   </span>A Spark aware notebook in Typesafe's web framework Play</li>
+      <li><span style="font-size:20px">IP[y]</span>   <span class="width150">IPython:    </span>The Data Scientist's favorite notebook with PySpark</li>
+      <li><i class="fa fa-bell"></i>                  <span class="width150pad">SparkR:     </span>A light-weight frontend to use Apache Spark from R</li>
+      <li><i class="fa fa-star-o"></i>                <span class="width150pad">Spark Core: </span>Distributed task dispatching, scheduling, and basic I/O</li>
+      <li><i class="fa fa-area-chart"></i>            <span class="width150pad">Akka:       </span>Concurrent, distributed, resilient, message driven, actor based</li>
+      <li><i class="fa fa-server"></i>                <span class="width150pad">Cluster:    </span>Standalone, Mesos, Myriad and YARN</li>
+    </ul>
+  </section>
+
+    <section>
+      <h3>Two Column</h3>
+      <div style="position:relative;   left:0; top:0; width:100%; height:700px; font-size:24px;">
+        <div style="position:absolute; left:0; top:0; width: 50%; height:100%; ">
+        </div>
+        <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
+        </div>
+      </div>
+    </section>
+
+
+    <section style="background-color:rgb(49,28,39);">
+      <h4 style="margin:0;">Data Science Methodology</h4>
+      <img src="../../Create/img/quan/Quan.png" class="rx-img">
+    </section>
+
+    <section>
+      <h2>References</h2>
+      <ul style="margin-left:0.6em; font-size:26px;">
+        <li><div class="width340">Big Data Driving Business</div><a href="http://www.ted.com/talks/philip_evans_how_data_will_transform_business">http://bit.ly/194auY9</a></li>
+        <li><div class="width340">REST API Tutorial</div><a href="http://www.restapitutorial.com/resources.html">http://www.restapitutorial.com/resources.html</a></li>
+        <li><div class="width340">CAP Theorem</div><a href="http://en.wikipedia.org/wiki/CAP_theorem">http://en.wikipedia.org/wiki/CAP_theorem</a></li>
+        <li><div class="width340">Hadoop</div><a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a></li>
+        <li><div class="width340">Grid Gain</div><a href="http://www.gridgain.com/">http://www.gridgain.com/</a></li>
+        <li><div class="width340">Apache Ignite</div><a href="http://ignite.incubator.apache.org/">http://ignite.incubator.apache.org/</a></li>
+        <li><div class="width340">Denver In Memory Meetup</div><a href="http://www.meetup.com/Denver-In-Memory-Computing-Meetup/">http://bit.ly/1Mb7AQu</a></li>
+        <li><div class="width340">Functional Programming</div><a href="http://deanwampler.github.io/polyglotprogramming/papers/BetterProgrammingThroughFP.pdf">http://bit.ly/1vAX8wI</a></li>
+        <li><div class="width340">The Reactive Manifesto</div><a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a></li>
+        <li><div class="width340">Apache Spark</div><a href="https://spark.apache.org/">https://spark.apache.org/</a></li>
+        <li><div class="width340">RxMarbles</div><a href="http://rxmarbles.com/">http://rxmarbles.com/</a></li>
+        <li><div class="width340">PDF at Speaker Deck</div><a href="https://speakerdeck.com/axiom6">https://speakerdeck.com/axiom6</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h1>THE END</h1>
+    </section>
+
+  </div>
+
+</div>
+
+
+</body>
+</html>

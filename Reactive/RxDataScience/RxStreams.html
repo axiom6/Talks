@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Reactive Streams with RxJS</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reactive Streams with RxJS">
+  <meta name="author" content="Tom Flaherty">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../../bower_components/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../../bower_components/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="../../bower_components/reveal.js/css/theme/night.css" id="theme">
+  <style>
+    .reveal pre {
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      display: block; font-family: monospace; font-size: 0.75em; line-height: 1.2em;
+      position: relative; left: -10%; width:120%; margin-top:2%; margin-bottom:2%;
+      text-align: left; word-wrap: break-word; }
+    .width340 { min-width:340px; display:inline-block; }
+  </style>
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../bower_components/reveal.js/css/print/pdf.css'
+      : '../../bower_components/reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+  <h1>Reactive Streams with RxJS</h1>
+  <p>
+    <small><a href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></small>
+  </p>
+</section>
+
+<section>
+  <h2>Abstract</h2>
+  <p style="text-align:left;">
+    Data Science employs techniques from many fields that are so numerous that they make your head hurt.
+    So wouldn't be nice if there was a way for all these techniques to share their data and intent.
+    The answer is Reactive Streams that govern streams of data, especially “live” data with a publish and subscribe approach
+    that promotes data interaction while allowing the techniques and their dependencies to remain decoupled.
+
+    Reactive Streams operate at many levels: in the browser with RxJS, on the server with RxJava and in big data with Apache Spark streaming.
+
+    So to introduce reactive streams  I will demonstrate RxJS in the browser with a Leaflet GIS application.
+    I choose GIS because it constantly wrestles with the interaction of spatial and thematic data.
+    Moreover I will show how to stream in the users interactive intent.
+  </p>
+</section>
+
+<section>
+  <h2>Value Proposition</h2>
+  <ul>
+    <li>Govern Streams of "live" Data</li>
+    <li>Publish and Subscribe Approach</li>
+    <li>Promotes Data Interaction</li>
+    <li>Decoupling</li>
+    <li>Operates at many levels</li>
+    <li>RxJS in the browser</li>
+    <li>The interaction of spatial and thematic data in GIS</li>
+    <li>Leaflet.js</li>
+    <li>Streaming users interactive intent</li>
+    <li>An upcomming full presentation</li>
+  </ul>
+</section>
+
+<section>
+  <h2>The Reactive Manifesto</h2>
+  <a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a>
+  <img src ="lib/images/ReactiveManifesto.jpg">
+  <ul style="text-align:left; font-size:24px;">
+    <li>Responsive: The system responds in a timely manner if at all possible.</li>
+    <li>Resilient: The system stays responsive in the face of failure.</li>
+    <li>Elastic: The system stays responsive under varying workload.</li>
+    <li>Message Driven: Reactive Systems rely on asynchronous message-passing to establish a boundary
+        between components that ensures loose coupling, isolation, location transparency, and provides
+        the means to delegate errors as messages.</li>
+  </ul>
+  <p style="text-align:left; font-size:24px;">
+    Reactive Streams address the Message Driven part.
+  </p>
+</section>
+
+<section>
+  <h2>What do a Reactive Stream Operations Look Like</h2>
+  <a href="http://rxmarbles.com/">RxMarbles</a>
+  <p style="text-align:left;">
+    Reactive Streams is an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure.
+  </p>
+  <p>* André Staltz</p>
+</section>
+
+
+<section>
+  <h2>What is Data Science?</h2>
+  <p style="text-align:left; font-size:18px;">
+    Data science is, in general terms, the extraction of knowledge from data. It employs techniques and theories drawn
+    from many fields within the broad areas of mathematics, statistics, and information technology, including signal processing,
+    probability models, machine learning, statistical learning, computer programming, data engineering, pattern recognition and
+    learning, visualization, uncertainty modeling, data warehousing, and high performance computing.
+  </p>
+  <p style="text-align:left; font-size:18px;">
+    Data science is the practice of deriving valuable insights from data. Data science is emerging to meet the challenges of
+    processing very large data sets i.e. "Big Data" consisting of structured, unstructured or semi-structured data that large
+    enterprises produce. A domain at center stage of data science is the explosion of new data generated from smart devices,
+    web, mobile and social media. Data science requires a versatile skill-set. Many practicing data scientists commonly specialize
+    in specific domains such as the fields of marketing, medical, security, fraud and finance. However, data scientists rely heavily
+    upon elements of statistics, machine learning, optimization, signal processing, text retrieval and natural language processing
+    to analyze data and interpret results.
+  </p>
+</section>
+
+<section>
+  <h2>Data Science Research Areas</h2>
+  <p>As an interdisciplinary subject, data science draws scientific inquiry from a broad range of academic subject areas,
+    mostly related to the hard sciences. Some areas of research are:</p>
+  <ul style="margin-left:0.6em; font-size:26px;">
+    <li>Cloud computing</li>
+    <li>Databases and information integration</li>
+    <li>Signal Processing</li>
+    <li>Learning, natural language processing and information extraction</li>
+    <li>Computer vision</li>
+    <li>Information retrieval and web information access</li>
+    <li>Knowledge discovery in social and information networks</li>
+    <li>Information Visualization</li>
+  </ul>
+</section>
+
+<section>
+  <h2>How can Reactive Streams Be Applied to Data Science?</h2>
+  <p style="text-align:left;">
+    Data science is, in general terms, the extraction of knowledge from data. It employs techniques and theories drawn
+    from many fields within the broad areas of mathematics, statistics, and information technology, including signal processing,
+    probability models, machine learning, statistical learning, computer programming, data engineering, pattern recognition and
+    learning, visualization, uncertainty modeling, data warehousing, and high performance computing.
+  </p>
+</section>
+
+<section>
+  <h2>RxJS The Need to Go Reactive</h2>
+  <a href="https://github.com/Reactive-Extensions/RxJS">https://github.com/Reactive-Extensions/RxJS</a>
+  <p style="text-align:left;">
+    Applications, especially on the web have changed over the years from being a simple static page, to DHTML with animations,
+    to the Ajax revolution. Each time, we're adding more complexity, more data, and asynchronous behavior to our applications.
+    How do we manage it all? How do we scale it? By moving towards "Reactive Architectures" which are event-driven, resilient
+    and responsive. With the Reactive Extensions, you have all the tools you need to help build these systems.
+  </p>
+</section>
+
+<section style="width:1024px;">
+  <h2>About RxJS</h2>
+  <a href="https://github.com/Reactive-Extensions/RxJS">https://github.com/Reactive-Extensions/RxJS</a>
+  <p style="text-align:left; font-size:14pt;">
+    The Reactive Extensions for JavaScript (RxJS) is a set of libraries for composing asynchronous and event-based programs
+    using observable sequences and fluent query operators that many of you already know by Array#extras in JavaScript.
+    Using RxJS, developers represent asynchronous data streams with Observables, query asynchronous data streams using our
+    many operators, and parameterize the concurrency in the asynchronous data streams using Schedulers.
+
+    Simply put, RxJS = Observables + Operators + Schedulers.
+
+    Whether you are authoring a web-based application in JavaScript or a server-side application in Node.js,
+    you have to deal with asynchronous and event-based programming as a matter of course. Although some patterns
+    are emerging such as the Promise pattern, handling exceptions, cancellation, and synchronization is difficult and error-prone.
+
+    Using RxJS, you can represent multiple asynchronous data streams (that come from diverse sources, e.g., stock quote,
+    tweets, computer events, web service requests, etc.), and subscribe to the event stream using the Observer object.
+    The Observable notifies the subscribed Observer instance whenever an event occurs.
+
+    Because observable sequences are data streams, you can query them using standard query operators implemented by the Observable type.
+    Thus you can filter, project, aggregate, compose and perform time-based operations on multiple events easily by using these operators.
+    In addition, there are a number of other reactive stream specific operators that allow powerful queries to be written.
+    Cancellation, exceptions, and synchronization are also handled gracefully by using the methods on the Observable object.
+  </p>
+</section>
+
+<section>
+  <section>
+    <h2><a style="padding:2em;" href="demos/layers.html">Completed Demo</a></h2>
+    <h3>with Layers, GeoJSON and Zoom</h3>
+  </section>
+</section>
+
+<section>
+  <h2>Further Information</h2>
+  <ul>
+    <li>GisLeaflet Slide Deck & Demos on GitHub</li>
+    <li><a href="https://github.com/axiom6/GisLeaflet">https://github.com/axiom6/GisLeaflet</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>References</h2>
+  <ul style="margin-left:0.6em; font-size:26px;">
+    <li><div class="width340">The Reactive Manifesto</div><a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a></li>
+    <li><div class="width340">RxMarbles</div><a href="http://rxmarbles.com/">http://rxmarbles.com/</a></li>
+    <li><div class="width340">RxJS</div><a href="https://github.com/Reactive-Extensions/RxJS">https://github.com/Reactive-Extensions/RxJS</a></li>
+    <li><div class="width340">Leaflet.js</div><a href="http://leafletjs.com">leafletjs.com</a></li>
+    <li><div class="width340">Slide Deck for This Talk</div><a href="https://github.com/axiom6/Talks/blob/master/GIS/Leaflet/RxStreams.html">https://github.com/axiom6/Talks/</a></li>
+  </ul>
+</section>
+
+<section>
+  <h1>THE END</h1>
+</section>
+
+</div>
+
+</div>
+
+<!-- Reveal.js Slide Deck Scripts -->
+<script src="../../bower_components/reveal.js/lib/js/head.min.js"></script>
+<script src="../../bower_components/reveal.js/js/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize( { controls:true, progress:true, history:true, center:true,
+    theme:      Reveal.getQueryHash().theme,                   // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+    dependencies: [                                            // Optional libraries used to extend on reveal.js
+      { src: '../../bower_components/reveal.js/lib/js/classList.js',          condition: function() { return !document.body.classList; } },
+      { src: '../../bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
+      // { src: '../../bower_components/reveal.js/plugin/remotes/remotes.js',    condition: function() { return !!document.body.classList; }, async: true }
+    ]
+  });
+
+</script>
+
+</body>
+</html>
