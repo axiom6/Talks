@@ -32,6 +32,9 @@
   background: #252525;
   color: #DCDCDC;
 }
+
+td { font-size:24px !important; }
+
 .reveal section img {
   text-align: center;
   margin: auto;
