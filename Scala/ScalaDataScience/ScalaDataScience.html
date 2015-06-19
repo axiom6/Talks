@@ -107,14 +107,7 @@
     </div>
     <div style="position:absolute; left:40%; top:0; width:60%;  height:100%; ">
       <ul>
-        <li>Introduction To Spark
-          <ul>
-            <li>RDD Resilient Distributed Data</li>
-            <li>Spark Streaming</li>
-            <li>Processing Steps</li>
-            <li>Transforming Data</li>
-          </ul>
-        <li>What the Data Scientist Wants
+        <li>What do Data Scientist Like
           <ul>
             <li>A Universal Data Representation</li>
             <li>To Simulate Things All at Once</li>
@@ -122,15 +115,21 @@
             <li>To Orchestrate Processing</li>
           </ul>
         </li>
+        <li>Spark
+          <ul>
+            <li>Architecure</li>
+            <li>RDD Resilient Distributed Data</li>
+            <li>RDD Workflow</li>
+            <li>Processing Steps</li>
+          </ul>
         <li>Orchestrations
           <ul>
             <li>Word Count</li>
-            <li>Maching Learn</li>
+            <li>Machine Learning</li>
             <li>Kafka Spark Cassandra</li>
-            <li></li>
+            <li>Grand Finale</li>
           </ul>
         </li>
-        <li>Summary - Scala Code Constructs by Feature</li>
         <li>References</li>
       </ul>
     </div>
@@ -281,6 +280,8 @@ Any
   </code></pre>
 </section>
 
+
+
 <section data-id="">
   <h2>Revealing Contents</h2>
 </section>
@@ -303,35 +304,8 @@ Any
 </code></pre>
 </section>
 
-
-  <section data-id="">
-    <h1>Short Introducting to Spark</h1>
-  </section>
-
-<section data-id="">
-  <h2>RDD Resilient Distributed Data</h2>
-</section>
-
-  <section data-id="">
-    <div   style="position:absolute; left: 0;   top: 0;  width:960px; height:700px; color:white;">
-      <div style="position:absolute; left: 0;   top:12%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Your Code</div>
-      <div style="position:absolute; left: 0;   top:24%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Spark Streaming of RDDs</div>
-      <div style="position:absolute; left: 0;   top:36%; width:100%;  height:10%;    background-color:blue;  border-radius:16px;;"><img src="../img/logo/AkkaLogo.png" height="72" style=" border:none;"></div>
-      <div style="position:absolute; left:13%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
-      <div style="position:absolute; left:48%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
-      <div style="position:absolute; left:83%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
-      <div style="position:absolute; left: 0;   top:49%; width: 30%;  height:25%;    background-color:steelblue;"></div>
-      <div style="position:absolute; left: 0;   top:74%; width: 30%;  height:25%;    background-color:steelblue;"><img src="../img/logo/KafkaLogo.png" width="288" height="175"  style=" border:none;"></div>
-      <div style="position:absolute; left:35%;  top:49%; width: 30%;  height:25%;    background-color:#FFFF99;"></div>
-      <div style="position:absolute; left:35%;  top:74%; width: 30%;  height:25%;    background-color:goldenrod;"><img src="../img/logo/MLlibLogo2.png" width="288" height="175"></div>
-      <div style="position:absolute; left:70%;  top:49%; width: 30%;  height:25%;    background-color:#FF9999;"></div>
-      <div style="position:absolute; left:70%;  top:74%; width: 30%;  height:25%;    background-color:sienna;"><img src="../img/logo/CassandraLogo2.png" width="288" height="175"></div>
-    </div>
-  </section>
-
-
 <section data-id="ScalaDBAbstract2" class="Abstract">
-  <h3>What Do Data Scientists Like</h3>
+  <h3>What Do Data Scientists Like?</h3>
   <table class="FontSize28px">
     <tr><th>Scientists Like</th><th>Spark Feature</th></tr>
     <tr><td>A Universal Data Representation</td><td>RDD Resilent Distributed Data</td></tr>
@@ -342,117 +316,100 @@ Any
 </section>
 
 <section data-id="">
-  <h3>A Universal Data Representation</h3>
-  <h3>RDD Resilent Distributed Data</h3>
+  <div   style="position:absolute; left: 0;   top: 0;  width:960px; height:700px; color:white;">
+    <div style="position:absolute; left: 0;   top:12%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Your Code</div>
+    <div style="position:absolute; left: 0;   top:24%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Spark Streaming of RDDs</div>
+    <div style="position:absolute; left: 0;   top:36%; width:100%;  height:10%;    background-color:blue;  border-radius:16px;;"><img src="../img/logo/AkkaLogo.png" height="72" style=" border:none;"></div>
+ <!--div style="position:absolute; left:13%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
+    <div style="position:absolute; left:48%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
+    <div style="position:absolute; left:83%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div-->
+    <div style="position:absolute; left: 0;   top:49%; width: 30%;  height:25%;    background-color:steelblue;"></div>
+    <div style="position:absolute; left: 0;   top:74%; width: 30%;  height:25%;    background-color:steelblue;"><img src="../img/logo/KafkaLogo.png" width="288" height="175"  style=" border:none;"></div>
+    <div style="position:absolute; left:35%;  top:49%; width: 30%;  height:25%;    background-color:#FFFF99;"></div>
+    <div style="position:absolute; left:35%;  top:74%; width: 30%;  height:25%;    background-color:goldenrod;"><img src="../img/logo/MLlibLogo2.png" width="288" height="175"></div>
+    <div style="position:absolute; left:70%;  top:49%; width: 30%;  height:25%;    background-color:#FF9999;"></div>
+    <div style="position:absolute; left:70%;  top:74%; width: 30%;  height:25%;    background-color:sienna;"><img src="../img/logo/CassandraLogo2.png" width="288" height="175"></div>
+  </div>
 </section>
 
 
+
 <section data-id="">
-  <h2>To Simulate Things All at Once</h2>
-  <h2>Parallize Collection Classes</h2>
-<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-</code></pre>
+  <h2>RDD Resilient Distributed Data</h2>
 </section>
 
-<section data-id="">
-  <h3>Data Driven Results</h3>
-  <h3>Pattern Matching</h3>
-</section>
-
-
-<section data-id="">
-  <h3>To Orchestrate Processing</h3>
-  <h3>Spark Streams</h3>
-</section>
+  <section data-id="">
+    <h2>RDD Workflow</h2>
+    <img src="../img/spark/RDDWorkflow.png">
+  </section>
 
 <section data-id="">
-  <h2>Streaming Code Constructs</h2>
-<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-</code></pre>
-</section>
-
-<section data-id="">
-  <img src="../img/scala/Akka.png" height="200">
-  <ul style="font-size:36px;">
-    <li>Fault tolerant
+  <h2>Transformations</h2>
+  <ul>
+    <li>Create a new dataset from an existing one</li>
+    <li>All transformations in Spark are lazy
       <ul>
-        <li>Hierarchical Supervision</li>
-        <li>Customizable Failure Strategies & Detection</li>
+        <li>They do not compute their results right away</li>
+        <li>Instead they remember the applied transformations</li>
       </ul>
     </li>
-    <li>Asynchronous Data Passing</li>
-    <li>Parallelization - Balancing Pool Routers</li>
-    <li>Akka Cluster
+    <li>In Order To
       <ul>
-        <li>Adaptive / Predictive</li>
-        <li>Load-Balanced Across Cluster Nodes</li>
+        <li>optimize the required calculations</li>
+        <li>recover from lost data partitions</li>
       </ul>
     </li>
   </ul>
 </section>
 
+  <section data-id="">
+    <h2>Processing Steps</h2>
+  </section>
+
+  <section data-id="">
+    <h3>Data Driven Results</h3>
+    <h3>Pattern Matching</h3>
+  </section>
+
+
+
+
+
+
+
+
 <section data-id="">
-  <h2>Akka Actors</h2>
+  <h1>Orchestration</h1>
 </section>
 
 <section data-id="">
-  <img src="../img/scala/Kafka.png" style="background-color:white;" height="200">
-  <ul style="font-size:36px;">
-    <li>High Throughput Distributed Messaging</li>
-    <li>Decouples Data Pipelines</li>
-    <li>Handles Massive Data Load</li>
-    <li>Supports Massive Number of Consumers</li>
-    <li>Distribution & Partitioning Across Cluster Nodes</li>
-    <li>Automatic Recovery from Broker Failures</li>
-  </ul>
-</section>
-
-<section data-id="">
-  <h3>Kafka Streaming</h3>
+  <h2>Word Count</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+  val f = sc.textFile("README.md")!
+  val wc = f.flatMap(l => l.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)!
+  wc.saveAsTextFile("wc_out")
 </code></pre>
 </section>
 
 
 <section data-id="">
-  <h3>MLlib Pipelines</h3>
+  <h2>Machine Learning</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
 </code></pre>
 </section>
 
 <section data-id="">
-  <h2>Cassandra</h2>
-  <img src="../img/logo/CasandraCluster.png" style="background-color:#FF9999;">
-  <div style="position:absolute; left:25%;   top:45%; width:50%;  height:40%; font-size:26px; color:black;">
-    <ul style="color:black;">
-      <li>Massively Scalable</li>
-      <li>Highest Write Performance</li>
-      <li>Strong Partition Tolerance</li>
-      <li>Column Schema for Pivoting</li>
-      <li>Masterless</li>
-    </ul>
-    </div>
+  <h2>Kafka Spark Cassandra</h2>
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+</code></pre>
 </section>
 
 <section data-id="">
-  <h2>Spark Cassandra Connector</h2>
+  <h2>Grand Finale</h2>
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+</code></pre>
 </section>
 
-<section data-id="ScalaConstructs" class="Abstract">
-  <h3>Scala Code Constructs by Feature</h3>
-  <table class="FontSize24px">
-    <tr><th>Scala Feature</th><th>Code Construct(s)</th></tr>
-    <tr><td>Primitives As Classes</td><td>Class Hierarchy</td></tr>
-    <tr><td>Strong Typing</td><td>Type Specification</td></tr>
-    <tr><td>Immutability</td><td>val</td></tr>
-    <tr><td>Transparent Monads</td><td>For Comprehension</td></tr>
-    <tr><td>Case Classes</td><td>unapply()</td></tr>
-    <tr><td>Pattern Matching</td><td>Actor Message</td></tr>
-    <tr><td>Transformation</td><td>Spark Stream</td></tr>
-    <tr><td>Concurrency</td><td>Parallelized Collections</td></tr>
-    <tr><td>Orchestration</td><td>Streams</td></tr>
-  </table>
-</section>
 
 <section data-id="ScalaDBReferences">
   <h2>References</h2>
