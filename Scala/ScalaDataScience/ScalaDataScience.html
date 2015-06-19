@@ -86,7 +86,7 @@
             <li>Class  Declarations</li>
             <li>Functions</li>
             <li>Processing Collections</li>
-            <li>Functional Methods on Collections</li>
+            <li>Methods on Collections</li>
             <li>For Comprehensions</li>
           </ul>
         </li>
@@ -95,14 +95,12 @@
             <li>To Be a First Class Citizen</li>
             <li>To Assert Its Identity</li>
             <li>To Remain Intact</li>
-            <li>To Reveal Itself</li>
-            <li>To Share It Contents</li>
-          </ul>
-        </li>
-        <li>Pattern Matching
-          <ul>
-            <li>Revealing Data</li>
-            <li>Sharing Contents</li>
+            <li>Pattern Matching
+              <ul>
+                <li>Revealing Data</li>
+                <li>Sharing Contents</li>
+                <li>Derivative</li>
+              </ul>
           </ul>
         </li>
       </ul>
@@ -170,13 +168,16 @@
 
 
 <section data-id="">
-  <h2>Class Declarations</h2>
+  <h2>Class and object Declarations</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:44em; border:1px solid white;">
+  // [T] is a parameterized type for typing the contents with a class
+  // You can parameterize a class with many types [T,U,V]
+  // You can embed parameterized types [Key,List[T]]
   trait          Trait[T]{...}
-  abstract class Abs[T](      i:Int ) extends Trait[T]{...}
-  class          Concrete[T]( i:Int ) extends Abs[T]( i:Int) {...}
-  case class     Case[T](     i:Int ) extends Abs[T]( i:Int) {...}
-  class          Mixin[T](    i:Int ) extends Abs[T]( i:Int)
+  abstract class Abs[T](       i:Int ) extends Trait[T]{...}
+  class          Concrete[T](  i:Int ) extends Abs[T]( i:Int) {...}
+  case class     Case[T](      i:Int )
+  class          Composite[T]( i:Int ) extends Abs[T]( i:Int)
     with Trait1[T] with Trait2[T] {...}
   </code></pre>
 </section>
@@ -193,9 +194,9 @@
 
 
 <section data-id="">
-  <h2>Processing Collections</h2>
+  <h2>Processing a List Collection</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-val list = List(1, 2, 3)
+val list = List(1, 2, 3)        // Scala infers an immutable List[Int]
 list.foreach( x => println(x) ) // prints 1, 2, 3
 list.foreach( println )         // same
 list.map( x => x + 2 )          // returns a new List(3, 4, 5)
@@ -209,17 +210,16 @@ list.reduce( _ + _ )            // Placeholder syntax
 </section>
 
 <section data-id="">
-  <h3>Functional Methods on Collections</h3>
+  <h3>Functional Methods on Seq[T] Collections</h3>
   <table>
     <tr><th>Method on Seq[T]</th><th>Description</th></tr>
     <tr><td><pre class="scala">map(     f:T => U       ) : Seq[U]</pre></td><td>Each element is result of f</td></tr>
-    <tr><td><pre class="scala">flatMap( f:T => Seq[U]  ) : Seq[U]</pre></td><td>One to many map</td></tr>
-    <tr><td><pre class="scala">filter(  f:T => Boolean ) : Seq[T]</pre></td><td>Keep elements passing f</td></tr>
+    <tr><td><pre class="scala">flatMap( f:T => Seq[U]  ) : Seq[U]</pre></td><td>f returns a seq for each element that are flatten into result</td></tr>
+    <tr><td><pre class="scala">filter(  f:T => Boolean ) : Seq[T]</pre></td><td>Keep only elements where f is true</td></tr>
     <tr><td><pre class="scala">exists(  f:T => Boolean ) : Boolean</pre></td><td>True if one element passes f</td></tr>
-    <tr><td><pre class="scala">forall(  f:T => Boolean ) : Boolean</pre></td><td>True if all elements pass</td></tr>
-    <tr><td><pre class="scala">groupBy( f:T => K       ) : Map[ K, List[T] ]</pre></td><td>Group elements by f</td></tr>
-    <tr><td><pre class="scala">sortBy(  f:T => K       ) : Seq[T]</pre></td><td>Sort elements</td></tr>
-    <tr><td><pre class="scala">reduce( f:(T,T) => T    ) : T</pre></td><td>Summarize elements using f</td></tr>
+    <tr><td><pre class="scala">forall(  f:T => Boolean ) : Boolean</pre></td><td>True if all elements pass  f</td></tr>
+    <tr><td><pre class="scala">groupBy( f:T => Key     ) : Map[Key,Seq[T]]</pre></td><td>Group elements into a Key Seq Map</td></tr>
+    <tr><td><pre class="scala">reduce(  f:(T,T) => T   ) : T</pre></td><td>Summarize elements using an f with two arg</td></tr>
     <tr><td><pre class="scala">....</pre></td><td>... many more methods</td></tr>
   </table>
 </section>
@@ -230,9 +230,8 @@ list.reduce( _ + _ )            // Placeholder syntax
   </code></pre>
 </section>
 
-
 <section data-id="ScalaDBAbstract2" class="Abstract">
-  <h3>So Let's  Ask Data What It Likes:</h3>
+  <h3>Let's Ask Data What It Likes:</h3>
   <table>
     <tr><th>Data Likes</th><th>Scala Feature</th></tr>
     <tr><td>Being a First Class Citizen</td><td>Primitives As Classes</td></tr>
