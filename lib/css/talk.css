@@ -32,9 +32,9 @@
   background: #252525;
   color: #DCDCDC;
 }
-
-td { font-size:12px !important; }
-
+td pre {
+  font-size: 24px !important;
+}
 .reveal section img {
   text-align: center;
   margin: auto;
@@ -155,7 +155,6 @@ body {
 .FontSize24px {
   font-size: 24px !important;
 }
-
 .FontSize18px {
   font-size: 18px !important;
 }
