@@ -527,6 +527,41 @@ Any
   </table>
 </section>
 
+  <section data-id="ScalaDBReferences">
+    <!--h2>RDD Classes</h2-->
+  <table style="font-size:16px">
+    <tr><td>abstract class RDD[T] extends Serializable with Logging</td><td>A Resilient Distributed Dataset (RDD), the basic abstraction in Spark.</td></tr>
+    <tr><td>class PairRDDFunctions[K, V] extends Logging with SparkHadoopMapReduceUtil with Serializable</td><td>Extra functions available on RDDs of (key, value) pairs where the key is sortable through an implicit conversion.</td></tr>
+    <tr><td>class AsyncRDDActions[T] extends Serializable with Logging</td><td>A set of asynchronous RDD actions available through an implicit conversion.</td></tr>
+    <tr><td>class CoGroupedRDD[K] extends RDD[(K, Array[Iterable[_]])]</td><td>A RDD that cogroups its parents.</td></tr>
+    <tr><td>class DoubleRDDFunctions extends Logging with Serializable</td><td>Extra functions available on RDDs of Doubles through an implicit conversion.</td></tr>
+    <tr><td>class HadoopRDD[K, V] extends RDD[(K, V)] with Logging</td><td>An RDD that provides core functionality for reading data stored in Hadoop</td></tr>
+    <tr><td>class JdbcRDD[T] extends RDD[T] with Logging</td><td>An RDD that executes an SQL query on a JDBC connection and reads results.</td></tr>
+    <tr><td>class NewHadoopRDD[K, V] extends RDD[(K, V)] with SparkHadoopMapReduceUtil with Logging</td><td>An RDD that provides core functionality for reading data stored in Hadoop</td></tr>
+    <tr><td>class OrderedRDDFunctions[K, V, P &lt;: Product2[K, V]] extends Logging with Serializable</td><td>Extra functions available on RDDs of (key, value) pairs through an implicit conversion.</td></tr>
+    <tr><td>class PartitionPruningRDD[T] extends RDD[T]</td><td>A RDD used to prune RDD partitions/partitions so we can avoid launching tasks on all partitions.</td></tr>
+    <tr><td>class SequenceFileRDDFunctions[K, V] extends Logging with Serializable</td><td>Extra functions available on RDDs of (key, value) pairs to create a Hadoop SequenceFile, through an implicit conversion.</td></tr>
+    <tr><td>class ShuffledRDD[K, V, C] extends RDD[(K, C)]</td><td>The resulting RDD from a shuffle (e.
+    <tr><td>class UnionRDD[T] extends RDD[T]</td><td></td></tr>
+  </table>
+</section>
+
+  <section data-id="ScalaDBAbstract2" class="Abstract">
+    <h4>Import Cassandra-specific functions on SparkContext and RDD objects</h4>
+<pre class="scala"><code style="font-size:0.9em; min-height:24em;  min-width:42em; border:1px solid white;">
+  import com.datastax.driver.spark._
+  // Spark connection options
+  val conf = new SparkConf(true)
+  .setMaster("spark://192.168.123.10:7077")
+  .setAppName("cassandra-demo")
+  .set("cassandra.connection.host", "192.168.123.10") // initial
+  contact
+  .set("cassandra.username", "cassandra")
+  .set("cassandra.password", "cassandra")
+  val sc = new SparkContext(conf)
+</code></pre>
+  </section>
+
 <section data-id="ScalaDBReferences">
   <h2>References</h2>
   <ul style="margin-left:0.6em; font-size:26px;">

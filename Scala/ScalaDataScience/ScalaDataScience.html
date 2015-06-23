@@ -154,7 +154,7 @@
   </ul>
 </section>
 
-  <section data-id="ScalaDBAbstract2" class="Abstract">
+  <section data-id="" class="Abstract">
     <h3>Let's Ask Data What It Likes:</h3>
     <table>
       <tr><th>Data Likes To</th><th>Scala Feature</th></tr>
@@ -363,7 +363,7 @@ trait Differentiate
 </code></pre>
 </section>
 
-<section data-id="ScalaDBAbstract2" class="Abstract">
+<section data-id="" class="Abstract">
   <h3>What Do Data Scientists Like?</h3>
   <table class="FontSize28px">
     <tr><th>Data Scientists Like</th><th>Spark Feature</th></tr>
@@ -396,10 +396,10 @@ trait Differentiate
   <h4 style="margin-bottom:4px;">A Universal Data Representation</h4>
   <h4 style="margin-bottom:4px;">RDD Resilent Distributed Data</h4>
   <ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>Lazily Evaluation</li>
+    <li>fault-tolerant</li>
+    <li>collection of elements</li>
+    <li>can be operated on in parallel</li>
     <li></li>
   </ul>
 </section>
@@ -444,6 +444,8 @@ trait Differentiate
   <section data-id="">
     <h3>Processing Steps</h3>
     <ul>
+      <li>Configure Spark</li>
+      <li>Create Spark Context</li>
       <li>Load RDDs</li>
       <li>Transform RDDs</li>
       <li>Produce Results with Actions</li>
@@ -451,7 +453,26 @@ trait Differentiate
     </ul>
   </section>
 
-  <section data-id="ScalaDBAbstract2" class="Abstract">
+  <section data-id="" class="Abstract">
+    <h3>Spark Configuration and Context</h3>
+  <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+    import org.apache.spark.SparkContext
+    import org.apache.spark.SparkContext._
+    object InvertedIndex {
+      def main( args:Array[String] ) = {
+
+    new SparkContext(master: String, appName: String, conf: SparkConf)
+
+
+    import org.apache.spark.sql.cassandra.CassandraSQLContext
+  val cc = new CassandraSQLContext(sparkContext)
+
+    }
+   }
+  </code></pre>
+  </section>
+
+  <section data-id="" class="Abstract">
     <h3>Transformation Methods on RDD[T]</h3>
   <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
   def map[U](     f:(T) => U       ) : RDD[U]
@@ -475,7 +496,7 @@ trait Differentiate
   </code></pre>
   </section>
 
-  <section data-id="ScalaDBAbstract2" class="Abstract">
+  <section data-id="" class="Abstract">
     <h4>Transformation on RDD[(K,V)] Key Value Tuples </h4>
       <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:42em; border:1px solid white;">
   def groupByKey(                  ) : RDD[(K,Seq[V])]
@@ -500,9 +521,10 @@ trait Differentiate
     </code></pre>
   </section>
 
-  <section data-id="ScalaDBAbstract2" class="Abstract">
+  <section data-id="" class="Abstract">
     <h3>Action Methods</h3>
   <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+    // Trigger execution of DAG.
     def reduce(    f:(T,T) => T ) : T
     def fold(z:T)( f:(T,T) => T ) : T
     def min()                     : T
@@ -523,12 +545,29 @@ trait Differentiate
   </section>
 
 
-  <section data-id="ScalaDBAbstract2" class="Abstract">
-    <h3>Save Methods</h3>
+  <section data-id="" class="Abstract">
+
   <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-    saveAsTextFile
-    saveAsSequenceFile
-    saveAsObjectFile
+    //  Load Methods
+    def textFile(          path:String ) : RDD[String]
+    def objectFile[T](     path:String ) : RDD[T]
+    def sequenceFile[K,V]( path:String ) : RDD[(K,V)]           // load using Hadoop file formats
+    def wholeTextFiles(    path:String ) : RDD[(String,String)] // Read a directory of text files from HDFS,
+    def parallelize[T]( seq: Seq[T]     ) : RDD[T]  // convert a collection
+
+    def cassandraTable[CassandraRow]( keyspace:String, table:String ) : CassandraRDD[CassandraRow]
+
+    //  Save Methods
+    def saveAsTextFile(     path:String ) Unit
+    def saveAsObjectFile    path:String ) Unit
+    def saveToCassandra( keyspace:String, table:String )  // Spark Cassandra Connector
+
+    // Examples
+    rdd = sc.cassandraTable( keyspace, table)
+            .select("user","count","year","month")
+            .where("commits >= ? and year = ?", 1000, 2015 )
+
+
   </code></pre>
   </section>
 
@@ -573,6 +612,19 @@ rddLines.flatMap( (line) => line.split(" ") )
 <section data-id="">
   <h2>Machine Learning</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+  val ssc = new StreamingContext(new SparkConf()…, Seconds(5)
+  val testData = ssc.cassandraTable[String](keyspace,table).map(LabeledPoint.parse)
+  val trainingStream = KafkaUtils.createStream[K, V, KDecoder, VDecoder](
+  ssc, kafkaParams, topicMap, StorageLevel.MEMORY_ONLY)
+  .map(_._2).map(LabeledPoint.parse)
+  trainingStream.saveToCassandra("ml_keyspace", “raw_training_data")
+  val model = new StreamingLinearRegressionWithSGD()
+  .setInitialWeights(Vectors.dense(weights))
+  .trainOn(trainingStream)
+  //Making predictions on testData
+  model
+  .predictOnValues(testData.map(lp => (lp.label, lp.features)))
+  .saveToCassandra("ml_keyspace", "predictions")
 </code></pre>
 </section>
 
@@ -584,7 +636,21 @@ rddLines.flatMap( (line) => line.split(" ") )
 
 <section data-id="">
   <h2>Grand Finale</h2>
-<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:45em; border:1px solid white;">
+  val   sc = new SparkContext("local", "Inverted Index")
+  rdd = sc.textFile("data/crawl")
+  rdd.map { line => val a = line.split("\t", 2); (a(0),a(1)) }
+     .flatMap {     case (path, ext)     => text.split("""\W+""")
+                                            .map { word => (word,path) } }
+     .map {         case (word,path)     => ((word, path), 1 ) }
+     .reduceByKey { case (n1,  n2  )     => n1 + n2 }
+     .map {         case ((word,path),n) => (word, (path, n)) }
+     .groupBy{      case (word,(path,n)) => word }
+     .map{          case (word,seq)      => val seq2 =
+          seq.map{  case (_,(path,n))    => (path,n) }
+          ( word, seq2.mkString(", ") ) }
+     .saveAsTextFile("/path/to/out")
+  sc.stop()
 </code></pre>
 </section>
 
