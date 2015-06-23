@@ -87,16 +87,16 @@
           <li>Assert Its Identity</li>
           <li>Be a First Class Citizen</li>
           <li>Remain Intact</li>
-          <li>Easily Change Its Context</li>
+          <li>Be Wrapped for a New Context</li>
           <li>Elevate Its Station in Life</li>
           <li>Reveal Itself</li>
           <li>Share Its Contents</li>
         </ul>
         </li>
-        <li>Data Scientists Like
+        <li>Data Scientists Like:
           <ul>
-            <li>An Easy Way to </li>
             <li>A Universal Data Representation</li>
+            <li>Location Aware Data</li>
             <li>To Simulate Things All at Once</li>
             <li>To Orchestrate Processing</li>
           </ul>
@@ -109,6 +109,8 @@
           <ul>
             <li>Architecure</li>
             <li>RDD Resilient Distributed Data</li>
+            <li>RDD Location Awareness</li>
+            <li>Transparent Concurrency</li>
             <li>RDD Workflow</li>
             <li>Processing Steps</li>
           </ul>
@@ -160,7 +162,7 @@
       <tr><td>Assert its Identity</td><td>Strong Typing</td></tr>
       <tr><td>Be a First Class Citizen</td><td>Primitives As Classes</td></tr>
       <tr><td>Remain Intact</td><td>Immutability</td></tr>
-      <tr><td>Be Gently Wrapped</td><td>Case Classes</td></tr>
+      <tr><td>Be Wrapped for In a New Context</td><td>Case Classes</td></tr>
       <tr><td>Elevate is Station in Life</td><td>Math Expressions</td></tr>
       <tr><td>Reveal Itself</td><td>Pattern Matching</td></tr>
       <tr><td>Share its Contents</td><td>Pattern Transfer</td></tr>
@@ -210,8 +212,8 @@
 </section>
 
 <section data-id="">
-  <h3>Data is First Class Citizen</h3>
-  <h3>with Scala's Class Hierarchy</h3>
+  <h4 style="margin-bottom:4px;">Data is First Class Citizen</h4>
+  <h4 style="margin-bottom:4px;">with Scala's Class Hierarchy</h4>
 <pre class="scala"><code style="font-size:1em; min-height:20em;  min-width:44em; border:1px solid white;">
 Any
   AnyVal           // Scala's base class for Java primitives and Unit
@@ -252,8 +254,8 @@ Any
   </section>
 
   <section>
-    <h4>Gentle Wrapping</h4>
-    <h4>Case Classes for Algebric Expressions</h4>
+    <h4 style="margin-bottom:4px;">Wrapping for a New Context</h4>
+    <h4 style="margin-bottom:4px;">Case Classes for Algebric Expressions</h4>
 <pre class="scala"><code style="font-size:1.2em; min-width:42em; min-height:11em;">
 case class Num( n:Double )     extends Exp // wrap Double
 case class Var( s:String )     extends Exp // wrap String
@@ -268,9 +270,29 @@ case class Dif( u:Exp )        extends Exp // Differentiate
 </code></pre>
   </section>
 
+<section>
+  <h4>The Anatomy of a Case Class</h4>
+<pre class="scala"><code style="font-size:1em; min-height:24em">
+  // Scala expands the case class Add( u:Exp, v:Exp ) to:
+  class Add( val u:Exp, val v:Exp ) // Immutable Values
+  {
+    def equals()   : Boolean = {..} // Valuess compared recursively
+    def hashCode   : Int     = {..} // hashCode from Values
+    def toString() : String  = {..} // Class and value names
+  }
+
+  // Scala creates a companion object with apply and unapply
+  object Add
+  {
+    def apply(   u:Exp, v:Exp ) : Add = new Add(u,v)
+    def unapply( u:Exp, v:Exp ) : Option[(Exp,Exp)] = Some(u,v)
+  }
+</code></pre>
+</section>
+
   <section>
-    <h4>Elevatiing Data's Station in Life</h4>
-    <h4>Exp - Base Math Expression with Math Operators</h4>
+    <h4 style="margin-bottom:4px;">Elevatiing Data's Station in Life</h4>
+    <h4 style="margin-bottom:4px;">Exp - Base Math Expression with Math Operators</h4>
 <pre class="scala"><code style="font-size:1em; min-height:23em;">
 sealed abstract class Exp extends with Differentiate with Calculate
 {
@@ -293,8 +315,8 @@ sealed abstract class Exp extends with Differentiate with Calculate
   </section>
 
 <section>
-  <h4>Revealing Data with Pattern Mathing</h4>
-  <h4>Nested Case Classes are the Core Language</h4>
+  <h4 style="margin-bottom:4px;">Revealing Data with Pattern Matching</h4>
+  <h4 style="margin-bottom:4px;">Nested Case Classes are the Core Language</h4>
 <pre class="scala"><code style="font-size:1em; min-height:24em">
 trait Differentiate
 {
@@ -344,8 +366,9 @@ trait Differentiate
 <section data-id="ScalaDBAbstract2" class="Abstract">
   <h3>What Do Data Scientists Like?</h3>
   <table class="FontSize28px">
-    <tr><th>Scientists Like</th><th>Spark Feature</th></tr>
+    <tr><th>Data Scientists Like</th><th>Spark Feature</th></tr>
     <tr><td>A Universal Data Representation</td><td>RDD Resilent Distributed Data</td></tr>
+    <tr><td>Location Aware Data</td><td>Five Main RDD Properties</td></tr>
     <tr><td>To Simulate Things All at Once</td><td>Concurrency</td></tr>
     <tr><td>Data Driven Results</td><td>Pattern Matching</td></tr>
     <tr><td>To Orchestrate Processing</td><td>Streams</td></tr>
@@ -356,24 +379,34 @@ trait Differentiate
   <div   style="position:absolute; left: 0;   top: 0;  width:960px; height:700px; color:white;">
     <div style="position:absolute; left: 0;   top:12%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Your Code</div>
     <div style="position:absolute; left: 0;   top:24%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Spark Streaming of RDDs</div>
-    <div style="position:absolute; left: 0;   top:36%; width:100%;  height:10%;    background-color:blue;  border-radius:16px;;"><img src="../img/logo/AkkaLogo.png" height="72" style=" border:none;"></div>
- <!--div style="position:absolute; left:13%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
-    <div style="position:absolute; left:48%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div>
-    <div style="position:absolute; left:83%;  top:46%; width:  4%;  height:28%;    background-color:blue;  z-index:2;"></div-->
-    <div style="position:absolute; left: 0;   top:49%; width: 30%;  height:25%;    background-color:steelblue;"></div>
-    <div style="position:absolute; left: 0;   top:74%; width: 30%;  height:25%;    background-color:steelblue;"><img src="../img/logo/KafkaLogo.png" width="288" height="175"  style=" border:none;"></div>
-    <div style="position:absolute; left:35%;  top:49%; width: 30%;  height:25%;    background-color:#FFFF99;"></div>
-    <div style="position:absolute; left:35%;  top:74%; width: 30%;  height:25%;    background-color:goldenrod;"><img src="../img/logo/MLlibLogo2.png" width="288" height="175"></div>
-    <div style="position:absolute; left:70%;  top:49%; width: 30%;  height:25%;    background-color:#FF9999;"></div>
-    <div style="position:absolute; left:70%;  top:74%; width: 30%;  height:25%;    background-color:sienna;"><img src="../img/logo/CassandraLogo2.png" width="288" height="175"></div>
+    <div style="position:absolute; left: 0;   top:36%; width: 30%;  height:25%;    background-color:steelblue;"><img src="../img/logo/KafkaLogo.png" width="288" height="175"  style=" border:none;"></div>
+    <div style="position:absolute; left: 0;   top:60%; width: 30%;  height:25%;    background-color:steelblue;"></div>
+    <div style="position:absolute; left:35%;  top:36%; width: 30%;  height:25%;    background-color:goldenrod;"><img src="../img/logo/MLlibLogo2.png" width="288" height="175"></div>
+    <div style="position:absolute; left:35%;  top:60%; width: 30%;  height:25%;    background-color:#FFFF99;"></div>
+    <div style="position:absolute; left:70%;  top:36%; width: 30%;  height:25%;    background-color:sienna;"><img src="../img/logo/CassandraLogo2.png" width="288" height="175"></div>
+    <div style="position:absolute; left:70%;  top:60%; width: 30%;  height:25%;    background-color:#FF9999;"></div>
+    <div style="position:absolute; left:13%;  top:70%; width:  4%;  height:18%;    background-color:blue;  z-index:2; font-size:18px; line-height:20px;"><div style="margin-top:2px;">A</div><div>c</div><div>t</div><div>o</div><div>r</div></div>
+    <div style="position:absolute; left:48%;  top:70%; width:  4%;  height:18%;    background-color:blue;  z-index:2; font-size:18px; line-height:20px;"><div style="margin-top:2px;">A</div><div>c</div><div>t</div><div>o</div><div>r</div></div>
+    <div style="position:absolute; left:83%;  top:70%; width:  4%;  height:18%;    background-color:blue;  z-index:2; font-size:18px; line-height:20px;"><div style="margin-top:2px;">A</div><div>c</div><div>t</div><div>o</div><div>r</div></div>
+    <div style="position:absolute; left: 0;   top:87%; width:100%;  height:10%;    background-color:blue;  border-radius:16px;;"><img src="../img/logo/AkkaLogo.png" height="72" style=" border:none;"></div>
   </div>
 </section>
 
-
+<section data-id="">
+  <h4 style="margin-bottom:4px;">A Universal Data Representation</h4>
+  <h4 style="margin-bottom:4px;">RDD Resilent Distributed Data</h4>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
 
 <section data-id="">
-  <h2>RDD Resilient Distributed Data</h2>
-  <div>Internally, each RDD is characterized by five main properties:</div>
+  <h4 style="margin-bottom:4px;">RDD Resilient Distributed Data</h4>
+  <h4 style="margin-bottom:4px;">Five main properties for RDD Location Awareness</h4>
     <ul>
       <li>A list of partitions</li>
       <li>A function for computing each split</li>
@@ -383,10 +416,6 @@ trait Differentiate
     </ul>
 </section>
 
-  <section data-id="">
-    <h2>RDD Workflow</h2>
-    <img src="../img/spark/RDDWorkflow.png">
-  </section>
 
 <section data-id="">
   <h2>Transformations</h2>
@@ -406,6 +435,21 @@ trait Differentiate
     </li>
   </ul>
 </section>
+
+  <section data-id="">
+    <h2>RDD Workflow</h2>
+    <img src="../img/spark/RDDWorkflow.png">
+  </section>
+
+  <section data-id="">
+    <h3>Processing Steps</h3>
+    <ul>
+      <li>Load RDDs</li>
+      <li>Transform RDDs</li>
+      <li>Produce Results with Actions</li>
+      <li>Save RDDs and Results</li>
+    </ul>
+  </section>
 
   <section data-id="ScalaDBAbstract2" class="Abstract">
     <h3>Transformation Methods on RDD[T]</h3>
@@ -491,9 +535,6 @@ trait Differentiate
 
 
 
-  <section data-id="">
-    <h2>Processing Steps</h2>
-  </section>
 
   <section data-id="">
     <h3>Data Driven Results</h3>
