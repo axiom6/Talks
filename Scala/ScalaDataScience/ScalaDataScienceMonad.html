@@ -481,7 +481,23 @@ Any
   <h1>What the Data Scientist Wants</h1>
 </section>
 
-<section data-id="">
+<section data-id="ScalaDBAbstract2" class="Abstract">
+  <h3>MiscMethods</h3>
+<pre class="scala"><code style="font-size:0.9em; min-height:24em;  min-width:42em; border:1px solid white;">
+  def mapPartitions()
+  def coalesce( numPartitions: Int, shuffle: Boolean ) : RDD[T]
+  def aggregate[U](     z:U )( seqOp:(U,T)=>U, combOp:(U U)=>U ) )        : U
+  def treeAggregate[U]( z:U )( seqOp:(U,T)=>U, combOp:(U,U)=>U, dep:Int ) : U
+  def combineByKey[C]( cc:(V)=>C, mv:(C,V)=>C, mc:(C,C)=>C): RDD[(K,C)]
+  def cache() : RDD[T]
+  def checkpoint : Unit
+  def isEmpty()  : Boolean
+  def randomSplit( weights:Array[Double], seed:Long ): Array[RDD[T]]
+</code></pre>
+</section>
+
+
+  <section data-id="">
   <h2>Tools at Your Finger Tips</h2>
   <h2>Spark Standalone</h2>
 </section>
