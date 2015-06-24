@@ -403,36 +403,33 @@
 
     <section style="background-color:rgb(49,28,39);" data-id="InputDStream">
       <h4>Illustrated Example 1 - Initialize an Input DStream</h4>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        val scc    = new StreamingContext( sparkContext, Seconds(1) )
-        val tweets = TwitterUtils.createStream( ssc, auth )
-        //  tweets are an Input DStream
-      </code></pre>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val scc    = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets = TwitterUtils.createStream( ssc, auth )
+  //  tweets are an Input DStream
+</code></pre>
       <img src="../img/streaming/HashTag1.png">
     </section>
 
-    <section style="background-color:rgb(49,28,39);" data-id="GetHashTags">
-      <h4>Illustrated Example 2 - Get Hash Tags from Twitter</h4>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        val scc      = new StreamingContext( sparkContext, Seconds(1) )
-        val tweets   = TwitterUtils.createStream( ssc, None )
-        val hashTags = tweets.flatMap( status => getTags( status )
-        //  hashTags are now a transformed DStream
-        //  Tranformations modify data in one DStream to create another DSTream
-        //  getTags( status ) is the function that is applied vie flatMap(...)
-        //  flatMap(...) will also flatten any tree structures into sequences
-      </code></pre>
-      <img src="../img/streaming/HashTag2.png">
-    </section>
+<section style="background-color:rgb(49,28,39);" data-id="GetHashTags">
+  <h4>Illustrated Example 2 - Get Hash Tags from Twitter</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0; min-width:40em;">
+  val scc      = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets   = TwitterUtils.createStream( ssc, None )
+  val hashTags = tweets.flatMap( status => getTags( status )
+
+</code></pre>
+  <img src="../img/streaming/HashTag2.png">
+</section>
 
     <section style="background-color:rgb(49,28,39);" data-id="Storage">
       <h4>Illustrated Example 3 - Push Data to External Storage</h4>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        val scc      = new StreamingContext( sparkContext, Seconds(1) )
-        val tweets   = TwitterUtils.createStream( ssc, None )
-        val hashTags = tweets.flatMap( status => getTags( status )
-        hashTags.saveAsHadoopFiles( "hdfs://..." )
-      </code></pre>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val scc      = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets   = TwitterUtils.createStream( ssc, None )
+  val hashTags = tweets.flatMap( status => getTags( status )
+  hashTags.saveAsHadoopFiles( "hdfs://..." )
+</code></pre>
       <img src="../img/streaming/HadoopSave.png">
     </section>
 
@@ -442,27 +439,27 @@
         <li>Do whatever you want with the processed data:</li>
         <li>Write to a database, update analytics, UI etc...</li>
       </ul>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        val scc      = new StreamingContext( sparkContext, Seconds(1) )
-        val tweets   = TwitterUtils.createStream( ssc, None )
-        val hashTags = tweets.flatMap( status => getTags( status )
-        hashTags.foreachRDD( hasTagRDD => { ... } )
-      </code></pre>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val scc      = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets   = TwitterUtils.createStream( ssc, None )
+  val hashTags = tweets.flatMap( status => getTags( status )
+  hashTags.foreachRDD( hasTagRDD => { ... } )
+</code></pre>
       <img src="../img/streaming/DoWhatEver.png">
     </section>
 
 
-    <section style="background-color:rgb(49,28,39);" data-id="SlidingWindow">
-      <h4>Illustrated Example 5 - Sliding Window</h4>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        val tweets    = TwitterUtils.createStream( ssc, None )
-        val hashTags  = tweets.flatMap( status => getTags( status )
-        val tagCounts = hasTags.window( Minutes(1), Seconds(5) ).countByValue()
-        //                         ^       ^             ^
-        // (sliding window operation) (window length) (sliding interval)
-      </code></pre>
+<section style="background-color:rgb(49,28,39); min-width:34em;" data-id="SlidingWindow">
+  <h4>Illustrated Example 5 - Sliding Window</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val tweets    = TwitterUtils.createStream( ssc, None )
+  val hashTags  = tweets.flatMap( status => getTags( status )
+  val tagCounts = hasTags.window( Minutes(1), Seconds(5) ).countByValue()
+  //                         ^       ^             ^
+  // (sliding window operation) (window length) (sliding interval)
+</code></pre>
       <img src="../img/streaming/SlidingWindow.png">
-    </section>
+</section>
 
     <section style="background-color:rgb(49,28,39);" data-id="Stateful">
       <h4>Example 6 - Stateful Computations</h4>
@@ -482,25 +479,24 @@
         <li>Inter-mix RDD and DStream operations!</li>
         <li>Example: Join incoming tweets with a spam HDFS file to filter out bad tweets</li>
       </ul>
-      <pre><code class="scala" style="font-size:1.0em; margin:0;">
-        tweets.transform( tweetsRDD => { tweetsRDD.join(spamFile).filter(...) } )
-      </code></pre>
+<pre><code class="scala" style="font-size:1.0em; margin:0; min-width:40em;">
+ tweets.transform( rdd => { rdd.join(spamFile).filter(...) } )
+</code></pre>
     </section>
 
     <section data-id="Keynote">
       <h4 style="margin-bottom:0;">Example 8 - Databricks Keynote</h4>
-       <pre>
-           <code class="scala" style="font-size:0.75em; margin:0;">
-             val ssc         = new StreamingContext(sc,Seconds(5))
-             val sqlContext  = new SQLContext(sc)
-             val tweets      = TwitterUtils.createStream(ssc,auth)
-             val transformed = tweets.filter(isEnglish).window(Minutes(1))
+<pre><code class="scala" style="font-size:0.75em; margin:0;">
+ val ssc         = new StreamingContext(sc,Seconds(5))
+ val sqlContext  = new SQLContext(sc)
+ val tweets      = TwitterUtils.createStream(ssc,auth)
+ val transformed = tweets.filter(isEnglish).window(Minutes(1))
 
-             // Tweet is a case class
-             transformed.foreachRDD { rdd => rdd.map(Tweet.apply(_)).registerAsTable(“tweets”) }</code></pre>
-         <pre class="sql"><code class="scala" style="font-size:0.75em; margin:0;">
-           SELECT text FROM tweets WHERE similarity(tweet) > 0.01
-           SELECT getClosestCountry(lat,long) FROM tweets</code></pre>
+ // Tweet is a case class
+ transformed.foreachRDD { rdd => rdd.map(Tweet.apply(_)).registerAsTable(“tweets”) }</code></pre>
+ <pre class="sql"><code class="scala" style="font-size:0.75em; margin:0;">
+   SELECT text FROM tweets WHERE similarity(tweet) > 0.01
+   SELECT getClosestCountry(lat,long) FROM tweets</code></pre>
     </section>
 
     <section style="background-color:rgb(49,28,39);" data-id="DStreamsRDDs">

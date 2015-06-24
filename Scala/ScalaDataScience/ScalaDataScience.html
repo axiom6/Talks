@@ -370,7 +370,6 @@ trait Differentiate
     <tr><td>A Universal Data Representation</td><td>RDD Resilent Distributed Data</td></tr>
     <tr><td>Location Aware Data</td><td>Five Main RDD Properties</td></tr>
     <tr><td>To Simulate Things All at Once</td><td>Concurrency</td></tr>
-    <tr><td>Data Driven Results</td><td>Pattern Matching</td></tr>
     <tr><td>To Orchestrate Processing</td><td>Streams</td></tr>
   </table>
 </section>
@@ -392,16 +391,68 @@ trait Differentiate
   </div>
 </section>
 
-<section data-id="">
-  <h4 style="margin-bottom:4px;">A Universal Data Representation</h4>
-  <h4 style="margin-bottom:4px;">RDD Resilent Distributed Data</h4>
-  <ul>
-    <li>Lazily Evaluation</li>
-    <li>fault-tolerant</li>
-    <li>collection of elements</li>
-    <li>can be operated on in parallel</li>
-    <li></li>
-  </ul>
+    <section style="background-color:rgb(49,28,39);" data-id="DStream">
+      <h3>The DStream Programming Model</h3>
+      <ul>
+        <li>Discretized Stream (DStream)
+          <ul>
+            <li>Represents a stream of data</li>
+            <li>Implemented as a sequence of RDDs</li>
+          </ul>
+        </li>
+        <li>DStreams can be either…
+          <ul>
+            <li>Created from streaming input sources</li>
+            <li>Created by applying transformations on existing DStreams</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section style="background-color:rgb(49,28,39);" data-id="InputDStream">
+      <h4>Illustrated Example 1 - Initialize an Input DStream</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val scc    = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets = TwitterUtils.createStream( ssc, auth )
+  //  tweets are an Input DStream
+</code></pre>
+      <img src="../img/streaming/HashTag1.png">
+    </section>
+
+<section style="background-color:rgb(49,28,39);" data-id="GetHashTags">
+  <h4>Illustrated Example 2 - Get Hash Tags from Twitter</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0; min-width:40em;">
+  val scc      = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets   = TwitterUtils.createStream( ssc, None )
+  val hashTags = tweets.flatMap( status => getTags( status )
+
+</code></pre>
+  <img src="../img/streaming/HashTag2.png">
+</section>
+
+    <section style="background-color:rgb(49,28,39);" data-id="Storage">
+      <h4>Illustrated Example 3 - Push Data to External Storage</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val scc      = new StreamingContext( sparkContext, Seconds(1) )
+  val tweets   = TwitterUtils.createStream( ssc, None )
+  val hashTags = tweets.flatMap( status => getTags( status )
+  hashTags.saveAsHadoopFiles( "hdfs://..." )
+</code></pre>
+      <img src="../img/streaming/HadoopSave.png">
+    </section>
+
+
+
+<section style="background-color:rgb(49,28,39); min-width:34em;" data-id="SlidingWindow">
+  <h4>Illustrated Example 4 - Sliding Window</h4>
+<pre><code class="scala" style="font-size:1.0em; margin:0;">
+  val tweets    = TwitterUtils.createStream( ssc, None )
+  val hashTags  = tweets.flatMap( status => getTags( status )
+  val tagCounts = hasTags.window( Minutes(1), Seconds(5) ).countByValue()
+  //                         ^       ^             ^
+  // (sliding window operation) (window length) (sliding interval)
+</code></pre>
+      <img src="../img/streaming/SlidingWindow.png">
 </section>
 
 <section data-id="">
@@ -472,8 +523,33 @@ trait Differentiate
   </code></pre>
   </section>
 
-  <section data-id="" class="Abstract">
-    <h3>Transformation Methods on RDD[T]</h3>
+<section data-id="" class="Abstract">
+<h4>Spark Context Load Save Methods plus Cassandra</h4>
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:44em; border:1px solid white; padding-left:8px;">
+//  Load Methods
+type S = String
+def textFile(           path:S ) : RDD[St]
+def objectFile[T](      path:S ) : RDD[T]
+def sequenceFile[K,V](  path:S ) : RDD[(K,V)] // load Hadoop formats
+def wholeTextFiles(     path:S ) : RDD[(S,S)] // Directory of HDFS files
+def parallelize[T]( seq:Seq[T] ) : RDD[T]     // convert a collection
+
+def cassandraTable[Row]( keyspace:S, table:S ) : CassandraRDD[Row]
+
+//  Save Methods
+def saveAsTextFile(     path:S ) Unit
+def saveAsObjectFile    path:S ) Unit
+def saveToCassandra( keyspace:S, table:S ) // Spark Cassandra Connector
+
+// Examples
+rdd = sc.cassandraTable( keyspace, table)
+        .select("user","count","year","month")
+        .where("commits >= ? and year = ?", 1000, 2015 )
+  </code></pre>
+  </section>
+
+<section data-id="" class="Abstract">
+  <h3>Transformation Methods on RDD[T]</h3>
   <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
   def map[U](     f:(T) => U       ) : RDD[U]
   def flatMap[U]( f:(T) => Seq[U]  ) : RDD[U]
@@ -483,7 +559,6 @@ trait Differentiate
   def groupBy[K]( f:(T) => K ) : RDD[(K,Seq[T])]
   def sortBy[K](  f:(T) => K ) : RDD[T]
 
-  def glom(                    ) : RDD[T]
   def distinct(                ) : RDD[T]
   def intersection( rdd:RDD[T] ) : RDD[T]
   def subtract(     rdd:RDD[T] ) : RDD[T]
@@ -545,52 +620,6 @@ trait Differentiate
   </section>
 
 
-  <section data-id="" class="Abstract">
-
-  <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-    //  Load Methods
-    def textFile(          path:String ) : RDD[String]
-    def objectFile[T](     path:String ) : RDD[T]
-    def sequenceFile[K,V]( path:String ) : RDD[(K,V)]           // load using Hadoop file formats
-    def wholeTextFiles(    path:String ) : RDD[(String,String)] // Read a directory of text files from HDFS,
-    def parallelize[T]( seq: Seq[T]     ) : RDD[T]  // convert a collection
-
-    def cassandraTable[CassandraRow]( keyspace:String, table:String ) : CassandraRDD[CassandraRow]
-
-    //  Save Methods
-    def saveAsTextFile(     path:String ) Unit
-    def saveAsObjectFile    path:String ) Unit
-    def saveToCassandra( keyspace:String, table:String )  // Spark Cassandra Connector
-
-    // Examples
-    rdd = sc.cassandraTable( keyspace, table)
-            .select("user","count","year","month")
-            .where("commits >= ? and year = ?", 1000, 2015 )
-
-
-  </code></pre>
-  </section>
-
-
-
-
-
-  <section data-id="">
-    <h3>Data Driven Results</h3>
-    <h3>Pattern Matching</h3>
-  </section>
-
-
-
-
-
-
-
-
-<section data-id="">
-  <h1>Orchestration</h1>
-</section>
-
 <section data-id="">
   <h2>Word Count</h2>
 <pre class="scala"><code style="font-size:0.8em; min-height:24em;  min-width:42em; border:1px solid white;">
@@ -612,19 +641,7 @@ rddLines.flatMap( (line) => line.split(" ") )
 <section data-id="">
   <h2>Machine Learning</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-  val ssc = new StreamingContext(new SparkConf()…, Seconds(5)
-  val testData = ssc.cassandraTable[String](keyspace,table).map(LabeledPoint.parse)
-  val trainingStream = KafkaUtils.createStream[K, V, KDecoder, VDecoder](
-  ssc, kafkaParams, topicMap, StorageLevel.MEMORY_ONLY)
-  .map(_._2).map(LabeledPoint.parse)
-  trainingStream.saveToCassandra("ml_keyspace", “raw_training_data")
-  val model = new StreamingLinearRegressionWithSGD()
-  .setInitialWeights(Vectors.dense(weights))
-  .trainOn(trainingStream)
-  //Making predictions on testData
-  model
-  .predictOnValues(testData.map(lp => (lp.label, lp.features)))
-  .saveToCassandra("ml_keyspace", "predictions")
+
 </code></pre>
 </section>
 
@@ -637,20 +654,6 @@ rddLines.flatMap( (line) => line.split(" ") )
 <section data-id="">
   <h2>Grand Finale</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:45em; border:1px solid white;">
-  val   sc = new SparkContext("local", "Inverted Index")
-  rdd = sc.textFile("data/crawl")
-  rdd.map { line => val a = line.split("\t", 2); (a(0),a(1)) }
-     .flatMap {     case (path, ext)     => text.split("""\W+""")
-                                            .map { word => (word,path) } }
-     .map {         case (word,path)     => ((word, path), 1 ) }
-     .reduceByKey { case (n1,  n2  )     => n1 + n2 }
-     .map {         case ((word,path),n) => (word, (path, n)) }
-     .groupBy{      case (word,(path,n)) => word }
-     .map{          case (word,seq)      => val seq2 =
-          seq.map{  case (_,(path,n))    => (path,n) }
-          ( word, seq2.mkString(", ") ) }
-     .saveAsTextFile("/path/to/out")
-  sc.stop()
 </code></pre>
 </section>
 

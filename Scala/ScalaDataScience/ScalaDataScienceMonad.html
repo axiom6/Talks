@@ -406,6 +406,11 @@ Any
 
 <section data-id="">
   <h2>Streaming Code Constructs</h2>
+  <div>A sequence of cases (i.e., alternatives) in curly braces can be used anywhere a function literal can be used.
+    Essentially, a case sequence is a function literal, only more general.
+    Instead of having a single entry point and list of parameters, a case sequence has multiple entry points,
+    each with their own list of parameters. Each case is an entry point to the function, and the parameters are
+    specified with the pattern. The body of each entry point is the right-hand side of the case.</div>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
 </code></pre>
 </section>
@@ -561,6 +566,45 @@ Any
   val sc = new SparkContext(conf)
 </code></pre>
   </section>
+
+<section data-id="">
+  <h2>Machine Learning</h2>
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+  val ssc = new StreamingContext(new SparkConf()…, Seconds(5)
+  val testData = ssc.cassandraTable[String](keyspace,table).map(LabeledPoint.parse)
+  val trainingStream = KafkaUtils.createStream[K, V, KDecoder, VDecoder](
+  ssc, kafkaParams, topicMap, StorageLevel.MEMORY_ONLY)
+  .map(_._2).map(LabeledPoint.parse)
+  trainingStream.saveToCassandra("ml_keyspace", “raw_training_data")
+  val model = new StreamingLinearRegressionWithSGD()
+  .setInitialWeights(Vectors.dense(weights))
+  .trainOn(trainingStream)
+  //Making predictions on testData
+  model
+  .predictOnValues(testData.map(lp => (lp.label, lp.features)))
+  .saveToCassandra("ml_keyspace", "predictions")
+</code></pre>
+</section>
+
+<section data-id="">
+  <h2>Grand Finale</h2>
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:45em; border:1px solid white;">
+  val   sc = new SparkContext("local", "Inverted Index")
+  rdd = sc.textFile("data/crawl")
+  rdd.map { line => val a = line.split("\t", 2); (a(0),a(1)) }
+     .flatMap {     case (path, ext)     => text.split("""\W+""")
+                                            .map { word => (word,path) } }
+     .map {         case (word,path)     => ((word, path), 1 ) }
+     .reduceByKey { case (n1,  n2  )     => n1 + n2 }
+     .map {         case ((word,path),n) => (word, (path, n)) }
+     .groupBy{      case (word,(path,n)) => word }
+     .map{          case (word,seq)      => val seq2 =
+          seq.map{  case (_,(path,n))    => (path,n) }
+          ( word, seq2.mkString(", ") ) }
+     .saveAsTextFile("/path/to/out")
+  sc.stop()
+</code></pre>
+</section>
 
 <section data-id="ScalaDBReferences">
   <h2>References</h2>
