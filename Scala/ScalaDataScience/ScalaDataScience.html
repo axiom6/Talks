@@ -38,12 +38,11 @@
 
 <section data-id="Bio" class="Abstract">
   <h2 style="text-align:left;">Bio:</h2>
-  <p>I have been a Chief Architect for 20 years, where he first become enamored by Scala in 2006.
-    Over the years I have written a symbolic math application in Scala at Glaxo in 2008 for molecular dynamics
-    and in 2010 I formed the Front Range Polyglot Panel and participated as its Scala expert.</p>
-  <!--h3 style="text-align:left;">The Real Bio:</h3>
-  <p>In the past I enjoyed living in the twilight zone between Data Science and programming where no one bothered me,
-    but recently I have realized that Data Science is engaging warp drive and I want to be Captain Kirk.</p-->
+  <p>I have been a Chief Architect for 20 years, where I first become enamored by Scala in 2006.
+    I wrote a symbolic math application in Scala at Glaxo in 2008 for molecular dynamics.
+    In 2010 I formed the Front Range Polyglot Panel and participated as its Scala expert.
+    I am currently learning all I can about Spark and applying it to analyzing the flow of
+    information between enterprise architecture practices.</p>
 </section>
 
 <section data-id="ScalaDBAbstract1" class="Abstract">
@@ -60,17 +59,36 @@
 </section>
 
 <section data-id="Success Factor" class="Abstract" >
-  <h3>So what are Scala's success factors for Data Science?</h3>
+  <h3>Scala's success factors for Data Science</h3>
   <ul>
     <li>A Strong Affinity to Data</li>
-    <li>Functional Programmming with Streaming
-      <ul>
-        <li>That is Capable of Mirroring Math Syntax</li>
-        <li>But only if programmers strive for it</li>
-     </ul>
+    <li>State of the art OO for class composition</li>
+    <li>Functional Programmming with Streaming</li>
     <li>Awesome Concurrency under the Covers</li>
+    <li>High performance in the cloud wit Akka</li>
     <li>The Spark Ecosystem</li>
     <li>A vibrant Open Source comminity around Typesafe and Spark</li>
+  </ul>
+</section>
+
+<section data-id="">
+  <h2>About Scala</h2>
+  <ul>
+    <li>State of the Art Class Hierarchy + Functional Programming</li>
+    <li>Fully Leverages the JVM
+      <ul>
+        <li>Concurrency from Doug Lea</li>
+        <li>JIT (Just in Time) inlines functional constructs</li>
+        <li>Comparable in speed to Java &plusmn;3%</li>
+        <li>Strongly Typed</li>
+      </ul>
+    </li>
+    <li>Interoperates with Java
+      <ul>
+        <li>Can use any Java class (inherit from, etc.)</li>
+        <li>Can be called from Java</li>
+      </ul>
+    </li>
   </ul>
 </section>
 
@@ -80,14 +98,13 @@
   <div style="position:relative;   left:0; top:0; width:100%; height:700px; font-size:22px;">
     <div style="position:absolute; left:0; top:0; width: 50%; height:100%; ">
       <ul>
-        <li>About Scala</li>
         <li>Data Likes To:
         <ul>
           <li>Declare Itself</li>
           <li>Assert Its Identity</li>
           <li>Be a First Class Citizen</li>
           <li>Remain Intact</li>
-          <li>Be Wrapped for a New Context</li>
+          <li>Be Wrapped</li>
           <li>Elevate Its Station in Life</li>
           <li>Reveal Itself</li>
           <li>Share Its Contents</li>
@@ -108,18 +125,19 @@
         <li>Spark
           <ul>
             <li>Architecure</li>
+            <li>DStreams</li>
+            <li>Illustrated Examples</li>
             <li>RDD Resilient Distributed Data</li>
             <li>RDD Location Awareness</li>
-            <li>Transparent Concurrency</li>
-            <li>RDD Workflow</li>
-            <li>Processing Steps</li>
           </ul>
-        <li>Orchestrations
+        <li>RDD Workflow
           <ul>
+            <li>Processing Steps</li>
+            <li>Spark Configuration and Context</li>
+            <li>Load and Save Methods</li>
+            <li>Transformation Methods</li>
+            <li>Action Methods</li>
             <li>Word Count</li>
-            <li>Machine Learning</li>
-            <li>Kafka Spark Cassandra</li>
-            <li>Grand Finale</li>
           </ul>
         </li>
         <li>References</li>
@@ -128,67 +146,52 @@
   </div>
 </section>
 
-
-<section data-id="">
-  <h2>About Scala</h2>
-  <ul>
-    <li>State of the Art Class Hierarchy + Functional Programming</li>
-    <li>Fully Leverages the JVM
-      <ul>
-        <li>Concurrency from Doug Lea</li>
-        <li>JIT (Just IN Time) inlines functional constructs</li>
-        <li>Comparable in speed to Java &plusmn;3%</li>
-      </ul>
-    </li>
-    <li>Interoperates with Java
-      <ul>
-        <li>Can use any Java class (inherit from, etc.)</li>
-        <li>Can be called from Java</li>
-      </ul>
-    </li>
-    <li> Statically Typed
-      <ul>
-        <li>Type inference</li>
-      </ul>
-    </li>
-  </ul>
+<section data-id="" class="Abstract">
+  <h3>Let's Ask Data What It Likes:</h3>
+  <table>
+    <tr><th>Data Likes To</th><th>Scala Feature</th></tr>
+    <tr><td>Declare Itself</td><td>Class and object</td></tr>
+    <tr><td>Assert its Identity</td><td>Strong Typing</td></tr>
+    <tr><td>Be a First Class Citizen</td><td>Primitives As Classes</td></tr>
+    <tr><td>Remain Intact</td><td>Immutability</td></tr>
+    <tr><td>Be Wrapped</td><td>Case Classes</td></tr>
+    <tr><td>Elevate is Station in Life</td><td>Math Expressions</td></tr>
+    <tr><td>Reveal Itself</td><td>Pattern Matching</td></tr>
+    <tr><td>Share its Contents</td><td>Pattern Transfer</td></tr>
+  </table>
 </section>
-
-  <section data-id="" class="Abstract">
-    <h3>Let's Ask Data What It Likes:</h3>
-    <table>
-      <tr><th>Data Likes To</th><th>Scala Feature</th></tr>
-      <tr><td>Declare Itself</td><td>Class and object</td></tr>
-      <tr><td>Assert its Identity</td><td>Strong Typing</td></tr>
-      <tr><td>Be a First Class Citizen</td><td>Primitives As Classes</td></tr>
-      <tr><td>Remain Intact</td><td>Immutability</td></tr>
-      <tr><td>Be Wrapped for In a New Context</td><td>Case Classes</td></tr>
-      <tr><td>Elevate is Station in Life</td><td>Math Expressions</td></tr>
-      <tr><td>Reveal Itself</td><td>Pattern Matching</td></tr>
-      <tr><td>Share its Contents</td><td>Pattern Transfer</td></tr>
-    </table>
-  </section>
-
 
 <section data-id="">
   <h3>Class and object Declarations</h3>
-<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:44em; border:1px solid white;">
+<pre class="scala"><code style="font-size:1em; min-height:26em;  min-width:44em; border:1px solid white;">
   // [T] is a parameterized type for typing the contents with a class
   // You can parameterize a class with many types [T,U,V]
   // You can embed parameterized types [Key,List[T]]
+
   trait          Trait[T]{...}
   abstract class Abs[T](       i:Int ) extends Trait[T]{...}
   class          Concrete[T](  i:Int ) extends Abs[T]( i:Int) {...}
   case class     Case[T](      i:Int )
   class          Composite[T]( i:Int ) extends Abs[T]( i:Int)
     with Trait1[T] with Trait2[T] {...}
+
+  // Singleton and Companion objects
+  object HelloWorld {
+    def main (args:Array[String]) {
+      println("Hello, world!") } }
+
+  object Add
+  {
+    def apply(   u:Exp, v:Exp ) : Add = new Add(u,v)
+    def unapply( u:Exp, v:Exp ) : Option[(Exp,Exp)] = Some(u,v)
+  }
   </code></pre>
 </section>
 
 <section data-id="">
   <h4 style="margin-bottom:4px;">Assert Identity with Strong Typing</h4>
   <h4 style="margin-bottom:4px;">Functional Methods on Seq[T] Collections</h4>
-  <pre class="scala"><code style="font-size:1em; min-height:23em;  min-width:45em; border:1px solid white;">
+  <pre class="scala"><code style="font-size:1em; min-height:21em;  min-width:45em; border:1px solid white;">
  def map[U](     f:(T) => U       ) : Seq[U]  // T to U.
  def flatMap[U]( f:(T) => Seq[U]  ) : Seq[U]  // T to  Flattened Seq[U]
  def filter(     f:(T) => Boolean ) : Seq[T]  // Keep  Ts where f is true
@@ -205,8 +208,6 @@
   list.exists(  (n)   => n % 2 == 1 )         // true  list 1, 3 are odd
   list.forall(  (n)   => n % 2 == 1 )         // false 2 ns even
   list.reduce(  (m,n) => m + n )              // 6
-  evenOddKey =  (n) => { if( n % 2 == 1 ) then 'odd' else 'even' }
-  list.groupBy( evenOddKey )     // 'odd' -> List(1,3), 'even' -> List(2)
   list.map( (n) => List(n,n+1) ) // List(List(1,2),List(2,3),List(3,4))
   </code></pre>
 </section>
@@ -235,7 +236,6 @@ Any
 </code></pre>
 </section>
 
-
 <section data-id="">
   <h3>Staying Intact - Immutability Promotes:</h3>
   <ul>
@@ -249,28 +249,8 @@ Any
   </ul>
   </section>
 
-  <section>
-    <img src="../img/scala/AST.png" alt="Abstract Syntax Tree"/>
-  </section>
-
-  <section>
-    <h4 style="margin-bottom:4px;">Wrapping for a New Context</h4>
-    <h4 style="margin-bottom:4px;">Case Classes for Algebric Expressions</h4>
-<pre class="scala"><code style="font-size:1.2em; min-width:42em; min-height:11em;">
-case class Num( n:Double )     extends Exp // wrap Double
-case class Var( s:String )     extends Exp // wrap String
-case class Par( u:Exp )        extends Exp // parentheses
-case class Neg( u:Exp )        extends Exp // -u  prefix
-case class Pow( u:Exp, v:Exp ) extends Exp //  u ~^ v infix
-case class Mul( u:Exp, v:Exp ) extends Exp //  u  * v infix
-case class Div( u:Exp, v:Exp ) extends Exp //  u  / v infix
-case class Add( u:Exp, v:Exp ) extends Exp //  u  + v infix
-case class Sub( u:Exp, v:Exp ) extends Exp //  u  – v infix
-case class Dif( u:Exp )        extends Exp // Differentiate
-</code></pre>
-  </section>
-
 <section>
+  <h4>Data Likes to Be Wrapped</h4>
   <h4>The Anatomy of a Case Class</h4>
 <pre class="scala"><code style="font-size:1em; min-height:24em">
   // Scala expands the case class Add( u:Exp, v:Exp ) to:
@@ -290,9 +270,29 @@ case class Dif( u:Exp )        extends Exp // Differentiate
 </code></pre>
 </section>
 
-  <section>
-    <h4 style="margin-bottom:4px;">Elevatiing Data's Station in Life</h4>
-    <h4 style="margin-bottom:4px;">Exp - Base Math Expression with Math Operators</h4>
+<section>
+  <img src="../img/scala/AST.png" alt="Abstract Syntax Tree"/>
+</section>
+
+<section>
+  <h4 style="margin-bottom:4px;">Case Classes for Algebric Expressions</h4>
+<pre class="scala"><code style="font-size:1.2em; min-width:42em; min-height:11em;">
+ case class Num( n:Double )     extends Exp // wrap Double
+ case class Var( s:String )     extends Exp // wrap String
+ case class Par( u:Exp )        extends Exp // parentheses
+ case class Neg( u:Exp )        extends Exp // -u  prefix
+ case class Pow( u:Exp, v:Exp ) extends Exp //  u ~^ v infix
+ case class Mul( u:Exp, v:Exp ) extends Exp //  u  * v infix
+ case class Div( u:Exp, v:Exp ) extends Exp //  u  / v infix
+ case class Add( u:Exp, v:Exp ) extends Exp //  u  + v infix
+ case class Sub( u:Exp, v:Exp ) extends Exp //  u  – v infix
+ case class Dif( u:Exp )        extends Exp // Differentiate
+</code></pre>
+</section>
+
+<section>
+  <h4 style="margin-bottom:4px;">Elevatiing Data's Station in Life</h4>
+  <h4 style="margin-bottom:4px;">Exp - Base Math Expression with Math Operators</h4>
 <pre class="scala"><code style="font-size:1em; min-height:23em;">
 sealed abstract class Exp extends with Differentiate with Calculate
 {
@@ -425,13 +425,12 @@ trait Differentiate
   val scc      = new StreamingContext( sparkContext, Seconds(1) )
   val tweets   = TwitterUtils.createStream( ssc, None )
   val hashTags = tweets.flatMap( status => getTags( status )
-
 </code></pre>
   <img src="../img/streaming/HashTag2.png">
 </section>
 
-    <section style="background-color:rgb(49,28,39);" data-id="Storage">
-      <h4>Illustrated Example 3 - Push Data to External Storage</h4>
+<section style="background-color:rgb(49,28,39);" data-id="Storage">
+  <h4>Illustrated Example 3 - Push Data to External Storage</h4>
 <pre><code class="scala" style="font-size:1.0em; margin:0;">
   val scc      = new StreamingContext( sparkContext, Seconds(1) )
   val tweets   = TwitterUtils.createStream( ssc, None )
@@ -439,9 +438,7 @@ trait Differentiate
   hashTags.saveAsHadoopFiles( "hdfs://..." )
 </code></pre>
       <img src="../img/streaming/HadoopSave.png">
-    </section>
-
-
+</section>
 
 <section style="background-color:rgb(49,28,39); min-width:34em;" data-id="SlidingWindow">
   <h4>Illustrated Example 4 - Sliding Window</h4>
@@ -467,84 +464,63 @@ trait Differentiate
     </ul>
 </section>
 
+<section data-id="">
+  <h2>RDD Workflow</h2>
+  <img src="../img/spark/RDDWorkflow.png">
+</section>
 
 <section data-id="">
-  <h2>Transformations</h2>
+  <h3>Processing Steps</h3>
   <ul>
-    <li>Create a new dataset from an existing one</li>
-    <li>All transformations in Spark are lazy
-      <ul>
-        <li>They do not compute their results right away</li>
-        <li>Instead they remember the applied transformations</li>
-      </ul>
-    </li>
-    <li>In Order To
-      <ul>
-        <li>optimize the required calculations</li>
-        <li>recover from lost data partitions</li>
-      </ul>
-    </li>
+    <li>Configure Spark</li>
+    <li>Create Spark Context</li>
+    <li>Load RDDs</li>
+    <li>Transform RDDs</li>
+    <li>Produce Results with Actions</li>
+    <li>Save RDDs and Results</li>
   </ul>
 </section>
 
-  <section data-id="">
-    <h2>RDD Workflow</h2>
-    <img src="../img/spark/RDDWorkflow.png">
-  </section>
+<section data-id="" class="Abstract">
+  <h3>Spark Configuration and Context</h3>
+<pre class="scala"><code style="font-size:1em; min-height:15em;  min-width:40em; border:1px solid white;">
+  import org.apache.spark.SparkContext
+  import org.apache.spark.SparkContext._
+  object MySparkProgram {
 
-  <section data-id="">
-    <h3>Processing Steps</h3>
-    <ul>
-      <li>Configure Spark</li>
-      <li>Create Spark Context</li>
-      <li>Load RDDs</li>
-      <li>Transform RDDs</li>
-      <li>Produce Results with Actions</li>
-      <li>Save RDDs and Results</li>
-    </ul>
-  </section>
+    def main( args:Array[String] ) = {
 
-  <section data-id="" class="Abstract">
-    <h3>Spark Configuration and Context</h3>
-  <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
-    import org.apache.spark.SparkContext
-    import org.apache.spark.SparkContext._
-    object InvertedIndex {
-      def main( args:Array[String] ) = {
+      sc = new SparkContext( master:String, appName, sparkConf )
 
-    new SparkContext(master: String, appName: String, conf: SparkConf)
+      ... RDD Workflow here
 
-
-    import org.apache.spark.sql.cassandra.CassandraSQLContext
-  val cc = new CassandraSQLContext(sparkContext)
-
-    }
-   }
-  </code></pre>
-  </section>
+  }
+ }
+</code></pre>
+</section>
 
 <section data-id="" class="Abstract">
 <h4>Spark Context Load Save Methods plus Cassandra</h4>
-<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:44em; border:1px solid white; padding-left:8px;">
-//  Load Methods
-type S = String
-def textFile(           path:S ) : RDD[St]
-def objectFile[T](      path:S ) : RDD[T]
-def sequenceFile[K,V](  path:S ) : RDD[(K,V)] // load Hadoop formats
-def wholeTextFiles(     path:S ) : RDD[(S,S)] // Directory of HDFS files
-def parallelize[T]( seq:Seq[T] ) : RDD[T]     // convert a collection
+<pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:44em; border:1px solid white;">
+ //  Load Methods
+ type S = String
+ def textFile(           path:S ) : RDD[St]
+ def objectFile[T](      path:S ) : RDD[T]
+ def sequenceFile[K,V](  path:S ) : RDD[(K,V)] // load Hadoop formats
+ def wholeTextFiles(     path:S ) : RDD[(S,S)] // Directory of HDFS files
+ def parallelize[T]( seq:Seq[T] ) : RDD[T]     // convert a collection
 
-def cassandraTable[Row]( keyspace:S, table:S ) : CassandraRDD[Row]
+ def cassandraTable[Row]( keyspace:S, table:S ) : CassandraRDD[Row]
 
-//  Save Methods
-def saveAsTextFile(     path:S ) Unit
-def saveAsObjectFile    path:S ) Unit
-def saveToCassandra( keyspace:S, table:S ) // Spark Cassandra Connector
+ //  Save Methods
+ def saveAsTextFile(     path:S ) Unit
+ def saveAsObjectFile    path:S ) Unit
+ def saveToCassandra( keyspace:S, table:S ) // Spark Cassandra Connector
 
-// Examples
-rdd = sc.cassandraTable( keyspace, table)
-        .select("user","count","year","month")
-        .where("commits >= ? and year = ?", 1000, 2015 )
+ // Load an RDD from Cassandra
+ rdd = sc.cassandraTable( keyspace, table)
+         .select("user","count","year","month")
+         .where("commits >= ? and year = ?", 1000, 2015 )
   </code></pre>
   </section>
 
@@ -619,54 +595,81 @@ rdd = sc.cassandraTable( keyspace, table)
   </code></pre>
   </section>
 
+<section data-id="">
+  <h3>Word Count - Hard to Understand</h3>
+<pre class="scala"><code style="font-size:0.8em; min-height:24em;  min-width:42em; border:1px solid white;">
+
+val rdd  = sc.textFile( "README.md" )
+rdd.flatMap( (l) => l.split(" ") )
+   .map(     (w) => (w,1) )
+   .reduceByKey(  _ + _ )
+   .saveAsTextFile( "WordCount.txt" )
+</code></pre>
+</section>
 
 <section data-id="">
-  <h2>Word Count</h2>
+  <h3>Word Count - As Illustrated by Scala</h3>
 <pre class="scala"><code style="font-size:0.8em; min-height:24em;  min-width:42em; border:1px solid white;">
+
 val rddLines  : RDD[String]       = sc.textFile( "README.md" )
 val rddWords  : RDD[String]       = rddLines.flatMap(      (line)  => line.split(" ") )
 val rddWords1 : RDD[(String,Int)] = rddWords.map(          (word)  => (word,1) )
 val rddCount  : RDD[(String,Int)] = rddWords1.reduceByKey( (c1,c2) => c1 + c2 )
     rddCount.saveAsTextFile( "WordCount.txt" )
 
-val rddLines  = sc.textFile( "README.md" )
-rddLines.flatMap( (line) => line.split(" ") )
-        .map(     (word) => (word,1) )
-        .reduceByKey(  _ + _ )
-        .saveAsTextFile( "WordCount.txt" )
 </code></pre>
 </section>
 
-
-<section data-id="">
+<!--section data-id="">
   <h2>Machine Learning</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
+object TallSkinnyPCA {
+  def main(args: Array[String]) {
+    if (args.length != 1) {
+      System.err.println("Usage: TallSkinnyPCA &gt;input&lt;")
+      System.exit(1)
+    }
 
+    val conf = new SparkConf().setAppName("TallSkinnyPCA")
+    val sc = new SparkContext(conf)
+
+    // Load and parse the data file.
+    val rows = sc.textFile(args(0)).map { line =>
+      val values = line.split(' ').map(_.toDouble)
+      Vectors.dense(values)
+    }
+    val mat = new RowMatrix(rows)
+
+    // Compute principal components.
+    val pc = mat.computePrincipalComponents(mat.numCols().toInt)
+
+    println("Principal components are:\n" + pc)
+
+    sc.stop()
+  }
+}
 </code></pre>
-</section>
+</section-->
 
-<section data-id="">
+<!--section data-id="">
   <h2>Kafka Spark Cassandra</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:40em; border:1px solid white;">
 </code></pre>
-</section>
+</section-->
 
-<section data-id="">
+<!--section data-id="">
   <h2>Grand Finale</h2>
 <pre class="scala"><code style="font-size:1em; min-height:24em;  min-width:45em; border:1px solid white;">
 </code></pre>
-</section>
+</section-->
 
 
 <section data-id="ScalaDBReferences">
   <h2>References</h2>
   <ul style="margin-left:0.6em; font-size:26px;">
-      <li><div class="width340">Big Data Driving Business</div><a href="http://www.ted.com/talks/philip_evans_how_data_will_transform_business">http://bit.ly/194auY9</a></li>
-      <li><div class="width340">REST API Tutorial</div><a href="http://www.restapitutorial.com/resources.html">http://www.restapitutorial.com/resources.html</a></li>
-      <li><div class="width340">CAP Theorem</div><a href="http://en.wikipedia.org/wiki/CAP_theorem">http://en.wikipedia.org/wiki/CAP_theorem</a></li>
-      <li><div class="width340">Grid Gain</div><a href="http://www.gridgain.com/">http://www.gridgain.com/</a></li>
+      <li><div class="width340">The Scala Language</div><a href="http://www.scala-lang.org/">http://www.scala-lang.org/</a></li>
       <li><div class="width340">Apache Spark</div><a href="https://spark.apache.org/">https://spark.apache.org/</a></li>
-      <li><div class="width340">The Reactive Manifesto</div><a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a></li>
+      <li><div class="width340">Dean Wampler on Spark</div><a href="http://deanwampler.github.io/">http://deanwampler.github.io/</a></li>
       <li><div class="width340">These slides in PDF</div><a href="https://speakerdeck.com/axiom6">https://speakerdeck.com/axiom6</a></li>
   </ul>
 </section>
