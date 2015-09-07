@@ -191,21 +191,21 @@
 <section data-id="">
   <h4 style="margin-bottom:4px;">Assert Identity with Strong Typing</h4>
   <h4 style="margin-bottom:4px;">Functional Methods on Seq[T] Collections</h4>
-  <pre class="scala"><code style="font-size:1em; min-height:21em;  min-width:45em; border:1px solid white;">
+  <pre class="scala"><code style="font-size:1em; min-height:21em;  min-width:44em; border:1px solid white;">
  def map[U](     f:(T) => U       ) : Seq[U]  // T to U.
  def flatMap[U]( f:(T) => Seq[U]  ) : Seq[U]  // T to  Flattened Seq[U]
- def filter(     f:(T) => Boolean ) : Seq[T]  // Keep  Ts where f is true
+ def filter(     f:(T) => Boolean ) : Seq[T]  // Keep  Ts where f  true
  def exists(     f:(T) => Boolean ) : Boolean // True if one T  passes
  def forall(     f:(T) => Boolean ) : Boolean // True if all Ts passes
- def reduce[U](  f:(T,T) => U     ) : U       // Summarize f on pairs of Ts
- def groupBy[K]( f:T=>Key): Map[Key,Seq[T]]   // Group Ts into Key Seq Map
+ def reduce[U](  f:(T,T) => U     ) : U       // Summarize f on T pairs
+ def groupBy[K]( f:T=>Key): Map[Key,Seq[T]]   // Group Ts into  Map
 ....                                          // ... many more methods
-                                              // List is a subtype of Seq
+                                              // List is subtype of Seq
   val list = List( 1, 2, 3 )                  // Scala nnfer List[Int]
   list.map(     (n)   => n + 2 )              // List(3, 4, 5)
   list.flatMap( (n)   => List(n,n+1) )        // List(1,2,2,3,3,4)
   list.filter(  (n)   => n % 2 == 1 )         // List( 1, 3 )
-  list.exists(  (n)   => n % 2 == 1 )         // true  list 1, 3 are odd
+  list.exists(  (n)   => n % 2 == 1 )         // true list 1, 3 are odd
   list.forall(  (n)   => n % 2 == 1 )         // false 2 ns even
   list.reduce(  (m,n) => m + n )              // 6
   list.map( (n) => List(n,n+1) ) // List(List(1,2),List(2,3),List(3,4))
@@ -375,7 +375,8 @@ trait Differentiate
 </section>
 
 <section data-id="">
-  <div   style="position:absolute; left: 0;   top: 0;  width:960px; height:700px; color:white;">
+  <img src="../img/spark/SparkArch.png" style="border:none;">
+  <!--div   style="position:absolute; left: 0;   top: 0;  width:960px; height:700px; color:white;">
     <div style="position:absolute; left: 0;   top:12%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Your Code</div>
     <div style="position:absolute; left: 0;   top:24%; width:100%;  height:10%;    background-color:blue;  border-radius:16px; font-size:36pt;">Spark Streaming of RDDs</div>
     <div style="position:absolute; left: 0;   top:36%; width: 30%;  height:25%;    background-color:steelblue;"><img src="../img/logo/KafkaLogo.png" width="288" height="175"  style=" border:none;"></div>
@@ -388,7 +389,7 @@ trait Differentiate
     <div style="position:absolute; left:48%;  top:70%; width:  4%;  height:18%;    background-color:blue;  z-index:2; font-size:18px; line-height:20px;"><div style="margin-top:2px;">A</div><div>c</div><div>t</div><div>o</div><div>r</div></div>
     <div style="position:absolute; left:83%;  top:70%; width:  4%;  height:18%;    background-color:blue;  z-index:2; font-size:18px; line-height:20px;"><div style="margin-top:2px;">A</div><div>c</div><div>t</div><div>o</div><div>r</div></div>
     <div style="position:absolute; left: 0;   top:87%; width:100%;  height:10%;    background-color:blue;  border-radius:16px;;"><img src="../img/logo/AkkaLogo.png" height="72" style=" border:none;"></div>
-  </div>
+  </div-->
 </section>
 
     <section style="background-color:rgb(49,28,39);" data-id="DStream">

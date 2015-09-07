@@ -11,16 +11,16 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link href="../../bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="../../bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
-  <link href="../../bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
-  <link href="../../bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
-  <link href="../../Create/css/base.css" rel="stylesheet">
+  <link href="../../lib/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../lib/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
+  <link href="../../lib/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
+  <link href="../../lib/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
+  <link href="../../lib/css/base.css" rel="stylesheet">
 
-  <script src="../../bower_components/jquery/dist/jquery.js"></script>
-  <script src="../../bower_components/reveal.js/lib/js/head.min.js"></script>
-  <script src="../../bower_components/reveal.js/js/reveal.js"></script>
-  <script src="../../Create/js/RevealInit.js"></script>
+  <script src="../../lib/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../lib/js/RevealInit.js"></script>
 
 </head>
 
@@ -46,7 +46,7 @@
     </section>
     <section>
       <h1 style="font-size:1.5em;">Apache Spark Streaming</h1>
-      <img src="../../Create/img/spark/Spark.png" class="rx-img">
+      <img src="../img/spark/Spark.png" class="rx-img">
       <div><a  style="font-size:1.0em;" href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></div>
     </section>
 
@@ -121,16 +121,16 @@
     </section>
 
     <section style="margin:0; padding:0;">
-      <img src="../../Create/img/spark/spark-history.jpg">
+      <img src="../img/spark/spark-history.jpg">
     </section>
 
     <!--section style="margin:0; padding:0;">
-      <img src="../../Create/img/spark/databricks.jpg">
+      <img src="../img/spark/databricks.jpg">
     </section-->
 
     <section style="background-color:rgb(49,28,39); font-size:24px;">
       <h2>Spark Streaming Overview</h2>
-      <img src="../../Create/img/streaming/SparkStreaming.png" style="background-color:white;">
+      <img src="../img/streaming/SparkStreaming.png" style="background-color:white;">
       <ul>
         <li>Spark Streaming is an extension of the core Spark API that enables:</li>
         <li>scalable, high-throughput, fault-tolerant stream processing of live data streams</li>
@@ -139,7 +139,7 @@
 
     <section style="background-color:rgb(49,28,39); font-size:24px;">
       <h2>Spark Streaming Internally</h2>
-      <img src="../../Create/img/streaming/streaming-flow.png" style="background-color:white;">
+      <img src="../img/streaming/streaming-flow.png" style="background-color:white;">
       <ul>
         <li>Internally, it works as follows.</li>
         <li>Spark Streaming receives live input data streams and divides the data into batches</li>
@@ -151,7 +151,7 @@
     <section>
       <h2>Apache Spark</h2>
       <h4>Traditional View</h4>
-      <img src="../../Create/img/spark/spark-stack.png" class="rx-img">
+      <img src="../img/spark/spark-stack.png" class="rx-img">
       <ul style="text-align:left; font-size:24px; list-style-type: none;">
         <li><span class="width150">Core:      </span>Distributed task dispatching, scheduling, and basic I/O through Akka</li>
         <li><span class="width150">GraphX:    </span>A distributed graph topology for RDDs based on Pregel</li>
@@ -165,7 +165,7 @@
 
     <section  style="margin:0; padding:0; background-color:rgb(49,28,39);">
       <h3>Apache Spark - Revealed</h3>
-      <img src="../../Create/img/spark/SparkSlide.png" class="rx-img">
+      <img src="../img/spark/SparkSlide.png" class="rx-img">
     </section>
 
     <section  style="margin:0; padding:0; background-color:rgb(49,28,39);">
@@ -190,7 +190,7 @@
           <ul class="icondesc" style="text-align:left; line-height:1.1; font-size:24px; list-style-type: none; color:wheat;">
             <li><span style="font-size:20px">IP[y]</span>   <span class="width150">IPython:    </span>The Data Scientist's favorite notebook with PySpark</li>
             <li><i class="fa fa-bell"></i>                  <span class="width150pad">SparkR:     </span>A light-weight frontend to use Apache Spark from R</li>
-            <li><img  src="../../Create/img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
+            <li><img  src="../img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
           </ul>
         </li>
         <li style="padding-top:12px;"><i class="fa fa-star-o"></i>                <span class="width150pad">Spark Core: </span>Distributed task dispatching, scheduling, and basic I/O
@@ -244,7 +244,7 @@
 
     <section>
       <h3>Why Spark Streaming</h3>
-      <img src="../../Create/img/streaming/WhyStreaming.png">
+      <img src="../img/streaming/WhyStreaming.png">
       <ul>
         <li>Scales to hundreds of nodes</li>
         <li>Achieves low latency</li>
@@ -311,7 +311,7 @@
           </ul>
         </div>
         <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
-          <img src="../../Create/img/streaming/FaultNodes.png">
+          <img src="../img/streaming/FaultNodes.png">
         </div>
       </div>
     </section>
@@ -328,7 +328,7 @@
           </ul>
         </div>
         <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
-          <img src="../../Create/img/streaming/FaultTolerant.png">
+          <img src="../img/streaming/FaultTolerant.png">
         </div>
       </div>
     </section>
@@ -352,7 +352,7 @@
          </ul>
        </div>
        <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
-         <img src="../../Create/img/streaming/Streaming.png">
+         <img src="../img/streaming/Streaming.png">
        </div>
      </div>
    </section>
@@ -408,7 +408,7 @@
         val tweets = TwitterUtils.createStream( ssc, auth )
         //  tweets are an Input DStream
       </code></pre>
-      <img src="../../Create/img/streaming/HashTag1.png">
+      <img src="../img/streaming/HashTag1.png">
     </section>
 
     <section style="background-color:rgb(49,28,39);">
@@ -422,7 +422,7 @@
         //  getTags( status ) is the function that is applied vie flatMap(...)
         //  flatMap(...) will also flatten any tree structures into sequences
       </code></pre>
-      <img src="../../Create/img/streaming/HashTag2.png">
+      <img src="../img/streaming/HashTag2.png">
     </section>
 
     <section style="background-color:rgb(49,28,39);">
@@ -433,7 +433,7 @@
         val hashTags = tweets.flatMap( status => getTags( status )
         hashTags.saveAsHadoopFiles( "hdfs://..." )
       </code></pre>
-      <img src="../../Create/img/streaming/HadoopSave.png">
+      <img src="../img/streaming/HadoopSave.png">
     </section>
 
     <section style="background-color:rgb(49,28,39);">
@@ -448,7 +448,7 @@
         val hashTags = tweets.flatMap( status => getTags( status )
         hashTags.foreachRDD( hasTagRDD => { ... } )
       </code></pre>
-      <img src="../../Create/img/streaming/DoWhatEver.png">
+      <img src="../img/streaming/DoWhatEver.png">
     </section>
 
 
@@ -461,7 +461,7 @@
         //                         ^       ^             ^
         // (sliding window operation) (window length) (sliding interval)
       </code></pre>
-      <img src="../../Create/img/streaming/SlidingWindow.png">
+      <img src="../img/streaming/SlidingWindow.png">
     </section>
 
     <section style="background-color:rgb(49,28,39);">
@@ -580,10 +580,7 @@
 
 
 
-    <section style="background-color:rgb(49,28,39);">
-      <h4 style="margin:0;">Data Science Methodology</h4>
-      <img src="../../Create/img/datascience/SparkQuan.png" class="rx-img">
-    </section>
+
 
     <section>
       <h2>References</h2>

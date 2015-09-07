@@ -10,15 +10,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="../../bower_components/reveal.js/css/reveal.css">
-  <link rel="stylesheet" href="../../bower_components/reveal.js/lib/css/zenburn.css">
-  <link rel="stylesheet" href="../../bower_components/reveal.js/css/theme/night.css" id="theme">
-  <link rel="stylesheet" href="../../Create/css/base.css">
+  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="../../lib/css/base.css">
 
-  <script src="../../bower_components/jquery/dist/jquery.js"></script>
-  <script src="../../bower_components/reveal.js/lib/js/head.min.js"></script>
-  <script src="../../bower_components/reveal.js/js/reveal.js"></script>
-  <script src="../../Create/js/RevealInit.js"></script>
+  <script src="../../lib/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../lib/js/RevealInit.js"></script>
 
 </head>
 
@@ -30,7 +30,7 @@
 <div class="slides">
 
 <section>
-  <h1  style="font-size: 135px; color:rgb(183,23,140)"><img src="../../Create/img/rxmarbles/Rx_Logo_S.png" style="border-width: 0; margin: 0;">  ReactiveX<br/>with RxJS</h1>
+  <h1  style="font-size: 135px; color:rgb(183,23,140)">ReactiveX<br/>with RxJS</h1>
     <a style="font-size: 3em;" href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a>
 </section>
 
@@ -42,17 +42,17 @@
   <section>
     <h2>The Reactive Manifesto</h2>
     <a href="http://www.reactivemanifesto.org/">www.reactivemanifesto.org/</a>
-    <img src ="../../Create/img/reactive/reactive-traits.svg" class="rx-svg">
+    <img src ="../img/reactive/reactive-traits.svg" class="rx-svg">
     <ul style="text-align:left; font-size:24px; list-style-type: none;">
-      <li><img src="../../Create/img/reactive/responsive.svg" class="rx-icon">Responsive: Always respond in a timely manner</li>
-      <li><img src="../../Create/img/reactive/elastic.svg"    class="rx-icon">Elastic:   Stay responsive under varying workload</li>
-      <li><img src="../../Create/img/reactive/resilient.svg"  class="rx-icon">Resilient: Stay responsive in the face of failure</li>
-      <li><img src="../../Create/img/reactive/message.svg"    class="rx-icon">Message Driven: Asynchronous message containers</li>
+      <li><img src="../img/reactive/responsive.svg" class="rx-icon">Responsive: Always respond in a timely manner</li>
+      <li><img src="../img/reactive/elastic.svg"    class="rx-icon">Elastic:   Stay responsive under varying workload</li>
+      <li><img src="../img/reactive/resilient.svg"  class="rx-icon">Resilient: Stay responsive in the face of failure</li>
+      <li><img src="../img/reactive/message.svg"    class="rx-icon">Message Driven: Asynchronous message containers</li>
     </ul>
   </section>
 
   <section>
-    <h2 class="rx-h2"><img src="../../Create/img/reactive/responsive.svg" class="rx-h2-img"><span class="rx-h2-span">Responsive</span></h2>
+    <h2 class="rx-h2"><img src="../img/reactive/responsive.svg" class="rx-h2-img"><span class="rx-h2-span">Responsive</span></h2>
     <h4>Always respond in a timely manner</h4>
     <ul>
       <li>Formulate meaningful response metrics for Data Science</li>
@@ -64,7 +64,7 @@
   </section>
 
   <section>
-    <h2 class="rx-h2"><img src="../../Create/img/reactive/elastic.svg" class="rx-h2-img"><span class="rx-h2-span">Elastic</span></h2>
+    <h2 class="rx-h2"><img src="../img/reactive/elastic.svg" class="rx-h2-img"><span class="rx-h2-span">Elastic</span></h2>
     <h4>Stay responsive under varying workload</h4>
     <ul>
       <li>Learn all about the varying workloads</li>
@@ -75,7 +75,7 @@
   </section>
 
   <section>
-    <h2 class="rx-h2"><img src="../../Create/img/reactive/resilient.svg" class="rx-h2-img"><span class="rx-h2-span">Resilient</span></h2>
+    <h2 class="rx-h2"><img src="../img/reactive/resilient.svg" class="rx-h2-img"><span class="rx-h2-span">Resilient</span></h2>
     <h4>Stay responsive in the face of failure</h4>
     <ul>
       <li>Nodes and Links fail all the time</li>
@@ -90,7 +90,7 @@
   </section>
 
   <section>
-    <h2 class="rx-h2"><img src="../../Create/img/reactive/message.svg" class="rx-h2-img"><span class="rx-h2-span">Message Driven</span></h2>
+    <h2 class="rx-h2"><img src="../img/reactive/message.svg" class="rx-h2-img"><span class="rx-h2-span">Message Driven</span></h2>
     <h4>Asynchronous message containers</h4>
     <p>Asynchronous message-passing to establishes a boundary between components
       that ensures loose coupling, isolation, location transparency, and provides
@@ -141,15 +141,7 @@
   </table>
 </section>
 
-  <section>
-    <h3>RxMarble </h3>
-    <img src="../../Create/img/rxmarbles/StaltzEventStream.png">
-  </section>
 
-<section style="padding: 0;">
-  <!--h3>What does a Reactive Stream Look Like?</h3-->
-  <img src="../../Create/img/rxmarbles/StreamScenario.png">
-</section>
 
 <section>
   <h3>The ReactiveX API</h3>
@@ -192,12 +184,6 @@
   </p>
 </section>
 
-<section>
-  <section>
-    <h2><a style="padding:2em;" href="../../Create/leaflet/layers.html">Completed Demo</a></h2>
-    <h3>with Layers, GeoJSON and Zoom</h3>
-  </section>
-</section>
 
 
 <section>
