@@ -14,17 +14,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-  <link href="../../lib/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
-  <link href="../../css/slides/talk.css"                                    rel="stylesheet">
+  <link href="../../sym/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
+  <link href="../../lib/css/slides/talk.css"                                rel="stylesheet">
 
-  <script src="../../lib/bower_components/jquery/dist/jquery.js"></script>
-  <script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
-  <script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
-  <script src="../../src/mod/Util.js"></script>
-  <script src="../../src/doc/RevealInit.js"></script>
+  <script src="../../sym/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../sym/bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../sym/bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../sym/ui/js/util/Util.js"></script>
+  <script src="../../lib/js/RevealInit.js"></script>
 
 </head>
 
@@ -166,7 +166,7 @@
 				</section>
 				<section>
 					<h2>Demo App - Log Generator</h2>
-					<span class="stretch"> <pre class=""scala">
+					<!--span class="stretch"--> <pre class="scala">
 							<code class="scala">val NumPublishers = 5
 val NumAdvertisers = 3
 val Publishers = (0 to NumPublishers).map("publisher_" +)
@@ -185,7 +185,7 @@ def receive = {
     Kafka.producer.send(new KeyedMessage[String, String](Config.KafkaTopic, payload))
   }
 }</code>
-						</pre></span>
+						</pre><!--/span-->
 				</section>
 				<section>
 					<h2>Demo App - Start the Stream</h2>

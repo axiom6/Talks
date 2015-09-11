@@ -10,9 +10,17 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/reveal.css">
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/lib/css/zenburn.css">
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/theme/night.css" id="theme">
+  <link href="../../sym/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
+  <link href="../../lib/css/talk.css"                                       rel="stylesheet">
+
+  <script src="../../sym/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../sym/bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../sym/bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../lib/js/RevealInit.js"></script>
+
   <style>
     .reveal pre {
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
@@ -36,8 +44,8 @@
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../bower_components/lib/reveal.js/css/print/pdf.css'
-      : '../../lib/bower_components/reveal.js/css/print/paper.css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../bower_components/reveal.js/css/print/pdf.css'
+      : '../../bower_components/reveal.js/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
 
@@ -50,7 +58,7 @@
 <!-- Any section element inside of this container is displayed as a slide -->
 <div class="slides">
 
-<section id="Begin">
+<section>
   <h1>A DSL for Symbolic Mathematics in Scala</h1>
   <p>
     <small><a href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></small>
@@ -58,12 +66,12 @@
 </section>
 
 
-<section id="Approach">
+<section>
   <img src="../../img/scala/Approach.png" alt="Basic Approach"/>
 </section>
 
 
-<section id="Exp">
+<section>
   <h3>Exp - Base Math Expression with Internal DSL</h3>
 <pre class="scala"><code style="font-size:1em; min-height:23em;">
 sealed abstract class Exp extends with Calculate with Differentiate
@@ -86,7 +94,7 @@ sealed abstract class Exp extends with Calculate with Differentiate
 </code></pre>
 </section>
 
-<section id="CaseClasssesAlgebra">
+<section>
   <h4>Case Classes for Algebric Expressions plus Differentiate</h4>
 <pre class="scala"><code style="font-size:1.2em; min-height:11em;">
 case class Num( n:double )     extends Exp // wrap double
@@ -102,7 +110,7 @@ case class Dif( u:Exp )        extends Exp // Differentiate
 </code></pre>
 </section>
 
-<section id="ParseAlgbra">
+<section>
   <!--h4>Algebric Parser - External DSL</h4-->
 <pre class="scala"><code style="font-size:.9em; min-height:29em; min-width:45em;">object Parse extends StdTokenParsers
 {
@@ -128,7 +136,7 @@ case class Dif( u:Exp )        extends Exp // Differentiate
 </code></pre>
 </section>
 
-<section id="DifAlgebra">
+<section>
     <h4>A Taste of Differential Calculus with Pattern Matching and an Internal DSL</h4>
 <pre class="scala"><code style="font-size:1em; min-height:24em">
 trait Differentiate
@@ -152,7 +160,7 @@ trait Differentiate
 </code></pre>
 </section>
 
-<section id="ScalaConcepts">
+<section>
   <table>
     <caption>Scala Concepts So Far</caption>
     <tr><th>Internal DSLs</th><th>Case Classes</th></tr>
@@ -164,7 +172,7 @@ trait Differentiate
   </table>
 </section>
 
-<section id="Implicity">
+<section>
     <div style="color:tan;">Implicits</div>
     <ul>
       <li>Problem:  Have a basic type and need to use it in a new context</li>
@@ -179,13 +187,13 @@ implicit def str2Exp( s:String ) : Exp = Var(s)
 </code></pre>
 </section>
 
-<section id="Precendence">
+<section>
   <div style="color:tan;">Operators</div>
   <div>Precendence</div>
   <div>letters | ^ &  <>  =! : +- */% ~ special unicode</div>
 </section>
 
-<section id="CaseClassADT">
+<section>
   <div style="color:tan;">Case Class Expands a Class into an ADT</div>
 <pre class="scala"><code style="font-size:1em; min-height:24em">
 // Scala expands the case class Add( u:Exp, v:Exp ) to:
@@ -205,11 +213,11 @@ object Add
 </code></pre>
 </section>
 
-<section id="AST">
+<section>
   <img src="../../img/scala/AST.png" alt="Abstract Syntax Tree"/>
 </section>
 
-<section id="DifCaseClasses">
+<section>
   <div style="color:tan;">Nested Case Classes are the Core Language</div>
 <pre class="scala"><code style="font-size:1em; min-height:24em">
 trait Differentiate
@@ -233,7 +241,7 @@ trait Differentiate
 </code></pre>
 </section>
 
-<section id="JSON Parser">
+<section>
   <!--div style="color:tan;">JSON Parser</div-->
 <table>
 <tr><td><pre class="scala"><code style="font-size:.9em; min-height:11em">start = obj | array
@@ -280,7 +288,7 @@ RP^^^        conversion
   <div>Recursion</div>
 </section-->
 
-<section id="PatternAnything">
+<section>
   <div style="color:tan;">Patterns can Match Anything</div>
 <pre class="scala"><code style="font-size:.95em; min-height:24em">
 def matchAny( any:Any ) : String = any match
@@ -298,7 +306,7 @@ def matchAny( any:Any ) : String = any match
 </code></pre>
 </section>
 
-<section id="CalculationAlgerbra">
+<section>
 <div style="color:tan;">Pattern Match for Calculation</div>
 <pre class="scala"><code style="font-size:1em; min-height:25em">
 trait Calculate
@@ -324,11 +332,11 @@ trait Calculate
 </code></pre>
 </section>
 
-<section id="DeepEnd">
+<section>
   <h2>Time to Go Off the Deep End</h2>
 </section>
 
-<section id="ExpSym">
+<section>
   <div style="color:tan;">An Expanded Math Expression Exp</div>
 <pre class="scala"><code style="font-size:.9em; min-height:32em; line-height:1.1em;">abstract class Exp extends
   Ascii     with Lambda        with MathML    with Latex   with
@@ -358,7 +366,7 @@ trait Calculate
 </code></pre>
 </section>
 
-<section id="CaseClassesMath">
+<section>
   <div style="color:tan;">Additional Math Case Classes</div>
 <pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">// Numbers and Variables
    case class Num( n:Int )          extends Exp // n Int
@@ -386,7 +394,7 @@ trait Calculate
 </code></pre>
 </section>
 
-<section id="CaseClassesTransTrigCalculus">
+<section>
   <div style="color:tan;">Transcendental Trigonometry and Calculus</div>
 <pre class="scala"><code style="font-size:.9em; min-height:27em; line-height:1.1em;">
 // Natural Log, Log Base, Root, Square Root and e
@@ -414,7 +422,7 @@ trait Calculate
 </code></pre>
 </section>
 
-<section id="CaseClassesVector">
+<section>
   <div style="color:tan;">Linear Algebra, Complex and Miscellaneous</div>
 <pre class="scala"><code style="font-size:.9em; min-height:27em; line-height:1.1em;">
 // Linear Algebra - Vector Matrix
@@ -433,7 +441,7 @@ trait Calculate
 </code></pre>
 </section>
 
-<section id="AsciiMath">
+<section>
   <div style="color:tan;">Ascii Math</div>
   <table style="font-size:20pt;">
     <tbody>
@@ -450,7 +458,7 @@ trait Calculate
 
 </section>
 
-<section id="AsciiMathParse">
+<section>
 <div style="color:tan;">Ascii Parse 151 Lines</div>
 <pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">
 package math.parse
@@ -596,7 +604,7 @@ object AsciiParse extends StdTokenParsers
 </code></pre>
 </section>
 
-<section id="PatternMatchingTraits">
+<section>
 <div style="color:tan;">Best Part - Pattern Matching Traits for Unlimited Extensibility</div>
 <pre class="scala"><code style="font-size:.9em; min-height:4em; line-height:1.1em;">abstract class Exp extends
   Ascii     with Lambda        with MathML    with Latex   with
@@ -617,7 +625,7 @@ object AsciiParse extends StdTokenParsers
   </table>
 </section>
 
-<section id="MathML">
+<section>
   <div style="color:tan;">MathML</div>
 <pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">trait MathML
 {
@@ -754,7 +762,7 @@ def mathMLCex( t:Text, r:Exp, i:Exp )
 </code></pre>
 </section>
 
-<section id="Simplify">
+<section>
   <div style="color:tan;">Simplify</div>
 <pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">trait Simplify
 {
@@ -901,7 +909,7 @@ def mathMLCex( t:Text, r:Exp, i:Exp )
 </code></pre>
 </section>
 
-<section id="DifferentiateComplete">
+<section>
   <div style="color:tan;">A Complete Differentiate</div>
 <pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">trait Differentiate
 {
@@ -971,7 +979,7 @@ def mathMLCex( t:Text, r:Exp, i:Exp )
 </code></pre>
 </section>
 
-<section id="References">
+<section>
   <h2>References</h2>
   <ul>
     <li><a href="https://github.com/axiom6/ScalaMathDSL">Scala Math DSL on GitHub (Just Raw Code)</a></li>
@@ -984,10 +992,11 @@ def mathMLCex( t:Text, r:Exp, i:Exp )
     <li><a href="http://www.cs.kuleuven.be/publicaties/rapporten/cw/CW491.pdf‎">Parser Combinators in Scala - Adrian Moor PDF</a></li>
     <li><a href="http://www.codecommit.com/blog/scala/the-magic-behind-parser-combinators">Parser Combinators - Daniel Spiewak Blog</a></li>
     <li><a href="http://www.meetup.com/The-Boulder-Area-Scala-Enthusiasts/events/122779302/">Purity, Passion & Prog... by Daniel Spiewak June 27, 2013</a></li>
+    <li><a href="http://www.meetup.com/The-Boulder-Area-Scala-Enthusiasts/">The Boulder Area Scala Enthusiasts</a></li>
   </ul>
 </section>
 
-<section id="TheEnd">
+<section>
   <h1>THE END</h1>
 
 </section>
@@ -998,30 +1007,8 @@ def mathMLCex( t:Text, r:Exp, i:Exp )
 
 
 <!-- Reveal.js Slide Deck Scripts -->
-<script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
-<script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
-<script src="ASCIIMathML.js"></script>
+<script src="../../lib/js/ASCIIMathML.js"></script>
 <script>mathcolor="yellow"</script>
-
-
-<script>
-
-  // Full list of configuration options available here:
-  // https://github.com/hakimel/reveal.js#configuration
-  Reveal.initialize( { controls:true, progress:true, history:true, center:true,
-    theme:      Reveal.getQueryHash().theme,                   // available themes are in /css/theme
-    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-    dependencies: [                                            // Optional libraries used to extend on reveal.js
-      { src: '../../lib/bower_components/reveal.js/lib/js/classList.js',          condition: function() { return !document.body.classList; } },
-      { src: '../../lib/bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../lib/bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../lib/bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../lib/bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../lib/bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
-    ]
-  });
-
-</script>
 
 </body>
 </html>

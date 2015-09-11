@@ -4,8 +4,8 @@
     <title>Layers GeoJSON and Zoom</title>
     <link   href="leaflet.css" rel="stylesheet">
     <script  src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-    <script src="../../lib/bower_components/jquery/dist/jquery.js"></script>
-    <script src="../../lib/bower_components/firebase/firebase.js"></script>
+    <script src="../../sym/bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../sym/bower_components/firebase/firebase.js"></script>
     <script  src="leaflet.js"></script>
     <script  src="js/Google.js"></script>
   <head>
@@ -27,7 +27,7 @@
         Gis.map.panTo( bounds.getCenter() ); };
 
       // Begin MAIN --- Create a map in <div id="MAP"  center lat lng set  zoom (same as Google Maps)
-      Gis.map = L.map('MAP', { center:[39.546055,-106.21936], zoom:17 } );
+      Gis.map = L.map('MAP', { center:[39.761987,-104.980527],zoom:17 } );
 
       // Add Google Map base layers with the L.Google plugin
       Gis.baseLayers = {};
@@ -40,35 +40,21 @@
 
 
       // Add a markers at locations, attach some popup content to it and open the popup
-      //Gis.markers = [
-      //  L.marker([39.761987,-104.980527]).bindPopup('<div style="font-size:14pt;">DenverJS at</div> <img src="images/code.jpg"/>'),
-      //  L.marker([39.761063,-104.981521]).bindPopup('<div style="font-size:14pt;">Crema</div>'),
-      //  L.marker([39.759381,-104.985738]).bindPopup('<div style="font-size:14pt;">Casselman\'s</div>') ];
+      Gis.markers = [
+        L.marker([39.761987,-104.980527]).bindPopup('<div style="font-size:14pt;">DenverJS at</div> <img src="images/code.jpg"/>'),
+        L.marker([39.761063,-104.981521]).bindPopup('<div style="font-size:14pt;">Crema</div>'),
+        L.marker([39.759381,-104.985738]).bindPopup('<div style="font-size:14pt;">Casselman\'s</div>') ];
 
       // Create marker and polygon overlay layers
       Gis.overLayers = {};
-      Gis.overLayers['Markers']  = new L.GeoJSON(); // L.LayerGroup( Gis.markers );
+      Gis.overLayers['Markers']  = new L.LayerGroup( Gis.markers );
       Gis.overLayers['Polygons'] = new L.GeoJSON();
       Gis.map.addLayer( Gis.overLayers['Markers']  ); // Turn on the markers  overlay layer in the map
       Gis.map.addLayer( Gis.overLayers['Polygons'] ); // Turn on an  polygons overlay layer in the map
 
       // Read in the GeoJSON Polygon layer in 'upperLarimerGeo.json'
-      Gis.style = { color:'green', weight:3, opacity:1, fill:'transparent', fillOpacity:0.10 };
-      Gis.url   = 'json/mileposts.json';
-      /*
-      $.ajax( {
-        url:Gis.url, type:'GET', dataType:'json',
-        success:function( json  ) {
-          L.setOptions( Gis.overLayers['Markers'], { style:Gis.style, onEachFeature:Gis.onFeatureLayer } ); // setOptions before addData
-          Gis.overLayers['Markers'].addData( json ); },  // Gis.onFeatureLayer call for eacj GeoJSON feature
-        error:function( ) {
-          console.log('Gis.readGeoJSON() Error ' + Gis.url); } });
-      */
-
-
-      // Read in the GeoJSON Polygon layer in 'upperLarimerGeo.json'
       Gis.style = { color:'blue', weight:3, opacity:1, fill:'transparent', fillOpacity:0.10 };
-      Gis.url   = 'json/routes.json';
+      Gis.url   = 'json/upperLarimerGeo.json';
       $.ajax( {
         url:Gis.url, type:'GET', dataType:'json',
         success:function( json /*textStatus, jqXHR*/ ) {

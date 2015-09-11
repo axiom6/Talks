@@ -10,16 +10,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <link href="../../lib/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
-  <link href="../../lib/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
-  <link href="../../lib/css/talk.css"                                       rel="stylesheet">
-
-  <script src="../../lib/bower_components/jquery/dist/jquery.js"></script>
-  <script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
-  <script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
+  
+  <link href="../../sym/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/reveal.css"          rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/lib/css/zenburn.css"     rel="stylesheet">
+  <link href="../../sym/bower_components/reveal.js/css/theme/night.css"     rel="stylesheet" id="theme">
+  <link href="../../lib/css/slides/talk.css"                                    rel="stylesheet">
+  
+  <script src="../../sym/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../sym/bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="../../sym/bower_components/reveal.js/js/reveal.js"></script>
+  <script src="../../sym/ui/js/util/Util.js"></script>
   <script src="../../lib/js/RevealInit.js"></script>
 
 </head>
@@ -33,12 +34,12 @@
 
     <section id="BeginSpark">
       <h1 style="font-size:1.5em;">A Data Science Methodology With Spark</h1>
-      <img src="../img/spark/Spark.png" class="rx-img">
+      <img src="../../img/spark/Spark.png" class="rx-img">
       <div><a  style="font-size:1.0em;" href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></div>
     </section>
 
     <section id="Acquire" class="rx-slide-full">
-      <img src="../img/muse/Collaborate.png" class="rx-img-cel">
+      <img src="../../img/muse/Collaborate.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Acquire</h2>
         <ul>
@@ -66,7 +67,7 @@
 
     <section id="Refine">
       <h2>Refine</h2>
-      <img src="../img/spark/Spark.png" class="rx-img">
+      <img src="../../img/spark/Spark.png" class="rx-img">
       <div><a  style="font-size:1.0em;" href="http://twitter.com/TheTomFlaherty">@TheTomFlaherty</a></div>
     </section>
 
@@ -141,7 +142,7 @@
     </section>
 
     <section id="Explore" class="rx-slide-full">
-      <img src="../img/muse/Expertise.png" class="rx-img-cel">
+      <img src="../../img/muse/Expertise.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Explore</h2>
         <ul>
@@ -154,7 +155,7 @@
 
     <section style="background-color:rgb(49,28,39); font-size:24px;" id="Visualize">
       <h2>Visualize</h2>
-      <img src="../img/streaming/SparkStreaming.png" style="background-color:white;">
+      <img src="../../img/streaming/SparkStreaming.png" style="background-color:white;">
       <ul>
         <li>Spark Streaming is an extension of the core Spark API that enables:</li>
         <li>scalable, high-throughput, fault-tolerant stream processing of live data streams</li>
@@ -163,7 +164,7 @@
 
     <section style="background-color:rgb(49,28,39); font-size:24px;" id="Search">
       <h2>Search</h2>
-      <img src="../img/streaming/streaming-flow.png" style="background-color:white;">
+      <img src="../../img/streaming/streaming-flow.png" style="background-color:white;">
       <ul>
         <li>Internally, it works as follows.</li>
         <li>Spark Streaming receives live input data streams and divides the data into batches</li>
@@ -175,7 +176,7 @@
     <section id="Business_Intelligence">
       <h2>Business Intelligence</h2>
       <h4>Traditional View</h4>
-      <img src="../img/spark/spark-stack.png" class="rx-img">
+      <img src="../../img/spark/spark-stack.png" class="rx-img">
       <ul style="text-align:left; font-size:24px; list-style-type: none;">
         <li><span class="width150">Core:      </span>Distributed task dispatching, scheduling, and basic I/O through Akka</li>
         <li><span class="width150">GraphX:    </span>A distributed graph topology for RDDs based on Pregel</li>
@@ -187,11 +188,11 @@
 
     <section  style="margin:0; padding:0; background-color:rgb(49,28,39);" id="Solution_Space">
       <h3>Solution Space</h3>
-      <img src="../img/spark/SparkSlide.png" class="rx-img">
+      <img src="../../img/spark/SparkSlide.png" class="rx-img">
     </section>
 
     <section id="Discover" class="rx-slide-full">
-      <img src="../img/muse/Discover.png" class="rx-img-cel">
+      <img src="../../img/muse/Discover.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Discover</h2>
         <ul>
@@ -224,7 +225,7 @@
           <ul class="icondesc" style="text-align:left; line-height:1.1; font-size:24px; list-style-type: none; color:wheat;">
             <li><span style="font-size:20px">IP[y]</span>   <span class="width150">IPython:    </span>The Data Scientist's favorite notebook with PySpark</li>
             <li><i class="fa fa-bell"></i>                  <span class="width150pad">SparkR:     </span>A light-weight frontend to use Apache Spark from R</li>
-            <li><img  src="../img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
+            <li><img  src="../../img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
           </ul>
         </li>
         <li style="padding-top:12px;"><i class="fa fa-star-o"></i>                <span class="width150pad">Spark Core: </span>Distributed task dispatching, scheduling, and basic I/O
@@ -276,7 +277,7 @@
 
     <section id="Hypothesize">
       <h2>Hypothesize</h2>
-      <img src="../img/streaming/WhyStreaming.png">
+      <img src="../../img/streaming/WhyStreaming.png">
       <ul>
         <li>Scales to hundreds of nodes</li>
         <li>Achieves low latency</li>
@@ -286,7 +287,7 @@
     </section>
 
     <section id="Process" class="rx-slide-full">
-      <img src="../img/muse/Adapt.png" class="rx-img-cel">
+      <img src="../../img/muse/Adapt.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Process</h2>
         <ul>
@@ -353,7 +354,7 @@
           </ul>
         </div>
         <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
-          <img src="../img/streaming/FaultNodes.png">
+          <img src="../../img/streaming/FaultNodes.png">
         </div>
       </div>
     </section>
@@ -375,7 +376,7 @@
          </ul>
        </div>
        <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
-         <img src="../img/streaming/Streaming.png">
+         <img src="../../img/streaming/Streaming.png">
        </div>
      </div>
    </section>
@@ -402,7 +403,7 @@
           <ul class="icondesc" style="text-align:left; line-height:1.1; font-size:24px; list-style-type: none; color:wheat;">
             <li><span style="font-size:20px">IP[y]</span>   <span class="width150">IPython:    </span>The Data Scientist's favorite notebook with PySpark</li>
             <li><i class="fa fa-bell"></i>                  <span class="width150pad">SparkR:     </span>A light-weight frontend to use Apache Spark from R</li>
-            <li><img  src="../img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
+            <li><img  src="../../img/spark/zeppelin.png" width="22" height="22" class="rx-img"> <span class="width150pad">Zeppelin:</span>A web-based notebook that enables interactive data analytics</li>
           </ul>
         </li>
         <li style="padding-top:12px;"><i class="fa fa-star-o"></i>                <span class="width150pad">Spark Core: </span>Distributed task dispatching, scheduling, and basic I/O
@@ -467,7 +468,7 @@
   </section>
 
   <section id="Benefit" class="rx-slide-full">
-    <img src="../img/muse/Benefit.png" class="rx-img-cel">
+    <img src="../../img/muse/Benefit.png" class="rx-img-cel">
     <div class="rx-box-out">
       <h2>Benefit</h2>
       <ul>
@@ -490,7 +491,7 @@
       //  getTags( status ) is the function that is applied vie flatMap(...)
       //  flatMap(...) will also flatten any tree structures into sequences
     </code></pre>
-    <img src="../img/streaming/HashTag2.png">
+    <img src="../../img/streaming/HashTag2.png">
   </section>
 
     <section style="background-color:rgb(49,28,39);" id="Confirm">
@@ -502,7 +503,7 @@
         val hashTags = tweets.flatMap( status => getTags( status )
         hashTags.saveAsHadoopFiles( "hdfs://..." )
       </code></pre>
-      <img src="../img/streaming/HadoopSave.png">
+      <img src="../../img/streaming/HadoopSave.png">
     </section>
 
     <section style="background-color:rgb(49,28,39);" id="Publish">
@@ -518,7 +519,7 @@
         val hashTags = tweets.flatMap( status => getTags( status )
         hashTags.foreachRDD( hasTagRDD => { ... } )
       </code></pre>
-      <img src="../img/streaming/DoWhatEver.png">
+      <img src="../../img/streaming/DoWhatEver.png">
     </section>
 
 
@@ -532,12 +533,12 @@
         //                         ^       ^             ^
         // (sliding window operation) (window length) (sliding interval)
       </code></pre>
-      <img src="../img/streaming/SlidingWindow.png">
+      <img src="../../img/streaming/SlidingWindow.png">
     </section>
 
 
     <section id="Change" class="rx-slide-full">
-      <img src="../img/muse/Change.png" class="rx-img-cel">
+      <img src="../../img/muse/Change.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Change</h2>
         <ul>
@@ -614,7 +615,7 @@
    </section>
 
     <section id="Cloud" class="rx-slide-full">
-      <img src="../img/muse/Facilitate.png" class="rx-img-cel">
+      <img src="../../img/muse/Facilitate.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Cloud</h2>
         <ul>
@@ -681,7 +682,7 @@
     </section>
 
     <section id="Decision" class="rx-slide-full">
-      <img src="../img/muse/Govern.png" class="rx-img-cel">
+      <img src="../../img/muse/Govern.png" class="rx-img-cel">
       <div class="rx-box-out">
         <h2>Decision</h2>
         <ul>

@@ -10,9 +10,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="../../bower_components/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../../sym/bower_components/reveal.js/css/reveal.css">
   <link rel="stylesheet" href="axiom.css" id="theme">
-  <link rel="stylesheet" href="../../bower_components/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="../../sym/bower_components/reveal.js/lib/css/zenburn.css">
   <style>
     .center-cell { text-align:center!important; vertical-align:middle!important; }
     .space-cell  { width:1em; }
@@ -32,8 +32,9 @@
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../bower_components/reveal.js/css/print/pdf.css'
-      : '../../bower_components/reveal.js/css/print/paper.css';
+    link.href = window.location.search.match( /print-pdf/gi )
+      ? '../../sym/bower_components/reveal.js/css/print/pdf.css'
+      : '../../sym/bower_components/reveal.js/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
 
@@ -257,8 +258,8 @@
 </div>
 
 <!-- Reveal.js Slide Deck Scripts -->
-<script src="../../bower_components/reveal.js/lib/js/head.min.js"></script>
-<script src="../../bower_components/reveal.js/js/reveal.js"></script>
+<script src="../../sym/bower_components/reveal.js/lib/js/head.min.js"></script>
+<script src="../../sym/bower_components/reveal.js/js/reveal.js"></script>
 
 <script>
 
@@ -268,13 +269,13 @@
     theme:      Reveal.getQueryHash().theme,                   // available themes are in /css/theme
     transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
     dependencies: [                                            // Optional libraries used to extend on reveal.js
-      { src: '../../bower_components/reveal.js/lib/js/classList.js',          condition: function() { return !document.body.classList; } },
-      { src: '../../bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
-   // { src: '../../bower_components/reveal.js/plugin/remotes/remotes.js',    condition: function() { return !!document.body.classList; }, async: true }
+      { src: '../../sym/bower_components/reveal.js/lib/js/classList.js',          condition: function() { return !document.body.classList; } },
+      { src: '../../sym/bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../sym/bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../sym/bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../sym/bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../sym/bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
+   // { src: '../../sym/bower_components/reveal.js/plugin/remotes/remotes.js',    condition: function() { return !!document.body.classList; }, async: true }
     ]
   });
 

@@ -10,9 +10,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/reveal.css">
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/lib/css/zenburn.css">
-  <link rel="stylesheet" href="../../lib/bower_components/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="../../sym/bower_components/reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../../sym/bower_components/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="../../sym/bower_components/reveal.js/css/theme/night.css" id="theme">
   <style>
     .reveal pre {
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
@@ -27,8 +27,8 @@
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lib/bower_components/reveal.js/css/print/pdf.css'
-      : '../../lib/bower_components/reveal.js/css/print/paper.css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../sym/bower_components/reveal.js/css/print/pdf.css'
+      : '../../sym/bower_components/reveal.js/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
 
@@ -229,8 +229,8 @@ $.ajax( {
 </div>
 
 <!-- Reveal.js Slide Deck Scripts -->
-<script src="../../lib/bower_components/reveal.js/lib/js/head.min.js"></script>
-<script src="../../lib/bower_components/reveal.js/js/reveal.js"></script>
+<script src="../../sym/bower_components/reveal.js/lib/js/head.min.js"></script>
+<script src="../../sym/bower_components/reveal.js/js/reveal.js"></script>
 
 <script>
 
@@ -240,12 +240,12 @@ $.ajax( {
     theme:      Reveal.getQueryHash().theme,                   // available themes are in /css/theme
     transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
     dependencies: [                                            // Optional libraries used to extend on reveal.js
-      { src: '../../lib/bower_components/reveal.js/lib/js/classList.js',          condition: function() { return !document.body.classList; } },
-      { src: '../../lib/bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../lib/bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '../../lib/bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../lib/bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
-      { src: '../../lib/bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
+      { src: '../../sym/bower_components/reveal.js/sym/js/classList.js',          condition: function() { return !document.body.classList; } },
+      { src: '../../sym/bower_components/reveal.js/plugin/markdown/showdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../sym/bower_components/reveal.js/plugin/markdown/markdown.js',  condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../sym/bower_components/reveal.js/plugin/zoom-js/zoom.js',       condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../sym/bower_components/reveal.js/plugin/notes/notes.js',        condition: function() { return !!document.body.classList; }, async: true },
+      { src: '../../sym/bower_components/reveal.js/plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad();    }, async: true }
     ]
   });
 
