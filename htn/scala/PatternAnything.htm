@@ -1,0 +1,17 @@
+<section id="PatternAnything">
+  <div style="color:tan;">Patterns can Match Anything</div>
+<pre class="scala"><code style="font-size:.95em; min-height:24em">
+<span class="hljs-keyword">def</span> matchAny( any:Any ) : String = any <span class="hljs-keyword">match</span>
+{
+  <span class="hljs-keyword">case</span> Add(u,v)   =&gt; u.toString + <span class="hljs-string">&quot; + &quot;</span> + v.toString <span class="hljs-comment">// Case class</span>
+  <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>                  =&gt; &#x201C;one&#x201D;                   <span class="hljs-comment">// Constant</span>
+  <span class="hljs-keyword">case</span> i:Int              =&gt; i.toString              <span class="hljs-comment">// By type</span>
+  <span class="hljs-keyword">case</span> d:Double <span class="hljs-keyword">if</span> d&gt;<span class="hljs-number">12.0</span> =&gt; d.toString              <span class="hljs-comment">// With  a guard</span>
+  <span class="hljs-keyword">case</span> (i:Int,j:Int)      =&gt; (i+j).toString          <span class="hljs-comment">// A tuple of 2 ints</span>
+  <span class="hljs-keyword">case</span> (x,y)              =&gt; x.toString + y.toString <span class="hljs-comment">// A tuple of 2 anys</span>
+  <span class="hljs-keyword">case</span> &lt;tag&gt;{ t }&lt;/tag&gt;   =&gt; t.toString              <span class="hljs-comment">// scala.xml.Node</span>
+  <span class="hljs-keyword">case</span> head :: tail       =&gt; head.toString           <span class="hljs-comment">// any is a List</span>
+  <span class="hljs-keyword">case</span> _                  =&gt; &#x201C;no <span class="hljs-keyword">match</span>&#x201D;
+}
+</code></pre>
+</section>

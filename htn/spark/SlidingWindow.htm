@@ -1,0 +1,11 @@
+<section style="background-color:rgb(49,28,39);" id="SlidingWindow">
+      <h4>Illustrated Example 5 - Sliding Window</h4>
+      <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+        <span class="hljs-keyword">val</span> tweets    = TwitterUtils.createStream( ssc, None )
+        <span class="hljs-keyword">val</span> hashTags  = tweets.flatMap( status =&gt; getTags( status )
+        <span class="hljs-keyword">val</span> tagCounts = hasTags.window( Minutes(<span class="hljs-number">1</span>), Seconds(<span class="hljs-number">5</span>) ).countByValue()
+        <span class="hljs-comment">//                         ^       ^             ^</span>
+        <span class="hljs-comment">// (sliding window operation) (window length) (sliding interval)</span>
+      </code></pre>
+      <img src="../../img/streaming/SlidingWindow.png">
+    </section>

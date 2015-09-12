@@ -1,0 +1,15 @@
+<section style="background-color:rgb(49,28,39);" id="Publish">
+      <h2>Publish</h2>
+      <h4>Illustrated Example 4 - Do Whatever with foreach(...)</h4>
+      <ul>
+        <li>Do whatever you want with the processed data:</li>
+        <li>Write to a database, update analytics, UI etc...</li>
+      </ul>
+      <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+        <span class="hljs-keyword">val</span> scc      = <span class="hljs-keyword">new</span> StreamingContext( sparkContext, Seconds(<span class="hljs-number">1</span>) )
+        <span class="hljs-keyword">val</span> tweets   = TwitterUtils.createStream( ssc, None )
+        <span class="hljs-keyword">val</span> hashTags = tweets.flatMap( status =&gt; getTags( status )
+        hashTags.foreachRDD( hasTagRDD =&gt; { ... } )
+      </code></pre>
+      <img src="../../img/streaming/DoWhatEver.png">
+    </section>

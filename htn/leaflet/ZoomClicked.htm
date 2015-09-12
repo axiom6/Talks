@@ -1,0 +1,11 @@
+<section id="ZoomClicked">
+    <h3>Performing Map Zoom when Layer clicked</h3>
+    <pre class="javascript" style="font-size:.75em;"><code>
+ <span class="hljs-comment">// Zoom map to layer bounds and pan to the layer&apos;s center</span>
+  Gis.zoomFeatureLayer = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( e, feature, layer )</span> {</span>
+    <span class="hljs-keyword">var</span> bounds = layer.getBounds();
+    Gis.map.fitBounds( bounds );
+    Gis.map.panTo( bounds.getCenter() );
+  };
+    </code></pre>
+</section>

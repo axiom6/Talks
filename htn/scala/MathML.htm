@@ -1,0 +1,136 @@
+<section id="MathML">
+  <div style="color:tan;">MathML</div>
+<pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">MathML</span></span>
+{
+  self:Exp =&gt;
+
+  <span class="hljs-keyword">def</span> mathML( t:Text ) { mathML(t,<span class="hljs-keyword">this</span>) }
+
+  <span class="hljs-keyword">def</span> mathML( t:Text, exp:Exp )
+  {
+    exp <span class="hljs-keyword">match</span>
+    {
+      <span class="hljs-keyword">case</span> Num(n)    =&gt; mathML( t, <span class="hljs-string">&quot;mn&quot;</span>, n.toString )
+      <span class="hljs-keyword">case</span> Dbl(d)    =&gt; mathML( t, <span class="hljs-string">&quot;mn&quot;</span>, d.toString )
+      <span class="hljs-keyword">case</span> Rat(n,d)  =&gt; mathML( t, <span class="hljs-string">&quot;mfrac&quot;</span>, Num(n), Num(d) )
+      <span class="hljs-keyword">case</span> Var(s)    =&gt; mathML( t, <span class="hljs-string">&quot;mi&quot;</span>, s ) <span class="hljs-comment">// Syms.entity(t,s)</span>
+      <span class="hljs-keyword">case</span> Add(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;mrow&quot;</span>,   u, <span class="hljs-string">&quot;+&quot;</span>, v )
+      <span class="hljs-keyword">case</span> Sub(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;mrow&quot;</span>,   u, <span class="hljs-string">&quot;-&quot;</span>, v )
+      <span class="hljs-keyword">case</span> Mul(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;mrow&quot;</span>,   u, <span class="hljs-string">&quot;*&quot;</span>, v )
+      <span class="hljs-keyword">case</span> Div(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;mfrac&quot;</span>,  u, v )
+      <span class="hljs-keyword">case</span> Rec(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mfrac&quot;</span>, Num(<span class="hljs-number">1</span>), u )
+      <span class="hljs-keyword">case</span> Pow(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;msup&quot;</span>,   u, v )
+      <span class="hljs-keyword">case</span> Neg(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mo&quot;</span>, <span class="hljs-string">&quot;-&quot;</span> ); u.mathML(t)
+      <span class="hljs-keyword">case</span> Abs(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mo&quot;</span>, <span class="hljs-string">&quot;|&quot;</span> ); u.mathML(t)
+      <span class="hljs-keyword">case</span> Par(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mfence&quot;</span>, u )
+      <span class="hljs-keyword">case</span> Brc(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mfence&quot;</span>, u )
+      <span class="hljs-keyword">case</span> Lnn(u)    =&gt; funcML( t, <span class="hljs-string">&quot;ln&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Log(u,b)  =&gt; mathML( t, <span class="hljs-string">&quot;msub&quot;</span>,  u, b )
+      <span class="hljs-keyword">case</span> Roo(u,r)  =&gt; mathML( t, <span class="hljs-string">&quot;mroot&quot;</span>, u, r )
+      <span class="hljs-keyword">case</span> Eee(u)    =&gt; mathML( t, <span class="hljs-string">&quot;msup&quot;</span>, Var(<span class="hljs-string">&quot;e&quot;</span>), u )
+      <span class="hljs-keyword">case</span> Sqt(u)    =&gt; mathML( t, <span class="hljs-string">&quot;msqrt&quot;</span>, u )
+      <span class="hljs-keyword">case</span> Sin(u)    =&gt; funcML( t, <span class="hljs-string">&quot;sin&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Cos(u)    =&gt; funcML( t, <span class="hljs-string">&quot;cos&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Tan(u)    =&gt; funcML( t, <span class="hljs-string">&quot;tan&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Csc(u)    =&gt; funcML( t, <span class="hljs-string">&quot;csc&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Sec(u)    =&gt; funcML( t, <span class="hljs-string">&quot;sec&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Cot(u)    =&gt; funcML( t, <span class="hljs-string">&quot;cot&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> ASin(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arcsin&quot;</span>, u )
+      <span class="hljs-keyword">case</span> ACos(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arccos&quot;</span>, u )
+      <span class="hljs-keyword">case</span> ATan(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arctan&quot;</span>, u )
+      <span class="hljs-keyword">case</span> ACsc(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arccsc&quot;</span>, u )
+      <span class="hljs-keyword">case</span> ASec(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arcsec&quot;</span>, u )
+      <span class="hljs-keyword">case</span> ACot(u)   =&gt; funcML( t, <span class="hljs-string">&quot;arcot&quot;</span>,  u )
+      <span class="hljs-keyword">case</span> Equ(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;mrow&quot;</span>,   u, <span class="hljs-string">&quot;=&quot;</span>, v )
+      <span class="hljs-keyword">case</span> Dif(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mi&quot;</span>, <span class="hljs-string">&quot;d&quot;</span> ); u.mathML(t)
+      <span class="hljs-keyword">case</span> Sus(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;msub&quot;</span>,    u, v )
+      <span class="hljs-keyword">case</span> Sup(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;msup&quot;</span>,    u, v )
+      <span class="hljs-keyword">case</span> Lim(u,v)  =&gt; mathML( t, <span class="hljs-string">&quot;msupsup&quot;</span>, u, v ) <span class="hljs-comment">// Check</span>
+      <span class="hljs-keyword">case</span> Itg(u)    =&gt; mathML( t, <span class="hljs-string">&quot;mo&quot;</span>, <span class="hljs-string">&quot;&#x222B;&quot;</span> ); u.mathML(t)     <span class="hljs-comment">// &#x222C;</span>
+      <span class="hljs-keyword">case</span> Itl(a,b,u)=&gt; operML( t, <span class="hljs-string">&quot;msubsup&quot;</span>,    <span class="hljs-string">&quot;&#x222B;&quot;</span>, a, b, u ) <span class="hljs-comment">// &#x222C;</span>
+      <span class="hljs-keyword">case</span> Sum(a,b,u)=&gt; operML( t, <span class="hljs-string">&quot;munderover&quot;</span>, <span class="hljs-string">&quot;&#x2211;&quot;</span>, a, b, u ) <span class="hljs-comment">// &#x2211;</span>
+      <span class="hljs-keyword">case</span> Cex(r,i)  =&gt; mathMLCex(t,r,i)
+      <span class="hljs-keyword">case</span> Vex(a)    =&gt; mathMLVex(t,a)
+      <span class="hljs-keyword">case</span> Mex(m)    =&gt; mathMLMex(t,m)
+      <span class="hljs-keyword">case</span> Msg(txt:Text) =&gt; t.app(txt)
+    }
+  }
+
+  <span class="hljs-keyword">def</span> mathML( t:Text, tag:String, s:String )
+    { t.app( <span class="hljs-string">&apos;&lt;&apos;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span>, s, <span class="hljs-string">&quot;&lt;/&quot;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> ) }
+
+  <span class="hljs-keyword">def</span> mathML( t:Text, tag:String, u:Exp )
+    { t.app( <span class="hljs-string">&apos;&lt;&apos;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> ); u.mathML(t); t.app( <span class="hljs-string">&quot;&lt;/&quot;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> ) }
+
+  <span class="hljs-keyword">def</span> funcML( t:Text, func:String, u:Exp )
+  {
+    t.app( <span class="hljs-string">&apos;&lt;&apos;</span>,  <span class="hljs-string">&quot;mrow&quot;</span>, <span class="hljs-string">&apos;&gt;&apos;</span> )
+    mathML( t, <span class="hljs-string">&quot;mi&quot;</span>, func )
+    mathML( t, <span class="hljs-string">&quot;mfence&quot;</span>, u )
+    t.app( <span class="hljs-string">&quot;&lt;/&quot;</span>, <span class="hljs-string">&quot;mrow&quot;</span>, <span class="hljs-string">&apos;&gt;&apos;</span> )
+  }
+
+  <span class="hljs-keyword">def</span> mathML( t:Text, tag:String, u:Exp, v:Exp )
+  {
+    t.app( <span class="hljs-string">&apos;&lt;&apos;</span>,  tag,  <span class="hljs-string">&apos;&gt;&apos;</span> )
+    u.mathML(t)
+    v.mathML(t)
+    t.app( <span class="hljs-string">&quot;&lt;/&quot;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> )
+  }
+
+  <span class="hljs-keyword">def</span> mathML( t:Text, tag:String, u:Exp, op:String, v:Exp )
+  {
+    t.app( <span class="hljs-string">&apos;&lt;&apos;</span>,  tag,  <span class="hljs-string">&apos;&gt;&apos;</span> )
+    u.mathML(t)
+    mathML( t, <span class="hljs-string">&quot;mo&quot;</span>, op )
+    v.mathML(t)
+    t.app( <span class="hljs-string">&quot;&lt;/&quot;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> )
+  }
+
+  <span class="hljs-keyword">def</span> operML( t:Text, tag:String, op:String, a:Exp, b:Exp, u:Exp )
+  {
+    t.app( <span class="hljs-string">&apos;&lt;&apos;</span>,  tag,  <span class="hljs-string">&apos;&gt;&apos;</span> )
+    mathML( t, <span class="hljs-string">&quot;mo&quot;</span>, op )
+    a.mathML(t)
+    b.mathML(t)
+    t.app( <span class="hljs-string">&quot;&lt;/&quot;</span>, tag, <span class="hljs-string">&apos;&gt;&apos;</span> )
+    u.mathML(t)
+  }
+
+<span class="hljs-keyword">def</span> mathMLCex( t:Text, r:Exp, i:Exp )
+  { r.mathML(t); i.mathML(t); t.app(<span class="hljs-string">&quot;&lt;mi&gt;i&lt;/mi&gt;&quot;</span>) }
+
+  <span class="hljs-keyword">def</span> mathMLVex( t:Text, a:Array[Exp] )
+  {
+      t.app( <span class="hljs-string">&quot;&lt;mfenced open=&apos;[&apos; close=&apos;]&apos;&gt;&quot;</span> )
+      <span class="hljs-keyword">for</span>( i &lt;- <span class="hljs-number">0</span> until a.length )
+        a(i).mathML(t)            <span class="hljs-comment">// MathML takes care of commas</span>
+      t.app( <span class="hljs-string">&quot;&lt;/mfenced&gt;&quot;</span> )
+  }
+
+  <span class="hljs-keyword">def</span> mathMLMex( t:Text, mat:Array[Vex] )
+  {
+    t.app( <span class="hljs-string">&quot;&lt;mfenced open=&apos;[&apos; close=&apos;]&apos;&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;mtable&gt;&quot;</span> )
+    <span class="hljs-keyword">for</span>( i &lt;- <span class="hljs-number">0</span> until mat.length )
+    {
+      t.app( <span class="hljs-string">&quot;&lt;mtr&gt;&quot;</span> )
+      <span class="hljs-keyword">for</span>( j &lt;- <span class="hljs-number">0</span> until mat(i).n )
+        { t.app(<span class="hljs-string">&quot;&lt;mtd&gt;&quot;</span>); mat(i)(j).mathML(t); t.app(<span class="hljs-string">&quot;&lt;/mtd&gt;&quot;</span>) }
+      t.app( <span class="hljs-string">&quot;&lt;/mtr&gt;&quot;</span> )
+    }
+    t.app( <span class="hljs-string">&quot;&lt;/mtable&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;/mfenced&gt;&quot;</span> )
+  }
+
+  <span class="hljs-keyword">def</span> headML( t:Text )
+  {
+    t.app( <span class="hljs-string">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; standalone=\&quot;yes\&quot;?&gt;&quot;</span>, Text.eol )
+    t.app( <span class="hljs-string">&quot;&lt;?xml-stylesheet type=\&quot;text/css\&quot; href=\&quot;MathML.css\&quot; ?&gt;&quot;</span>, Text.eol )
+    t.app( <span class="hljs-string">&quot;&lt;root xmlns=\&quot;http://www.w3.org/1998/Math/MathML\&quot;&gt;&quot;</span>, Text.eol )
+  }
+
+  <span class="hljs-keyword">def</span> begML(  t:Text ) { t.app(<span class="hljs-string">&quot;&lt;math&gt;&quot;</span>) }
+  <span class="hljs-keyword">def</span> endML(  t:Text ) { t.app(<span class="hljs-string">&quot;&lt;/math&gt;&quot;</span>, Text.eol ) }
+  <span class="hljs-keyword">def</span> footML( t:Text ) { t.app(<span class="hljs-string">&quot;&lt;/root&gt;&quot;</span>, Text.eol ) }
+}
+</code></pre>
+</section>

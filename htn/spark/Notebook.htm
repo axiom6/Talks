@@ -1,0 +1,24 @@
+<section style="background-color:rgb(49,28,39);" id="Notebook">
+      <h3>Notebook</h3>
+      <ul>
+        <li>Scala
+          <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+            <span class="hljs-keyword">val</span> tweets   = TwitterUtils.createStream( ssc, None )
+            <span class="hljs-keyword">val</span> hashTags = tweets.flatMap( status =&gt; getTags( status )
+            hashTags.foreachRDD( hasTagRDD =&gt; { ... } )
+          </code></pre>
+        </li>
+        <li>Java
+          <pre class="java"><code class="java" style="font-size:1.0em; margin:0;">
+            JavaDStream&lt;Status&gt;tweets   = ssc.twitterStream()
+            JavaDstream&lt;String&gt;hashTags = tweets.flatMap(<span class="hljs-keyword">new</span> Function&lt;...&gt; { ... } )
+            hashTags.saveAsHadoopFiles(<span class="hljs-string">&quot;hdfs://...&quot;</span>)
+          </code></pre>
+        </li>
+        <li>Python
+          <pre class="python"><code class="python" style="font-size:1.0em; margin:0;">
+            ... soon
+          </code></pre>
+        </li>
+      </ul>
+    </section>

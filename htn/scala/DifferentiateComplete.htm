@@ -1,0 +1,69 @@
+<section id="DifferentiateComplete">
+  <div style="color:tan;">A Complete Differentiate</div>
+<pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Differentiate</span></span>
+{
+  self:Exp =&gt;
+
+  <span class="hljs-keyword">def</span> dif : Exp = d(<span class="hljs-keyword">this</span>)  <span class="hljs-comment">// this.dif</span>
+
+  <span class="hljs-keyword">def</span> d( exp:Exp ) : Exp = exp <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Num(n)    =&gt; <span class="hljs-number">0</span>
+    <span class="hljs-keyword">case</span> Dbl(r)    =&gt; <span class="hljs-number">0</span>
+    <span class="hljs-keyword">case</span> Rat(n,d)  =&gt; <span class="hljs-number">0</span>
+    <span class="hljs-keyword">case</span> Var(s)    =&gt; Dif(Var(s))
+    <span class="hljs-keyword">case</span> Add(u,v)  =&gt; d(u) + d(v)
+    <span class="hljs-keyword">case</span> Sub(u,v)  =&gt; d(u) - d(v)
+    <span class="hljs-keyword">case</span> Mul(u,v)  =&gt;  v*d(u)+u*d(v)
+    <span class="hljs-keyword">case</span> Div(u,v)  =&gt; (v*d(u)-u*d(v)) / v~^<span class="hljs-number">2</span>
+    <span class="hljs-keyword">case</span> Rec(u)    =&gt; -d(u) / u~^<span class="hljs-number">2</span>
+    <span class="hljs-keyword">case</span> Pow(u,v)  =&gt; dpow(u,v)
+    <span class="hljs-keyword">case</span> Neg(u)    =&gt; -d(u)
+    <span class="hljs-keyword">case</span> Abs(u)    =&gt; Abs(d(u))
+    <span class="hljs-keyword">case</span> Par(u)    =&gt; Par(d(u))
+    <span class="hljs-keyword">case</span> Brc(u)    =&gt; Brc(d(u))
+    <span class="hljs-keyword">case</span> Lnn(u)    =&gt; d(u)/u
+    <span class="hljs-keyword">case</span> Log(u,r)  =&gt; Log(Ee,r)*d(u)/u
+    <span class="hljs-keyword">case</span> Roo(u,r)  =&gt; d(u) / Par( r * Roo(u,r) )
+    <span class="hljs-keyword">case</span> Eee(u)    =&gt; Eee(u) * d(u)
+    <span class="hljs-keyword">case</span> Sqt(u)    =&gt; d(u) / Par( Sqt(u) * <span class="hljs-number">2</span> )
+    <span class="hljs-keyword">case</span> Sin(u)    =&gt;   Cos(u) * d(u)
+    <span class="hljs-keyword">case</span> Cos(u)    =&gt; -(Sin(u) * d(u))
+    <span class="hljs-keyword">case</span> Tan(u)    =&gt; -(Sec(u)~^<span class="hljs-number">2</span>  * d(u))
+    <span class="hljs-keyword">case</span> Csc(u)    =&gt; -(Csc(u)*Cot(u) * d(u))
+    <span class="hljs-keyword">case</span> Sec(u)    =&gt;   Sec(u)*Tan(u) * d(u)
+    <span class="hljs-keyword">case</span> Cot(u)    =&gt; -(Csc(u)~^<span class="hljs-number">2</span>  * d(u))
+    <span class="hljs-keyword">case</span> ASin(u)   =&gt;   d(u)/Sqt( <span class="hljs-number">1</span> - u~^<span class="hljs-number">2</span> )
+    <span class="hljs-keyword">case</span> ACos(u)   =&gt; -(d(u)/Sqt( <span class="hljs-number">1</span> - u~^<span class="hljs-number">2</span> ))
+    <span class="hljs-keyword">case</span> ATan(u)   =&gt;   d(u)/Par( <span class="hljs-number">1</span> + u~^<span class="hljs-number">2</span> )
+    <span class="hljs-keyword">case</span> ACot(u)   =&gt; -(d(u)/Par( <span class="hljs-number">1</span> + u~^<span class="hljs-number">2</span> ))
+    <span class="hljs-keyword">case</span> ACsc(u)   =&gt; -(d(u)/Par(u*Sqt( u~^<span class="hljs-number">2</span> - <span class="hljs-number">1</span>)))
+    <span class="hljs-keyword">case</span> ASec(u)   =&gt;   d(u)/Par(u*Sqt( u~^<span class="hljs-number">2</span> - <span class="hljs-number">1</span>))
+    <span class="hljs-keyword">case</span> Equ(u,v)  =&gt; d(u) equ d(v)
+    <span class="hljs-keyword">case</span> Dif(u)    =&gt; Dif(Dif(u))
+    <span class="hljs-keyword">case</span> Itg(u)    =&gt; u
+    <span class="hljs-keyword">case</span> Itl(q,b,u)=&gt; Itl(q,b,d(u))
+    <span class="hljs-keyword">case</span> Sum(q,b,u)=&gt; Sum(q,b,d(u))
+    <span class="hljs-keyword">case</span> Cex(r,i)  =&gt; Cex( r.dif, i.dif )
+    <span class="hljs-keyword">case</span> Vex(a)    =&gt; Vex(exp).map( a =&gt; a.dif )
+    <span class="hljs-keyword">case</span> Mex(m)    =&gt; Mex(exp).map( m =&gt; m.dif )
+    <span class="hljs-keyword">case</span> Msg(txt)  =&gt; Dif(Msg(txt))
+ <span class="hljs-comment">// case Sus(u,v)  =&gt; Dif(Sub(u,v))</span>
+ <span class="hljs-comment">// case Sup(u,v)  =&gt; Dif(Sup(u,v))</span>
+ <span class="hljs-comment">// case Lim(u,v)  =&gt; Dif(Lim(u,v))</span>
+  }
+
+  <span class="hljs-keyword">def</span> dpow( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> ( u1, Num(<span class="hljs-number">0</span>) ) =&gt; <span class="hljs-number">0</span>
+    <span class="hljs-keyword">case</span> ( u1, Num(<span class="hljs-number">1</span>) ) =&gt; d(u1)
+    <span class="hljs-keyword">case</span> ( u1, Num(<span class="hljs-number">2</span>) ) =&gt; <span class="hljs-number">2</span> * u1 * d(u)
+    <span class="hljs-keyword">case</span> ( u1, Num(n) ) =&gt; n * u1~^(n-<span class="hljs-number">1</span>) * d(u1)
+    <span class="hljs-keyword">case</span> ( u1, Dbl(r) ) =&gt; r *  <span class="hljs-number">1</span>~^(r-<span class="hljs-number">1</span>) * d(u1)
+    <span class="hljs-keyword">case</span> ( Num(n), v1 ) =&gt; ln(n) * n~^v1 * d(v1)
+    <span class="hljs-keyword">case</span> ( Dbl(r), v1 ) =&gt; ln(r) * r~^v1 * d(v1)
+    <span class="hljs-keyword">case</span> _              =&gt; v * u~^(v-<span class="hljs-number">1</span>)  * d(u) + Lnn(u) * u~^v * d(v)
+  }
+}
+</code></pre>
+</section>

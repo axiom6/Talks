@@ -1,0 +1,29 @@
+<section id="JSON Parser">
+  <!--div style="color:tan;">JSON Parser</div-->
+<table>
+<tr><td><pre class="scala"><code style="font-size:.9em; min-height:11em">start = obj | array
+obj   = <span class="hljs-string">&quot;{&quot;</span> pair  (<span class="hljs-string">&quot;,&quot;</span> pair )* <span class="hljs-string">&quot;}&quot;</span>
+array = <span class="hljs-string">&quot;[&quot;</span> value (<span class="hljs-string">&quot;,&quot;</span> value)* <span class="hljs-string">&quot;]&quot;</span>
+pair  = str <span class="hljs-string">&quot;:&quot;</span> value <span class="hljs-comment">// Name value</span>
+str   = StringLit
+num   = NumericLit
+value = obj|array|str|num|
+        <span class="hljs-string">&quot;true&quot;</span>|<span class="hljs-string">&quot;false&quot;</span>|<span class="hljs-string">&quot;null&quot;</span>
+</code></pre></td>
+<td><pre class="scala"><code style="font-size:.9em; min-height:9em; max-height:11em; line-height:1.1em;">P ~ Q        sequential composition
+~&gt; </code></pre></td></tr>
+</table>
+<pre class="scala" style="margin-top:0;"><code style="font-size:.9em; min-height:16em; line-height:1.1em;"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JSONParser</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StdTokenParsers</span> <span class="hljs-keyword">with</span> <span class="hljs-title">ImplicitConversions</span></span>
+{
+  <span class="hljs-keyword">val</span> lex = <span class="hljs-keyword">new</span> Lexer
+  lex.reserved   ++= List( <span class="hljs-string">&quot;true&quot;</span>, <span class="hljs-string">&quot;false&quot;</span>, <span class="hljs-string">&quot;null&quot;</span> ) <span class="hljs-comment">// Keywords</span>
+  lex.delimiters ++= List( <span class="hljs-string">&quot;{&quot;</span>, <span class="hljs-string">&quot;}&quot;</span>, <span class="hljs-string">&quot;[&quot;</span>, <span class="hljs-string">&quot;]&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>, <span class="hljs-string">&quot;,&quot;</span> )
+  <span class="hljs-keyword">def</span> start = obj | array
+  <span class="hljs-keyword">def</span> obj   = <span class="hljs-string">&quot;{&quot;</span> ~&gt; repsep( pair,  <span class="hljs-string">&quot;,&quot;</span> )  repsep( value, <span class="hljs-string">&quot;,&quot;</span> )  value) ^^ { <span class="hljs-keyword">case</span> s ~ v =&gt; (s,v) }
+  <span class="hljs-keyword">def</span> str   = accept(<span class="hljs-string">&quot;string&quot;</span>, { <span class="hljs-keyword">case</span> lex.StringLit(s) =&gt; s } )
+  <span class="hljs-keyword">def</span> num   = accept(<span class="hljs-string">&quot;number&quot;</span>, { <span class="hljs-keyword">case</span> lex.NumericLit(n)=&gt; n.toDouble })
+  <span class="hljs-keyword">def</span> value : Parser[Any] = obj | arr | str | num |
+              <span class="hljs-string">&quot;true&quot;</span>^^^<span class="hljs-keyword">true</span> | <span class="hljs-string">&quot;false&quot;</span>^^^<span class="hljs-keyword">false</span> | <span class="hljs-string">&quot;null&quot;</span>^^^<span class="hljs-keyword">null</span>
+}
+</code></pre>
+</section>

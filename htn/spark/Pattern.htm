@@ -1,0 +1,14 @@
+<section style="background-color:rgb(49,28,39);" id="Pattern">
+    <h2>Pattern</h2>
+    <h4>Illustrated Example 2 - Get Hash Tags from Twitter</h4>
+    <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+      <span class="hljs-keyword">val</span> scc      = <span class="hljs-keyword">new</span> StreamingContext( sparkContext, Seconds(<span class="hljs-number">1</span>) )
+      <span class="hljs-keyword">val</span> tweets   = TwitterUtils.createStream( ssc, None )
+      <span class="hljs-keyword">val</span> hashTags = tweets.flatMap( status =&gt; getTags( status )
+      <span class="hljs-comment">//  hashTags are now a transformed DStream</span>
+      <span class="hljs-comment">//  Tranformations modify data in one DStream to create another DSTream</span>
+      <span class="hljs-comment">//  getTags( status ) is the function that is applied vie flatMap(...)</span>
+      <span class="hljs-comment">//  flatMap(...) will also flatten any tree structures into sequences</span>
+    </code></pre>
+    <img src="../../img/streaming/HashTag2.png">
+  </section>

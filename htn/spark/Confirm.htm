@@ -1,0 +1,11 @@
+<section style="background-color:rgb(49,28,39);" id="Confirm">
+      <h2>Confirm</h2>
+      <h4>Illustrated Example 3 - Push Data to External Storage</h4>
+      <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+        <span class="hljs-keyword">val</span> scc      = <span class="hljs-keyword">new</span> StreamingContext( sparkContext, Seconds(<span class="hljs-number">1</span>) )
+        <span class="hljs-keyword">val</span> tweets   = TwitterUtils.createStream( ssc, None )
+        <span class="hljs-keyword">val</span> hashTags = tweets.flatMap( status =&gt; getTags( status )
+        hashTags.saveAsHadoopFiles( <span class="hljs-string">&quot;hdfs://...&quot;</span> )
+      </code></pre>
+      <img src="../../img/streaming/HadoopSave.png">
+    </section>

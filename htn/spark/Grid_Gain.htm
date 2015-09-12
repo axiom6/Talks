@@ -1,0 +1,21 @@
+<section style="background-color:rgb(49,28,39);" id="Grid_Gain">
+     <h3>Grid Gain</h3>
+     <h6 style="font-size:24px;">Runs a streaming computation as a series of very small, deterministic batch jobs</h6>
+     <div style="position:relative;   left:0; top:0; width:100%; height:700px; font-size:24px;">
+       <div style="position:absolute; left:0; top:0; width: 50%; height:100%; ">
+         <ul>
+           <li>Chop up the live stream into batches of X seconds</li>
+           <li>Spark treats each batch of data as RDDs and processes them using RDD operations</li>
+           <li>Finally, the processed results of the RDD operations are returned in batches</li>
+         </ul>
+
+         <ul style="padding-top:36px;">
+           <li>Batch sizes as low as &#xBD; sec, latency of about 1 sec</li>
+           <li>Potential for combining batch processing and streaming processing in the same system</li>
+         </ul>
+       </div>
+       <div style="position:absolute; left:50%; top:0; width:50%;  height:100%; ">
+         <img src="../../img/streaming/Streaming.png">
+       </div>
+     </div>
+   </section>

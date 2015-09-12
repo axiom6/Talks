@@ -1,0 +1,103 @@
+<section id="AsciiMathParse">
+<div style="color:tan;">Ascii Parse 151 Lines</div>
+<pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;">
+<span class="hljs-keyword">package</span> math.parse
+<span class="hljs-keyword">import</span>  math.util.Text
+<span class="hljs-keyword">import</span>  math.exp._
+<span class="hljs-keyword">import</span>  scala.util.parsing.combinator.lexical.StdLexical
+<span class="hljs-keyword">import</span>  scala.util.parsing.combinator.syntactical.StdTokenParsers
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">AsciiParse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StdTokenParsers</span></span>
+{
+  <span class="hljs-keyword">type</span> Tokens = StdLexical
+
+  <span class="hljs-keyword">val</span> lexical = <span class="hljs-keyword">new</span> StdLexical
+
+  lexical.delimiters ++=
+    List( <span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;)&quot;</span>,<span class="hljs-string">&quot;[&quot;</span>,<span class="hljs-string">&quot;]&quot;</span>,<span class="hljs-string">&quot;{&quot;</span>,<span class="hljs-string">&quot;}&quot;</span>,<span class="hljs-string">&quot;|&quot;</span>,<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-string">&quot;+&quot;</span>,<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;^&quot;</span>,<span class="hljs-string">&quot;/&quot;</span>,<span class="hljs-string">&quot;*&quot;</span>,<span class="hljs-string">&quot;_&quot;</span>,<span class="hljs-string">&quot;=&quot;</span>,<span class="hljs-string">&quot;.&quot;</span> )
+
+  lexical.reserved   +=
+  (
+    <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>,<span class="hljs-string">&quot;sum&quot;</span>,<span class="hljs-string">&quot;Int&quot;</span>,
+    <span class="hljs-string">&quot;sqrt&quot;</span>,<span class="hljs-string">&quot;ln&quot;</span>,<span class="hljs-string">&quot;log&quot;</span>,<span class="hljs-string">&quot;sin&quot;</span>,<span class="hljs-string">&quot;cos&quot;</span>,<span class="hljs-string">&quot;tan&quot;</span>,<span class="hljs-string">&quot;cot&quot;</span>,<span class="hljs-string">&quot;sec&quot;</span>,<span class="hljs-string">&quot;csc&quot;</span>,
+    <span class="hljs-string">&quot;arcsin&quot;</span>,<span class="hljs-string">&quot;arccos&quot;</span>,<span class="hljs-string">&quot;arctan&quot;</span>,<span class="hljs-string">&quot;arccot&quot;</span>,<span class="hljs-string">&quot;arcsec&quot;</span>,<span class="hljs-string">&quot;arccsc&quot;</span>
+  )
+
+  <span class="hljs-comment">// Parse Numbers and Variables</span>
+  <span class="hljs-keyword">def</span> NUM : Parser[Num] = numericLit ^^ { (s:String) =&gt; Num(s.toInt)    }
+  <span class="hljs-keyword">def</span> DBL : Parser[Dbl] = numericLit ^^ { (s:String) =&gt; Dbl(s.toDouble) }
+  <span class="hljs-keyword">def</span> VAR : Parser[Exp] = ident      ^^ { (s:String) =&gt; variable(s)     }
+
+  <span class="hljs-keyword">def</span> variable( s:String ) : Exp =
+  {
+    <span class="hljs-keyword">if</span>( s.charAt(<span class="hljs-number">0</span>)==<span class="hljs-string">&apos;d&apos;</span> &amp;&amp; s.length==<span class="hljs-number">2</span> )  <span class="hljs-comment">// Special case where Dif d</span>
+       Dif(Var(s.charAt(<span class="hljs-number">1</span>).toString))       <span class="hljs-comment">// is split from a variable</span>
+    <span class="hljs-keyword">else</span>
+      Var(s)
+  }
+
+  <span class="hljs-comment">// ... Binary pass through parsers from high to low precedence</span>
+  <span class="hljs-keyword">def</span> beg : Parser[Exp] = base | oper
+  <span class="hljs-keyword">def</span> pow : Parser[Exp] = beg * ( <span class="hljs-string">&quot;^&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Pow(u,v) } )
+  <span class="hljs-keyword">def</span> mul : Parser[Exp] = pow * ( <span class="hljs-string">&quot;*&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Mul(u,v) } )
+  <span class="hljs-keyword">def</span> div : Parser[Exp] = mul * ( <span class="hljs-string">&quot;/&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Div(u,v) } )
+  <span class="hljs-keyword">def</span> add : Parser[Exp] = div * ( <span class="hljs-string">&quot;+&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Add(u,v) } )
+  <span class="hljs-keyword">def</span> sub : Parser[Exp] = add * ( <span class="hljs-string">&quot;-&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Sub(u,v) } )
+  <span class="hljs-keyword">def</span> equ : Parser[Exp] = sub * ( <span class="hljs-string">&quot;=&quot;</span> ^^^ { (u:Exp,v:Exp) =&gt; Equ(u,v) } )
+  <span class="hljs-keyword">def</span> end : Parser[Exp] = equ
+
+  <span class="hljs-comment">// ... Grouping ...</span>
+  <span class="hljs-keyword">def</span> par : Parser[Exp] = <span class="hljs-string">&quot;(&quot;</span> ~&gt; end  end  end  end ~ <span class="hljs-string">&quot;,&quot;</span> ~ end  vel  ves  end  <span class="hljs-string">&quot;^&quot;</span> ~ end ^^
+  <span class="hljs-keyword">def</span> log : Parser[Exp] = <span class="hljs-string">&quot;log&quot;</span>  ~&gt; <span class="hljs-string">&quot;_&quot;</span> ~&gt; DBL ~ arg  ^^ { <span class="hljs-keyword">case</span>  b  ~  u =&gt; Log(u,b) }
+  <span class="hljs-keyword">def</span> roo : Parser[Exp] = <span class="hljs-string">&quot;root&quot;</span> ~&gt; <span class="hljs-string">&quot;_&quot;</span> ~&gt; DBL ~ arg  ^^ { <span class="hljs-keyword">case</span>  r  ~  u =&gt; Roo(u,r) }
+  <span class="hljs-keyword">def</span> lim : Parser[Exp] = <span class="hljs-string">&quot;_&quot;</span> ~ beg ~ <span class="hljs-string">&quot;^&quot;</span>  ~ beg      ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;_&quot;</span> ~  a ~ <span class="hljs-string">&quot;^&quot;</span> ~ b =&gt; <span class="hljs-keyword">new</span> Lim(a,b) }
+
+  <span class="hljs-keyword">def</span> sum  : Parser[Exp] = (<span class="hljs-string">&quot;Int&quot;</span>|<span class="hljs-string">&quot;sum&quot;</span>) ~ lim ~ arg  ^^
+  {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;sum&quot;</span> ~ Lim(a,b) ~ u =&gt; Sum(a,b,u)
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Int&quot;</span> ~ Lim(a,b) ~ u =&gt; Itl(a,b,u)
+  }
+
+  <span class="hljs-keyword">def</span> neg : Parser[Exp] = <span class="hljs-string">&quot;-&quot;</span> ~ end ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;-&quot;</span> ~ u =&gt; Neg(u) }
+
+  <span class="hljs-comment">// e is a reserved exponentialion keyword that must be followed by ^</span>
+  <span class="hljs-comment">// e^u is handled by ee1</span>
+  <span class="hljs-comment">// e standalone variable is handle by ee2</span>
+  <span class="hljs-keyword">def</span> ee1 : Parser[Exp] =  <span class="hljs-string">&quot;e&quot;</span> ~ <span class="hljs-string">&quot;^&quot;</span> ~ end  ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;e&quot;</span> ~ <span class="hljs-string">&quot;^&quot;</span> ~ u =&gt; Eee(u) }
+  <span class="hljs-keyword">def</span> ee2 : Parser[Exp] =  <span class="hljs-string">&quot;e&quot;</span>              ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;e&quot;</span>           =&gt; Var(<span class="hljs-string">&quot;e&quot;</span>) }
+  <span class="hljs-keyword">def</span> eee : Parser[Exp] =  ee1 | ee2
+
+  <span class="hljs-comment">// d is a reserved differentiation keyword.</span>
+  <span class="hljs-comment">// dx is handled by variable() converts dx Into Into Dif(Var(x)) fo just a 1 Char variable</span>
+  <span class="hljs-comment">//   since we have to split a variable string the call by VAR to variable() is needed</span>
+  <span class="hljs-comment">// d(exp) or differentiation of an expression is handled by dif1</span>
+  <span class="hljs-comment">// d standalone variable is handled by dif2</span>
+  <span class="hljs-keyword">def</span> dif1 : Parser[Exp] = <span class="hljs-string">&quot;d&quot;</span> ~ end ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;d&quot;</span> ~ u =&gt; Dif(u.noparen)   }
+  <span class="hljs-keyword">def</span> dif2 : Parser[Exp] = <span class="hljs-string">&quot;d&quot;</span>       ^^ { <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;d&quot;</span>     =&gt; Var(<span class="hljs-string">&quot;d&quot;</span>) }
+  <span class="hljs-keyword">def</span> dif  : Parser[Exp] =  dif1 | dif2
+
+  <span class="hljs-comment">// Right now subscript and superscript are a problem with stack overflows</span>
+  <span class="hljs-comment">// def sus : Parser[Exp] = VAR ~ &quot;_&quot; ~ NUM ^^ { case u ~ &quot;_&quot; ~ v =&gt; Sus(u,v) }</span>
+  <span class="hljs-comment">// def sup : Parser[Exp] = end ~ &quot;^&quot; ~ end ^^ { case u ~ &quot;^&quot; ~ v =&gt; Sup(u,v) }</span>
+
+  <span class="hljs-comment">// ...... Primary (pri) and Production (exp) Parser Rules ......</span>
+
+  <span class="hljs-keyword">def</span> base:Parser[Exp] = NUM | dif | VAR | par | brc | abs | cex | vex | mex
+
+  <span class="hljs-keyword">def</span> oper:Parser[Exp] = fun | log | roo | eee | iii | sum | neg <span class="hljs-comment">// | sus | sup</span>
+
+  <span class="hljs-comment">// Everything is an expression (expr) or an equation (equ)</span>
+  <span class="hljs-keyword">def</span> all:Parser[Exp] = end | failure(<span class="hljs-string">&quot;end&quot;</span>)
+
+  <span class="hljs-keyword">def</span> apply( str:String ) : Exp = parse( str )
+
+  <span class="hljs-keyword">def</span> parse( str:String ) : Exp = all( <span class="hljs-keyword">new</span> lexical.Scanner(str) ) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Success( exp, _    ) =&gt; exp
+    <span class="hljs-keyword">case</span> Failure( msg, trc  ) =&gt; Msg( Text(<span class="hljs-number">50</span>).text( <span class="hljs-string">&quot;Ascii.parse Failure::::&quot;</span>, msg  ) )
+    <span class="hljs-keyword">case</span> Error(   msg, trc  ) =&gt; Msg( Text(<span class="hljs-number">50</span>).text( <span class="hljs-string">&quot;Ascii.parse Error::::&quot;</span>, msg  ) )
+    <span class="hljs-keyword">case</span> _                    =&gt; Msg( Text(<span class="hljs-number">50</span>).text( <span class="hljs-string">&quot;Ascii.parse Unknown::::&quot;</span> ) )
+  }
+}
+</code></pre>
+</section>

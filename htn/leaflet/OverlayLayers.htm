@@ -1,0 +1,11 @@
+<section id="OverlayLayers">
+  <h3>Overlay Layers</h3>
+  <pre class="javascript" style="font-size:.75em;"><code>
+<span class="hljs-comment">// Create marker and polygon overlay layers</span>
+Gis.overLayers = {};
+Gis.overLayers[<span class="hljs-string">&apos;Markers&apos;</span>]  = <span class="hljs-keyword">new</span> L.LayerGroup( Gis.markers );
+Gis.overLayers[<span class="hljs-string">&apos;Polygons&apos;</span>] = <span class="hljs-keyword">new</span> L.GeoJSON();
+Gis.map.addLayer( Gis.overLayers[<span class="hljs-string">&apos;Markers&apos;</span>]  ); <span class="hljs-comment">// Turn on the markers</span>
+Gis.map.addLayer( Gis.overLayers[<span class="hljs-string">&apos;Polygons&apos;</span>] ); <span class="hljs-comment">// Turn on an  polygons</span>
+  </code></pre>
+</section>

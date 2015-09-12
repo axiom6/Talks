@@ -1,0 +1,12 @@
+<section id="KeyLinesofCodeinCoffeeScript">
+      <h4>Key Lines of Code in CoffeeScript</h4>
+      <pre class="coffeescript"><code style="font-size:1.1em;">
+
+<span class="hljs-comment"># Begin Tag</span>
+ <span class="hljs-string">&quot;&quot;&quot;<span class="hljs-subst">#{<span class="hljs-property">@indent</span>(level)}</span>&lt;<span class="hljs-subst">#{elem.tag}</span><span class="hljs-subst">#{<span class="hljs-property">@atts</span>(elem.atts)}</span>&gt;<span class="hljs-subst">#{<span class="hljs-property">@text</span>(elem.text)}</span>&quot;&quot;&quot;</span>
+
+<span class="hljs-comment"># End Tag</span>
+ html += <span class="hljs-property">@indent</span>(level)  <span class="hljs-keyword">if</span> elem.children? <span class="hljs-keyword">and</span> elem.children.length &gt; <span class="hljs-number">0</span>
+ html += <span class="hljs-string">&quot;&quot;&quot;&lt;/<span class="hljs-subst">#{elem.tag}</span>&gt;&quot;&quot;&quot;</span>
+      </code></pre>
+    </section>

@@ -1,0 +1,22 @@
+<section id="Exp">
+  <h3>Exp - Base Math Expression with Internal DSL</h3>
+<pre class="scala"><code style="font-size:1em; min-height:23em;">
+<span class="hljs-keyword">sealed</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exp</span> <span class="hljs-keyword">extends</span> <span class="hljs-keyword">with</span> <span class="hljs-title">Calculate</span> <span class="hljs-keyword">with</span> <span class="hljs-title">Differentiate</span></span>
+{
+<span class="hljs-comment">// Wrap i:Int and d:Double to Num(d) &amp; String to Var(s)</span>
+   implicit <span class="hljs-keyword">def</span> int2Exp( i:Int    ) : Exp = Num(i.toDouble)
+   implicit <span class="hljs-keyword">def</span> dbl2Exp( d:Double ) : Exp = Num(d)
+   implicit <span class="hljs-keyword">def</span> str2Exp( s:String ) : Exp = Var(s)
+
+<span class="hljs-comment">// Infix operators from high to low using Scala precedence</span>
+   <span class="hljs-keyword">def</span> ~^ ( v:Exp ) : Exp = Pow(<span class="hljs-keyword">this</span>,v) <span class="hljs-comment">// ~^ high precedence</span>
+   <span class="hljs-keyword">def</span> /  ( v:Exp ) : Exp = Div(<span class="hljs-keyword">this</span>,v)
+   <span class="hljs-keyword">def</span> *  ( v:Exp ) : Exp = Mul(<span class="hljs-keyword">this</span>,v)
+   <span class="hljs-keyword">def</span> -  ( v:Exp ) : Exp = Sub(<span class="hljs-keyword">this</span>,v)
+   <span class="hljs-keyword">def</span> +  ( v:Exp ) : Exp = Add(<span class="hljs-keyword">this</span>,v)
+
+<span class="hljs-comment">// Prefix operator for negation</span>
+   <span class="hljs-keyword">def</span> unary_- : Exp = Neg(<span class="hljs-keyword">this</span>)
+}
+</code></pre>
+</section>

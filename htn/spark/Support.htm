@@ -1,0 +1,28 @@
+<section id="Support">
+      <h3>Support</h3>
+       <pre class="scala"><code class="scala" style="font-size:0.75em; margin:0;; min-height:700px !important; max-height:700px !important;">
+         <span class="hljs-comment">// Interactive Shell</span>
+         $ ./spark-&#xAD;&#x2010;shell
+         scala&gt;<span class="hljs-keyword">val</span> file= sc.hadoopFile(&#x201C;smallLogs&#x201D;)
+         scala&gt;<span class="hljs-keyword">val</span> filtered=file.filter(_.contains(&#x201C;ERROR&#x201D;))
+         scala&gt;<span class="hljs-keyword">val</span> mapped= filtered.map(...)
+
+         <span class="hljs-comment">// Use same code in Spark for processing large logs</span>
+         <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ProcessProductionData</span> {</span>
+           <span class="hljs-keyword">def</span> main( args:Array[String]) {
+             <span class="hljs-keyword">val</span> sc       = <span class="hljs-keyword">new</span> SparkContext(...)
+             <span class="hljs-keyword">val</span> file     = sc.hadoopFile(&#x201C;productionLogs&#x201D;)
+             <span class="hljs-keyword">val</span> filtered = file.filter(_.contains(&#x201C;ERROR&#x201D;))
+             <span class="hljs-keyword">val</span> mapped   = filtered.map(...)
+         ... } }
+
+         <span class="hljs-comment">// Use similar code in Spark Streaming for realtime processing</span>
+         <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ProcessLiveStream</span> {</span>
+           <span class="hljs-keyword">def</span> main( args:Array[String]) {
+             <span class="hljs-keyword">val</span> sc       = <span class="hljs-keyword">new</span> StreamingContext(...)
+             <span class="hljs-keyword">val</span> stream   = KafkaUtil.createStream(...)
+             <span class="hljs-keyword">val</span> filtered = stream.filter(_.contains(&#x201C;ERROR&#x201D;))
+             <span class="hljs-keyword">val</span> mapped   = filtered.map(...)
+         ... } }
+           </code></pre>
+      </section>

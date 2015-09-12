@@ -1,0 +1,19 @@
+<section id="CaseClassADT">
+  <div style="color:tan;">Case Class Expands a Class into an ADT</div>
+<pre class="scala"><code style="font-size:1em; min-height:24em">
+<span class="hljs-comment">// Scala expands the case class Add( u:Exp, v:Exp ) to:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Add</span><span class="hljs-params">( val u:Exp, val v:Exp )</span> // <span class="hljs-title">Values</span> <span class="hljs-title">immutable</span></span>
+{
+  <span class="hljs-keyword">def</span> toString : String  = {..} <span class="hljs-comment">// Class and field name</span>
+  <span class="hljs-keyword">def</span> equals   : Boolean = {..} <span class="hljs-comment">// Fields compared structurally</span>
+  <span class="hljs-keyword">def</span> hashCode : Int     = {..} <span class="hljs-comment">// hashCode from fields</span>
+}
+
+<span class="hljs-comment">// Scala creates a companion object with apply and unapply</span>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Add</span></span>
+{
+  <span class="hljs-keyword">def</span> apply(   u:Exp, v:Exp ) : Add = <span class="hljs-keyword">new</span> Add(u,v)
+  <span class="hljs-keyword">def</span> unapply( u:Exp, v:Exp ) : Option[(Exp,Exp)] = Some(u,v)
+}
+</code></pre>
+</section>

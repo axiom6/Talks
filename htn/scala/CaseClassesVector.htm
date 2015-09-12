@@ -1,0 +1,18 @@
+<section id="CaseClassesVector">
+  <div style="color:tan;">Linear Algebra, Complex and Miscellaneous</div>
+<pre class="scala"><code style="font-size:.9em; min-height:27em; line-height:1.1em;">
+<span class="hljs-comment">// Linear Algebra - Vector Matrix</span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Vex</span><span class="hljs-params">(   a:Array[Exp] )</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span>  {</span> ... }
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Mex</span><span class="hljs-params">( mat:Array[Vex] )</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span>  {</span> ... }
+
+<span class="hljs-comment">// Complex Number</span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Cex</span><span class="hljs-params">( r:Exp, i:Exp  )</span>  <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span>  {</span> ... }
+
+<span class="hljs-comment">// Miscellaneous - Subscript Superscipt Simplify Not</span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Sus</span><span class="hljs-params">( u:Exp, v:Exp )</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span> // <span class="hljs-title">x_1</span> <span class="hljs-title">Subscript</span></span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Sup</span><span class="hljs-params">( u:Exp, v:Exp )</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span> // <span class="hljs-title">x</span>^1 <span class="hljs-title">Superscript</span></span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Not</span><span class="hljs-params">( u:Exp )</span>        <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span> // <span class="hljs-title">Expression</span> <span class="hljs-title">not</span> <span class="hljs-title">intergrated</span></span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Sim</span><span class="hljs-params">( u:Exp )</span>        <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span> // <span class="hljs-title">Simplify</span> <span class="hljs-title">placeholder</span></span>
+   <span class="hljs-class"><span class="hljs-keyword">case</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Msg</span><span class="hljs-params">( m:Text )</span>       <span class="hljs-keyword">extends</span> <span class="hljs-title">Exp</span> // <span class="hljs-title">Error</span> <span class="hljs-title">messages</span> <span class="hljs-title">from</span> <span class="hljs-title">Parsing</span></span>
+</code></pre>
+</section>

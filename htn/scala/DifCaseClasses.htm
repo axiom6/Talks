@@ -1,0 +1,23 @@
+<section id="DifCaseClasses">
+  <div style="color:tan;">Nested Case Classes are the Core Language</div>
+<pre class="scala"><code style="font-size:1em; min-height:24em">
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Differentiate</span></span>
+{
+  <span class="hljs-keyword">this</span>:Exp =&gt;
+
+  <span class="hljs-keyword">def</span> d( e:Exp ) : Exp = e <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Num(n)   =&gt; Num(<span class="hljs-number">0</span>)       <span class="hljs-comment">// diff of constant zero</span>
+    <span class="hljs-keyword">case</span> Var(s)   =&gt; Dif(Var(s))  <span class="hljs-comment">// x becomes dx</span>
+    <span class="hljs-keyword">case</span> Par(u)   =&gt; Par(d(u))
+    <span class="hljs-keyword">case</span> Neg(u)   =&gt; Neg(d(u))
+    <span class="hljs-keyword">case</span> Pow(u,v) =&gt; Mul(Mul(v,Pow(u),Sub(v,<span class="hljs-number">1</span>)),d(u))
+    <span class="hljs-keyword">case</span> Mul(u,v) =&gt; Mul(Add(Mul(v,d(u))),u),d(v))
+    <span class="hljs-keyword">case</span> Div(u,v) =&gt; Div(Sub(Mul(v,d(u)),Mul(u,d(v)) ),Pow(v,<span class="hljs-number">2</span>))
+    <span class="hljs-keyword">case</span> Add(u,v) =&gt; Add(d(u),d(v))
+    <span class="hljs-keyword">case</span> Sub(u,v) =&gt; Sub(d(u),d(v))
+    <span class="hljs-keyword">case</span> Dif(u)   =&gt; Dif(d(u))      <span class="hljs-comment">// 2rd dif</span>
+  }
+}
+</code></pre>
+</section>

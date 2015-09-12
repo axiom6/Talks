@@ -1,0 +1,29 @@
+<section id="ExpSym">
+  <div style="color:tan;">An Expanded Math Expression Exp</div>
+<pre class="scala"><code style="font-size:.9em; min-height:32em; line-height:1.1em;"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exp</span> <span class="hljs-keyword">extends</span></span>
+  Ascii     <span class="hljs-keyword">with</span> Lambda        <span class="hljs-keyword">with</span> MathML    <span class="hljs-keyword">with</span> Latex   <span class="hljs-keyword">with</span>
+  Calculate <span class="hljs-keyword">with</span> Differentiate <span class="hljs-keyword">with</span> Integrate <span class="hljs-keyword">with</span> Simplify
+{
+  implicit <span class="hljs-keyword">def</span> Int2Num( n:Int    ) : Exp = Num(n)
+  implicit <span class="hljs-keyword">def</span> dbl2Dbl( r:Double ) : Exp = Dbl(r)
+  implicit <span class="hljs-keyword">def</span> str2Var( s:String ) : Exp = Var(s)
+  <span class="hljs-comment">// ... arithmetic operators from low to high precedence ....</span>
+  <span class="hljs-keyword">def</span> equ ( v:Exp ) : Exp = Equ(<span class="hljs-keyword">this</span>,v)
+  <span class="hljs-keyword">def</span> +   ( v:Exp ) : Exp = Add(<span class="hljs-keyword">this</span>,v)
+  <span class="hljs-keyword">def</span> -   ( v:Exp ) : Exp = Sub(<span class="hljs-keyword">this</span>,v)
+  <span class="hljs-keyword">def</span> *   ( v:Exp ) : Exp = Mul(<span class="hljs-keyword">this</span>,v)
+  <span class="hljs-keyword">def</span> /   ( v:Exp ) : Exp = Div(<span class="hljs-keyword">this</span>,v)
+  <span class="hljs-keyword">def</span> ~^  ( v:Exp ) : Exp = Pow(<span class="hljs-keyword">this</span>,v) <span class="hljs-comment">// ~^ for  precedence</span>
+  <span class="hljs-keyword">def</span> unary_-       : Exp = Neg(<span class="hljs-keyword">this</span>)
+
+  <span class="hljs-keyword">def</span> noparen( e:Exp ) : Exp = e <span class="hljs-keyword">match</span> {
+    <span class="hljs-keyword">case</span> Par(u)   =&gt; noparen(u)
+    <span class="hljs-keyword">case</span> Brc(u)   =&gt; noparen(u)
+    <span class="hljs-keyword">case</span> Mul(u,v) =&gt; Mul(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Div(u,v) =&gt; Div(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> _        =&gt; e }
+  <span class="hljs-keyword">def</span> noparen : Exp = noparen(<span class="hljs-keyword">this</span>)
+  <span class="hljs-keyword">def</span> text:Text = { <span class="hljs-keyword">val</span> t = Text(<span class="hljs-number">50</span>); ascii(t,<span class="hljs-keyword">this</span>); t }
+  <span class="hljs-keyword">override</span> <span class="hljs-keyword">def</span> toString : String = text.toString }
+</code></pre>
+</section>

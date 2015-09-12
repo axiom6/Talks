@@ -1,0 +1,11 @@
+<section id="ParseAlgbra">
+  <!--h4>Algebric Parser - External DSL</h4-->
+<pre class="scala"><code style="font-size:.9em; min-height:29em; min-width:45em;"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Parse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StdTokenParsers</span></span>
+{
+  <span class="hljs-keyword">val</span> lexical = <span class="hljs-keyword">new</span> StdLexical;  <span class="hljs-keyword">type</span> Tokens = StdLexical
+  lexical.delimiters ++= List( <span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;)&quot;</span>,<span class="hljs-string">&quot;+&quot;</span>,<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;^&quot;</span>,<span class="hljs-string">&quot;/&quot;</span>,<span class="hljs-string">&quot;*&quot;</span> )
+
+  <span class="hljs-keyword">def</span> NUM:Parser[Exp] = numericLit        ^^ { (s:String) =&gt; Num(s.toDouble)}
+  <span class="hljs-keyword">def</span> VAR:Parser[Exp] = ident             ^^ { (s:String)   =&gt; Var(s) }
+  <span class="hljs-keyword">def</span> par:Parser[Exp] = <span class="hljs-string">&quot;(&quot;</span> ~&gt; exp </code></pre>
+</section>

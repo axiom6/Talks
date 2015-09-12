@@ -1,0 +1,25 @@
+<section id="CalculationAlgerbra">
+<div style="color:tan;">Pattern Match for Calculation</div>
+<pre class="scala"><code style="font-size:1em; min-height:25em">
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Calculate</span></span>
+{
+  <span class="hljs-keyword">this</span>:Exp =&gt;
+  <span class="hljs-keyword">val</span> NaN : Double = Math.NaN_DOUBLE
+  <span class="hljs-keyword">type</span> Assign = (String) =&gt; Double <span class="hljs-comment">// { &#x201C;a&#x201D;=&gt;3.0, &#x201C;b&#x201D;=&gt;6.0 }</span>
+
+  <span class="hljs-keyword">def</span> calc( e:Exp, a:Assign ) : Double = e <span class="hljs-keyword">match</span> <span class="hljs-comment">// No Internal DSL</span>
+  {
+    <span class="hljs-keyword">case</span> Num(d)   =&gt; d          <span class="hljs-comment">// Unwrap the double</span>
+    <span class="hljs-keyword">case</span> Var(s)   =&gt; a(s)       <span class="hljs-comment">// Return double assigned to variable</span>
+    <span class="hljs-keyword">case</span> Par(u)   =&gt;  calc(u,a)
+    <span class="hljs-keyword">case</span> Neg(u)   =&gt; -calc(u,a)
+    <span class="hljs-keyword">case</span> Pow(u,v) =&gt; Math.pow( calc(u,a), calc(v,a) )
+    <span class="hljs-keyword">case</span> Mul(u,v) =&gt; calc(u,a) * calc(v,a)
+    <span class="hljs-keyword">case</span> Div(u,v) =&gt; <span class="hljs-keyword">val</span> de=calc(v,a) <span class="hljs-keyword">if</span> de==<span class="hljs-number">0.0</span> NaN <span class="hljs-keyword">else</span> calc(u,a)/de
+    <span class="hljs-keyword">case</span> Add(u,v) =&gt; calc(u,a) + calc(v,a)
+    <span class="hljs-keyword">case</span> Sub(u,v) =&gt; calc(u,a) - calc(v,a)
+    <span class="hljs-keyword">case</span> Dif(u)   =&gt; NaN
+  }
+}
+</code></pre>
+</section>

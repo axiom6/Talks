@@ -1,0 +1,15 @@
+<section id="Keynote">
+      <h4 style="margin-bottom:0;">Example 8 - Databricks Keynote</h4>
+       <pre class="scala">
+           <code class="scala" style="font-size:0.75em; margin:0;">
+             <span class="hljs-keyword">val</span> ssc         = <span class="hljs-keyword">new</span> StreamingContext(sc,Seconds(<span class="hljs-number">5</span>))
+             <span class="hljs-keyword">val</span> sqlContext  = <span class="hljs-keyword">new</span> SQLContext(sc)
+             <span class="hljs-keyword">val</span> tweets      = TwitterUtils.createStream(ssc,auth)
+             <span class="hljs-keyword">val</span> transformed = tweets.filter(isEnglish).window(Minutes(<span class="hljs-number">1</span>))
+
+             <span class="hljs-comment">// Tweet is a case class</span>
+             transformed.foreachRDD { rdd =&gt; rdd.map(Tweet.apply(_)).registerAsTable(&#x201C;tweets&#x201D;) }</code></pre>
+         <pre class="sql"><code class="scala" style="font-size:0.75em; margin:0;">
+           <span class="hljs-operator"><span class="hljs-keyword">SELECT</span> text <span class="hljs-keyword">FROM</span> tweets <span class="hljs-keyword">WHERE</span> similarity(tweet) &gt; <span class="hljs-number">0.01</span>
+           <span class="hljs-keyword">SELECT</span> getClosestCountry(lat,long) <span class="hljs-keyword">FROM</span> tweets</span></code></pre>
+    </section>

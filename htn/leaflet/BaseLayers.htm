@@ -1,0 +1,13 @@
+<section id="BaseLayers">
+  <h3>Base Layers</h3>
+  <pre class="javascript" style="font-size:.70em;"><code>
+<span class="hljs-comment">// Add Google Map base layers with the L.Google plugin</span>
+Gis.baseLayers = {};
+Gis.baseLayers[<span class="hljs-string">&apos;Roads&apos;</span>]     = <span class="hljs-keyword">new</span> L.Google(<span class="hljs-string">&apos;ROADMAP&apos;</span>,   { maxZoom:<span class="hljs-number">20</span> } );
+Gis.baseLayers[<span class="hljs-string">&apos;Satellite&apos;</span>] = <span class="hljs-keyword">new</span> L.Google(<span class="hljs-string">&apos;SATELLITE&apos;</span>, { maxZoom:<span class="hljs-number">20</span> } );
+Gis.baseLayers[<span class="hljs-string">&apos;Hybrid&apos;</span>]    = <span class="hljs-keyword">new</span> L.Google(<span class="hljs-string">&apos;HYBRID&apos;</span>,    { maxZoom:<span class="hljs-number">20</span> } );
+Gis.baseLayers[<span class="hljs-string">&apos;Terrain&apos;</span>]   = <span class="hljs-keyword">new</span> L.Google(<span class="hljs-string">&apos;TERRAIN&apos;</span>,   { maxZoom:<span class="hljs-number">20</span> } );
+Gis.baseLayers[<span class="hljs-string">&apos;None&apos;</span>]      = <span class="hljs-keyword">new</span> L.GeoJSON();
+Gis.map.addLayer(Gis.baseLayers[<span class="hljs-string">&apos;Hybrid&apos;</span>]); <span class="hljs-comment">// Turn on the &apos;Hybrid&apos; base layer</span>
+  </code></pre>
+</section>

@@ -1,0 +1,26 @@
+<section id="RecusivelyGenerate">
+      <h4 style="margin:0;">Recusively Generate HTML</h4>
+      <pre class="coffeescript" style="margin:0;">
+  <code style="font-size:1em; min-height:25em;">  <span class="hljs-attribute">recurse</span>:<span class="hljs-function"><span class="hljs-params">( elems, html, level )</span> -&gt;</span>
+    <span class="hljs-keyword">for</span> elem <span class="hljs-keyword">in</span> elems
+      html += <span class="hljs-property">@begTag</span>(  elem, level )
+      html  = <span class="hljs-property">@recurse</span>( elem.children, html, level+<span class="hljs-number">1</span> ) <span class="hljs-keyword">if</span> elem.children?
+      html += <span class="hljs-property">@endTag</span>(  elem, level )
+    html
+
+  <span class="hljs-attribute">begTag</span>:<span class="hljs-function"><span class="hljs-params">( elem, level )</span> -&gt;</span>
+    <span class="hljs-keyword">switch</span> elem.tag
+      <span class="hljs-keyword">when</span> <span class="hljs-string">&apos;!DOCTYPE&apos;</span>
+        <span class="hljs-string">&quot;&quot;&quot;&lt;!DOCTYPE html&gt;&quot;&quot;&quot;</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">&apos;comment&apos;</span>
+        <span class="hljs-string">&quot;&quot;&quot;<span class="hljs-subst">#{<span class="hljs-property">@indent</span>(level)}</span>&quot;&quot;&quot;</span>
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-string">&quot;&quot;&quot;<span class="hljs-subst">#{<span class="hljs-property">@indent</span>(level)}</span>&lt;<span class="hljs-subst">#{elem.tag}</span><span class="hljs-subst">#{<span class="hljs-property">@atts</span>(elem.atts)}</span>&gt;<span class="hljs-subst">#{<span class="hljs-property">@text</span>(elem.text)}</span>&quot;&quot;&quot;</span>
+
+  <span class="hljs-attribute">endTag</span>:<span class="hljs-function"><span class="hljs-params">( elem, level )</span> -&gt;</span>
+    html = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@hasEndTag</span>( elem.tag )
+      html += <span class="hljs-property">@indent</span>(level)  <span class="hljs-keyword">if</span> elem.children? <span class="hljs-keyword">and</span> elem.children.length &gt; <span class="hljs-number">0</span>
+      html += <span class="hljs-string">&quot;&quot;&quot;&lt;/<span class="hljs-subst">#{elem.tag}</span>&gt;&quot;&quot;&quot;</span>
+    html</code></pre>
+    </section>

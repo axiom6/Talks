@@ -1,0 +1,14 @@
+<section id="Implicity">
+    <div style="color:tan;">Implicits</div>
+    <ul>
+      <li>Problem:  Have a basic type and need to use it in a new context</li>
+      <li>Solution: Implicit conversion to wrap it into case class</li>
+    </ul>
+<pre class="scala"><code style="font-size:1em;">
+<span class="hljs-comment">// Wrap i:Int and d:Double to Num(d) &amp; String to Var(s)</span>
+implicit <span class="hljs-keyword">def</span> int2Exp( i:Int    ) : Exp = Num(i.toDouble)
+implicit <span class="hljs-keyword">def</span> dbl2Exp( d:Double ) : Exp = Num(d)
+implicit <span class="hljs-keyword">def</span> str2Exp( s:String ) : Exp = Var(s)
+
+</code></pre>
+</section>

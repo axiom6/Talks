@@ -1,0 +1,146 @@
+<section id="Simplify">
+  <div style="color:tan;">Simplify</div>
+<pre class="scala"><code style="font-size:.9em; min-height:26em; line-height:1.1em;"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Simplify</span></span>
+{
+  self:Exp =&gt;
+
+  <span class="hljs-keyword">def</span> sim : Exp = sim(<span class="hljs-keyword">this</span>)
+
+  <span class="hljs-keyword">def</span> sim( exp:Exp ) : Exp = exp <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Num(n)    =&gt; exp
+    <span class="hljs-keyword">case</span> Dbl(d)    =&gt; dbl(d)
+    <span class="hljs-keyword">case</span> Rat(n,d)  =&gt; rat(n,d)
+    <span class="hljs-keyword">case</span> Var(s)    =&gt; exp
+    <span class="hljs-keyword">case</span> Add(u,v)  =&gt; add(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Sub(u,v)  =&gt; sub(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Mul(u,v)  =&gt; mul(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Div(u,v)  =&gt; div(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Pow(u,v)  =&gt; pow(noparen(u),noparen(v))
+    <span class="hljs-keyword">case</span> Rec(u)    =&gt; rec(u)
+    <span class="hljs-keyword">case</span> Neg(u)    =&gt; Neg(sim(u))
+    <span class="hljs-keyword">case</span> Abs(u)    =&gt; Abs(sim(u))
+    <span class="hljs-keyword">case</span> Par(u)    =&gt; Par(sim(u))
+    <span class="hljs-keyword">case</span> Brc(u)    =&gt; Brc(sim(u))
+    <span class="hljs-keyword">case</span> Lnn(u)    =&gt; Lnn(sim(u))
+    <span class="hljs-keyword">case</span> Log(u,r)  =&gt; Log(sim(u),r)
+    <span class="hljs-keyword">case</span> Roo(u,r)  =&gt; Roo(sim(u),r)
+    <span class="hljs-keyword">case</span> Eee(u)    =&gt; Eee(sim(u))
+    <span class="hljs-keyword">case</span> Sqt(u)    =&gt; Sqt(sim(u))
+    <span class="hljs-keyword">case</span> Sin(u)    =&gt; Sin(sim(u))
+    <span class="hljs-keyword">case</span> Cos(u)    =&gt; Cos(sim(u))
+    <span class="hljs-keyword">case</span> Tan(u)    =&gt; Tan(sim(u))
+    <span class="hljs-keyword">case</span> Csc(u)    =&gt; Csc(sim(u))
+    <span class="hljs-keyword">case</span> Sec(u)    =&gt; Sec(sim(u))
+    <span class="hljs-keyword">case</span> Cot(u)    =&gt; Cot(sim(u))
+    <span class="hljs-keyword">case</span> ASin(u)   =&gt; ASin(sim(u))
+    <span class="hljs-keyword">case</span> ACos(u)   =&gt; ACos(sim(u))
+    <span class="hljs-keyword">case</span> ATan(u)   =&gt; ATan(sim(u))
+    <span class="hljs-keyword">case</span> ACsc(u)   =&gt; ACsc(sim(u))
+    <span class="hljs-keyword">case</span> ASec(u)   =&gt; ASec(sim(u))
+    <span class="hljs-keyword">case</span> ACot(u)   =&gt; ACot(sim(u))
+    <span class="hljs-keyword">case</span> Equ(u,v)  =&gt; equ(u,v)
+    <span class="hljs-keyword">case</span> Dif(u)    =&gt; Dif(sim(u))
+    <span class="hljs-keyword">case</span> Sus(u,v)  =&gt; Sus(sim(u),sim(v))
+    <span class="hljs-keyword">case</span> Sup(u,v)  =&gt; Sup(sim(u),sim(v))
+    <span class="hljs-keyword">case</span> Lim(u,v)  =&gt; Lim(sim(u),sim(v))
+    <span class="hljs-keyword">case</span> Itg(u)    =&gt; Itg(sim(u))
+    <span class="hljs-keyword">case</span> Itl(a,b,u)=&gt; Itl(sim(a),sim(b),sim(u))
+    <span class="hljs-keyword">case</span> Sum(a,b,u)=&gt; Sum(sim(a),sim(b),sim(u))
+    <span class="hljs-keyword">case</span> Cex(r,i)  =&gt; Cex( r.sim, i.sim )
+    <span class="hljs-keyword">case</span> Vex(a)    =&gt; Vex(exp).map( a =&gt; a.sim )
+    <span class="hljs-keyword">case</span> Mex(m)    =&gt; Mex(exp).map( m =&gt; m.sim )
+    <span class="hljs-keyword">case</span> Msg(t)    =&gt; Msg(t)
+  }
+
+  <span class="hljs-keyword">def</span> dbl( r:Double ) : Exp = <span class="hljs-keyword">if</span>(r==r.toInt) Num(r.toInt) <span class="hljs-keyword">else</span> Dbl(r)
+
+  <span class="hljs-keyword">def</span> rat( n:Int, d:Int ) : Exp = (n,d) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( <span class="hljs-number">0</span>, d1 ) =&gt; Num(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">case</span>( n1, <span class="hljs-number">0</span> ) =&gt; Msg( Text(<span class="hljs-string">&quot;Num(n1)/Num(0)&quot;</span>) )
+    <span class="hljs-keyword">case</span> _        =&gt; <span class="hljs-keyword">if</span>(n==d) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> Rat(n,d)
+  }
+
+  <span class="hljs-keyword">def</span> mul( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( u1, Num(<span class="hljs-number">1</span>)|Dbl(<span class="hljs-number">1.0</span>) ) =&gt; sim(u1)
+    <span class="hljs-keyword">case</span>( Num(<span class="hljs-number">1</span>)|Dbl(<span class="hljs-number">1.0</span>), v1 ) =&gt; sim(v1)
+    <span class="hljs-keyword">case</span>( Num(a),   Num(b)    ) =&gt; Num(a*b)
+    <span class="hljs-keyword">case</span>( Num(a),   Dbl(b)    ) =&gt; Dbl(a*b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Num(b)    ) =&gt; Dbl(a*b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Dbl(b)    ) =&gt; Dbl(a*b)
+    <span class="hljs-keyword">case</span>( q,        Add(a,b)  ) =&gt; sim( sim(q)*sim(a)+sim(q)*sim(b) )
+    <span class="hljs-keyword">case</span>( Add(a,b), r         ) =&gt; sim( sim(a)*sim(r)+sim(b)*sim(b) )
+    <span class="hljs-keyword">case</span>( q,        Sub(a,b)  ) =&gt; sim( sim(q)*sim(a)-sim(u)*sim(b) )
+    <span class="hljs-keyword">case</span>( Sub(a,b), r         ) =&gt; sim( sim(a)*sim(r)-sim(b)*sim(b) )
+    <span class="hljs-keyword">case</span> _                      =&gt; sim(u)*sim(v)
+  }
+
+  <span class="hljs-keyword">def</span> div( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">1</span>)|Dbl(<span class="hljs-number">1.0</span>) ) =&gt; sim(q)
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>) ) =&gt; Msg(Text(<span class="hljs-string">&quot;u/Num(0)&quot;</span>))
+    <span class="hljs-keyword">case</span>( Num(a),   Num(b)   ) =&gt; Rat(a,b)
+    <span class="hljs-keyword">case</span>( Num(a),   Dbl(b)   ) =&gt; Dbl(a/b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Num(b)   ) =&gt; Dbl(a/b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Dbl(b)   ) =&gt; Dbl(a/b)
+    <span class="hljs-keyword">case</span>( Mul(a,b), r        ) =&gt; factor(u,r)
+    <span class="hljs-keyword">case</span>( q, Mul(a,b)        ) =&gt; factor(q,v)
+    <span class="hljs-keyword">case</span> _ =&gt; <span class="hljs-keyword">if</span>(u==v) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> sim(u)/sim(v)
+  }
+
+  <span class="hljs-keyword">def</span> factor( u:Exp,  v:Exp ) : Exp = u
+
+  <span class="hljs-keyword">def</span> add( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>) ) =&gt; sim(q)
+    <span class="hljs-keyword">case</span>( Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>), r ) =&gt; sim(r)
+    <span class="hljs-keyword">case</span>( Num(a),   Num(b)   ) =&gt; Num(a+b)
+    <span class="hljs-keyword">case</span>( Num(a),   Dbl(b)   ) =&gt; Dbl(a+b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Num(b)   ) =&gt; Dbl(a+b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Dbl(b)   ) =&gt; Dbl(a+b)
+    <span class="hljs-keyword">case</span>( q,        Neg(b)   ) =&gt; sim( sim(q)-sim(b) )
+    <span class="hljs-keyword">case</span> _                     =&gt;      sim(u)+sim(v)
+  }
+
+  <span class="hljs-keyword">def</span> sub( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>) ) =&gt; sim(q)
+    <span class="hljs-keyword">case</span>( Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>), r ) =&gt; sim( Neg(r) )
+    <span class="hljs-keyword">case</span>( Num(a),   Num(b)   ) =&gt; Num(a-b)
+    <span class="hljs-keyword">case</span>( Num(a),   Dbl(b)   ) =&gt; Dbl(a-b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Num(b)   ) =&gt; Dbl(a-b)
+    <span class="hljs-keyword">case</span>( Dbl(a),   Dbl(b)   ) =&gt; Dbl(a-b)
+    <span class="hljs-keyword">case</span>( q,        Neg(b)   ) =&gt; sim( sim(q)+sim(b) )
+    <span class="hljs-keyword">case</span> _                     =&gt; sim(u)-sim(v)
+  }
+
+  <span class="hljs-keyword">def</span> pow( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">1</span>)|Dbl(<span class="hljs-number">1.0</span>) ) =&gt; sim(q)
+    <span class="hljs-keyword">case</span>( q, Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>) ) =&gt; <span class="hljs-number">1</span>
+    <span class="hljs-keyword">case</span>( Num(<span class="hljs-number">1</span>)|Dbl(<span class="hljs-number">1.0</span>), r ) =&gt; <span class="hljs-number">1</span>
+    <span class="hljs-keyword">case</span>( Num(<span class="hljs-number">0</span>)|Dbl(<span class="hljs-number">0.0</span>), r ) =&gt; <span class="hljs-number">0</span>
+    <span class="hljs-keyword">case</span>( Num(a),   Num(b)   ) =&gt; Dbl(Math.pow(a,b))
+    <span class="hljs-keyword">case</span>( Num(a),   Dbl(b)   ) =&gt; Dbl(Math.pow(a,b))
+    <span class="hljs-keyword">case</span>( Dbl(a),   Num(b)   ) =&gt; Dbl(Math.pow(a,b))
+    <span class="hljs-keyword">case</span>( Dbl(a),   Dbl(b)   ) =&gt; Dbl(Math.pow(a,b))
+    <span class="hljs-keyword">case</span> _                     =&gt; sim(u)~^sim(v)
+  }
+
+  <span class="hljs-keyword">def</span> rec( u:Exp ) : Exp = u <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Num(<span class="hljs-number">1</span>) =&gt; <span class="hljs-number">1</span>
+    <span class="hljs-keyword">case</span> Num(<span class="hljs-number">0</span>) =&gt; Msg(Text(<span class="hljs-string">&quot;Rec(Num(0))&quot;</span>))
+    <span class="hljs-keyword">case</span> Par(a) =&gt; Rec(sim(a))
+    <span class="hljs-keyword">case</span> _      =&gt; Rec(sim(u))
+  }
+
+  <span class="hljs-keyword">def</span> equ( u:Exp, v:Exp ) : Exp = (u,v) <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> _ =&gt; Equ( sim(u), sim(v) )
+  }
+}
+</code></pre>
+</section>

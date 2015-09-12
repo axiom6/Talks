@@ -1,0 +1,19 @@
+<section style="background-color:rgb(49,28,39);" id="Plan">
+      <h3>Plan</h3>
+      <ul>
+        <li>Storm
+          <ul>
+            <li>Replays record if not processed by a node</li>
+            <li>Processes each record at least once</li>
+            <li>May update mutable state twice!</li>
+            <li>Mutable state can be lost due to failure!</li>
+          </ul>
+        </li>
+        <li>Trident &#x2013; Use transactions to update state
+          <ul>
+            <li>Processes each record exactly once</li>
+            <li>Per-state transaction to external database is slow</li>
+          </ul>
+        </li>
+      </ul>
+    </section>

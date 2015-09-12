@@ -1,0 +1,15 @@
+<section id="GeoJSONAJAX">
+    <h2>GeoJSON AJAX</h2>
+    <pre class="javascript" style="font-size:.65em;"><code><span class="hljs-comment">// Read in the GeoJSON Polygon layer in &apos;upperLarimerGeo.json&apos;</span>
+Gis.style = { color:<span class="hljs-string">&apos;blue&apos;</span>, weight:<span class="hljs-number">3</span>, opacity:<span class="hljs-number">1</span>,
+              fill:<span class="hljs-string">&apos;transparent&apos;</span>, fillOpacity:<span class="hljs-number">0.10</span> };
+Gis.url   = <span class="hljs-string">&apos;js/upperLarimerGeo.json&apos;</span>;
+$.ajax( {
+  url:Gis.url, type:<span class="hljs-string">&apos;GET&apos;</span>, dataType:<span class="hljs-string">&apos;json&apos;</span>,
+  success:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( json <span class="hljs-comment">/*textStatus, jqXHR*/</span> )</span> {</span>
+    L.setOptions( Gis.overLayers[<span class="hljs-string">&apos;Polygons&apos;</span>],      <span class="hljs-comment">// setOptions before addData()</span>
+      { style:Gis.style, onEachFeature:Gis.onFeatureLayer } );
+    Gis.overLayers[<span class="hljs-string">&apos;Polygons&apos;</span>].addData( json ); }, <span class="hljs-comment">// onFeatureLayer on each feature</span>
+  error:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( <span class="hljs-comment">/*jqXHR, textStatus, errorThrown*/</span> )</span> {</span>
+    console.log(<span class="hljs-string">&apos;Gis.readGeoJSON() Error &apos;</span> + Gis.url); } });</code></pre>
+</section>

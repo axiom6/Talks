@@ -1,0 +1,23 @@
+<section id="DifAlgebra">
+    <h4>A Taste of Differential Calculus with Pattern Matching and an Internal DSL</h4>
+<pre class="scala"><code style="font-size:1em; min-height:24em">
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Differentiate</span></span>
+{
+  <span class="hljs-keyword">this</span>:Exp =&gt; <span class="hljs-comment">// Makes Differentiate aware of Exp for Internal DSL</span>
+
+  <span class="hljs-keyword">def</span> d( e:Exp ) : Exp = e <span class="hljs-keyword">match</span>
+  {
+    <span class="hljs-keyword">case</span> Num(n)   =&gt; <span class="hljs-number">0</span>           <span class="hljs-comment">// diff of constant zero</span>
+    <span class="hljs-keyword">case</span> Var(s)   =&gt; Dif(Var(s)) <span class="hljs-comment">// &quot;x&quot; becomes dx</span>
+    <span class="hljs-keyword">case</span> Par(u)   =&gt; Par(d(u))
+    <span class="hljs-keyword">case</span> Neg(u)   =&gt; -d(u)
+    <span class="hljs-keyword">case</span> Pow(u,v) =&gt; v * u~^(v-<span class="hljs-number">1</span>) * d(u)
+    <span class="hljs-keyword">case</span> Mul(u,v) =&gt; v * d(u) + u * d(v)
+    <span class="hljs-keyword">case</span> Div(u,v) =&gt; Par( v*d(u) - u*d(v) ) / v~^<span class="hljs-number">2</span>
+    <span class="hljs-keyword">case</span> Add(u,v) =&gt; d(u) + d(v)
+    <span class="hljs-keyword">case</span> Sub(u,v) =&gt; d(u) - d(v)
+    <span class="hljs-keyword">case</span> Dif(u)   =&gt; Dif(d(u))   <span class="hljs-comment">// 2rd dif</span>
+  }
+}
+</code></pre>
+</section>

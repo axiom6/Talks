@@ -1,0 +1,11 @@
+<section style="background-color:rgb(49,28,39);" id="Provision">
+      <h2>Provision</h2>
+      <h4>Example 7 - Combining Batch and Streaming</h4>
+      <ul style="font-size:24px;">
+        <li>Inter-mix RDD and DStream operations!</li>
+        <li>Example: Join incoming tweets with a spam HDFS file to filter out bad tweets</li>
+      </ul>
+      <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+        tweets.transform( tweetsRDD =&gt; { tweetsRDD.join(spamFile).filter(...) } )
+      </code></pre>
+    </section>

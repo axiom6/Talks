@@ -1,0 +1,22 @@
+<section id="SupportingMethods">
+      <h4>Supporting Methods</h4>
+      <pre class="coffeescript">
+  <code style="font-size:1em; min-height:16em;">
+
+  <span class="hljs-attribute">text</span>:<span class="hljs-function"><span class="hljs-params">( str )</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> str? <span class="hljs-keyword">then</span> str <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span>
+
+  <span class="hljs-attribute">atts</span>:<span class="hljs-function"><span class="hljs-params">( attribs )</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> attribs?
+    html = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">for</span> key, val <span class="hljs-keyword">of</span> attribs
+      html += <span class="hljs-string">&quot;&quot;&quot; <span class="hljs-subst">#{key}</span>=&quot;<span class="hljs-subst">#{val}</span><span class="hljs-subst">#{<span class="hljs-string">&apos;&quot;&apos;</span>}</span>&quot;&quot;&quot;</span>
+    html
+
+  <span class="hljs-attribute">indent</span>:<span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span>
+    str = <span class="hljs-string">&quot;\n&quot;</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..n]
+      str += <span class="hljs-string">&quot;  &quot;</span>     <span class="hljs-comment"># Indent 2 spaces</span>
+    str
+  </code></pre>
+    </section>

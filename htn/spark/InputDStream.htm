@@ -1,0 +1,9 @@
+<section style="background-color:rgb(49,28,39);" id="InputDStream">
+      <h4>Illustrated Example 1 - Initialize an Input DStream</h4>
+      <pre class="scala"><code class="scala" style="font-size:1.0em; margin:0;">
+        <span class="hljs-keyword">val</span> scc    = <span class="hljs-keyword">new</span> StreamingContext( sparkContext, Seconds(<span class="hljs-number">1</span>) )
+        <span class="hljs-keyword">val</span> tweets = TwitterUtils.createStream( ssc, auth )
+        <span class="hljs-comment">//  tweets are an Input DStream</span>
+      </code></pre>
+      <img src="../../img/streaming/HashTag1.png">
+    </section>
